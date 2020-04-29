@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Customer_App</string>
+    <string name="already_have_an_account_nclick_to_login">Already have an Account?\nClick to Login</string>
+    <string name="Not_a_member_nclick_to_Join">Click to Join</string>
 </resources>
