@@ -7,6 +7,14 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreateUserActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -78,6 +86,38 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .createUser(email, password, firstName, lastName, phone);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 201) {
+
+                    String s = null;
+                    try {
+                        s = response.body().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(CreateUserActivity.this, s, Toast.LENGTH_LONG).show();
+
+                } else if (response.code() == 422) {
+                    Toast.makeText(CreateUserActivity.this, "User already exists",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                Toast.makeText(CreateUserActivity.this, t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
     @Override
