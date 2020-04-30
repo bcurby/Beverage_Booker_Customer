@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="5dp"
             android:hint="Mobile Number"
-            android:inputType="text" />
+            android:inputType="number" />
 
     </LinearLayout>
 
