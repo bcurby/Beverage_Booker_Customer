@@ -18,4 +18,11 @@ public interface Api {
             @Field("lastName") String lastName,
             @Field("phone") String phone
     );
+
+    @FormUrlEncoded
+    @POST("userlogin")
+    Call<LoginResponse> userLogin(
+            @Field("email") String email,
+            @Field("password") String password
+    );
 }

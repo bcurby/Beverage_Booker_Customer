@@ -1,20 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textViewLogin"
-        android:layout_width="254dp"
-        android:layout_height="186dp"
-        android:text="@string/Not_a_member_nclick_to_Join"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="107dp"
+        android:layout_height="35dp"
+        android:layout_above="@id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:text="Log In"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+        tools:layout_editor_absoluteX="288dp"
+        tools:layout_editor_absoluteY="424dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="378dp"
+        android:layout_height="250dp"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="212dp">
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:hint="email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:hint="password"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewRegister"
+        android:layout_width="389dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/linearLayout"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="7dp"
+        android:text="Don't have an Account?\nClick to Register"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="556dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Log In"
+        android:textAllCaps="false"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="160dp" />
+
+
+
+
+</RelativeLayout>
