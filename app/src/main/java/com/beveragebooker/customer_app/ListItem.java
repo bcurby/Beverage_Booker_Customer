@@ -2,19 +2,26 @@ package com.beveragebooker.customer_app;
 
 public class ListItem {
 
-    private String head;
-    private String desc;
+    private int mImageResource;
+    private String mText1;
+    private String mTExt2;
 
-    public ListItem(String head, String desc) {
-        this.head = head;
-        this.desc = desc;
+
+    public ListItem(int imageResource, String text1, String text2) {
+        mImageResource = imageResource;
+        mText1 = text1;
+        mTExt2 = text2;
     }
 
-    public String getHead() {
-        return head;
+
+    public String getText1() {
+        return mText1;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getText2() {
+        return mTExt2;
+    }
+    public String getText3() {
+        return mTExt2;
     }
 }

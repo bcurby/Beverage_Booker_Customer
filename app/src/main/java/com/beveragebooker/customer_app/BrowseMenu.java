@@ -2,6 +2,7 @@ package com.beveragebooker.customer_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BrowseMenu extends AppCompatActivity{
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<ListItem> listItems;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private List<ListItem> mListItems;
+    private RecyclerView.LayoutManager mLayoutManager;
 
 
     @Override
@@ -22,18 +24,13 @@ public class BrowseMenu extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_menu);
 
-//        if (!LoginResponse.getInstance(this).isLoggedIn()) {
-//            finish();
-//            startActivity(new Intent(this, LoginActivity.class));
-//        }
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mListItems = new ArrayList<>();
 
-        listItems = new ArrayList<>();
-
-
+//TODO add items to the mListItems from database
 
 
 

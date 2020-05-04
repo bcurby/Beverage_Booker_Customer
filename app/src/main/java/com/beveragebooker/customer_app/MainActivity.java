@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this, loginResponse.getMessage(),
                             Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getApplicationContext(),
-                            MainMenu.class));
+                            PrimaryMenu.class));
 
                 }else{
 
@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonLogin:
                 userLogin();
+
                 break;
 
             case R.id.textViewRegister:

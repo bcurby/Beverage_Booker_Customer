@@ -4,33 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/menuLink"
         android:layout_width="285dp"
-        android:layout_height="82dp"
+        android:layout_height="wrap_content"
         android:text="Menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="102dp" />
+        tools:layout_editor_absoluteY="125dp" />
 
-    <Button
-        android:id="@+id/bookTableLink"
-        android:layout_width="285dp"
-        android:layout_height="82dp"
-        android:text="Book a Table"
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Manu Menu page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="217dp" />
-
-    <Button
-        android:id="@+id/bookEventLink"
-        android:layout_width="285dp"
-        android:layout_height="82dp"
-        android:text="Book an Event"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="336dp" />
+        tools:layout_editor_absoluteY="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
