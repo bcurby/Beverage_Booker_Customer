@@ -1,8 +1,7 @@
 package com.beveragebooker.customer_app;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BrowseMenu extends AppCompatActivity{
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private List<ListItem> mListItems;
+    private ArrayList<MenuItem> mMenuItems;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -28,10 +30,35 @@ public class BrowseMenu extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mListItems = new ArrayList<>();
+        mMenuItems = new ArrayList<MenuItem>();
 
-//TODO add items to the mListItems from database
+        final RecyclerAdapter adapter = new RecyclerAdapter(mMenuItems);
 
+        mRecyclerView.setAdapter(adapter);
+
+        Call<List<MenuItem>> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getItems();
+
+        call.enqueue(new Callback<List<MenuItem>>() {
+            @Override
+            public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
+                if (response.code() == 200) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                            mMenuItems.add(response.body().get(i));
+                    }
+
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MenuItem>> call, Throwable t) {
+                Toast.makeText(BrowseMenu.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
 
 

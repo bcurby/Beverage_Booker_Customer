@@ -11,26 +11,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
-    private ArrayList<ListItem> mListItems;
+    private ArrayList<MenuItem> menuItems;
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
-
+        TextView mItemID;
         TextView mItemName;
-        TextView mDesc;
+        TextView mShortDesc;
         TextView mPrice;
+
 
 
         RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
-            mItemName = itemView.findViewById(R.id.text1);
-            mDesc = itemView.findViewById(R.id.text2);
-            mPrice = itemView.findViewById(R.id.text3);
+            mItemID = itemView.findViewById(R.id.itemID);
+            mItemName = itemView.findViewById(R.id.itemName);
+            mShortDesc = itemView.findViewById(R.id.itemDesc);
+            mPrice = itemView.findViewById(R.id.itemPrice);
         }
     }
 
-    public RecyclerAdapter(ArrayList<ListItem> listItems) {
-        mListItems = listItems;
+    public RecyclerAdapter(ArrayList<MenuItem> listItems) {
+        menuItems = listItems;
     }
 
     @NonNull
@@ -44,15 +46,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     //Pass values to the views
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        ListItem currentItem = mListItems.get(position);
+        MenuItem currentItem = menuItems.get(position);
 
-        holder.mItemName.setText(currentItem.getText1());
-        holder.mDesc.setText(currentItem.getText2());
-        holder.mPrice.setText(currentItem.getText3());
+        holder.mItemID.setText(String.valueOf(currentItem.getId()));
+        holder.mItemName.setText(currentItem.getName());
+        holder.mShortDesc.setText(currentItem.getDescription());
+        holder.mPrice.setText(String.valueOf(currentItem.getPrice()));
     }
 
     @Override
     public int getItemCount() {
-        return mListItems.size();
+        return menuItems.size();
     }
 }
