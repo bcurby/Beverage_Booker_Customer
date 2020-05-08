@@ -1,4 +1,4 @@
-package com.beveragebooker.customer_app;
+package com.beveragebooker.customer_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,11 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.beveragebooker.customer_app.models.LoginResponse;
+import com.beveragebooker.customer_app.R;
+import com.beveragebooker.customer_app.api.RetrofitClient;
+import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +34,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.buttonLogin).setOnClickListener(this);
         findViewById(R.id.textViewRegister).setOnClickListener(this);
+    }
+
+    //Check to see whether user is already logged in
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
     //Logs user into existing account
@@ -72,10 +89,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(!loginResponse.isError()) {
 
                     //Proceed with Login
-                    Toast.makeText(MainActivity.this, loginResponse.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(),
-                            PrimaryMenu.class));
+                    SharedPrefManager.getInstance(MainActivity.this)
+                            .saveUser(loginResponse.getUser());
+
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
+
+
+                    //Toast.makeText(MainActivity.this, loginResponse.getMessage(),
+                            //Toast.LENGTH_LONG).show();
+                    //startActivity(new Intent(getApplicationContext(),
+                            //PrimaryMenu.class));
 
                 }else{
 
