@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (password.length() < 6) {
-            editTextPassword.setError("Password should be atleast 6 characters long");
+            editTextPassword.setError("Password should be at least 6 characters long");
             editTextPassword.requestFocus();
             return;
         }
@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //Proceed with Login
                     Toast.makeText(MainActivity.this, loginResponse.getMessage(),
                             Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(),
+                            PrimaryMenu.class));
 
                 }else{
 
@@ -98,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonLogin:
                 userLogin();
+
                 break;
 
             case R.id.textViewRegister:
