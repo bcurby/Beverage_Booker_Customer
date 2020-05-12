@@ -1,4 +1,4 @@
-package com.beveragebooker.customer_app;
+package com.beveragebooker.customer_app.models;
 
 public class LoginResponse {
 

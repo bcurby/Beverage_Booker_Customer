@@ -1,6 +1,7 @@
-package com.beveragebooker.customer_app;
+package com.beveragebooker.customer_app.api;
 
-import org.json.JSONObject;
+import com.beveragebooker.customer_app.models.LoginResponse;
+import com.beveragebooker.customer_app.MenuItem;
 
 import java.util.List;
 

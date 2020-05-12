@@ -1,4 +1,4 @@
-package com.beveragebooker.customer_app;
+package com.beveragebooker.customer_app.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.beveragebooker.customer_app.MenuItem;
+import com.beveragebooker.customer_app.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
     private ArrayList<MenuItem> menuItems;
