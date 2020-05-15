@@ -3,7 +3,10 @@ package com.beveragebooker.customer_app.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
+
+import java.util.ArrayList;
 
 public class SharedPrefManager {
 
@@ -69,5 +72,10 @@ public class SharedPrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+    public void saveCart(ArrayList cartArrayList) {
+
+
     }
 }

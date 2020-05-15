@@ -1,7 +1,7 @@
 package com.beveragebooker.customer_app.api;
 
 import com.beveragebooker.customer_app.models.LoginResponse;
-import com.beveragebooker.customer_app.MenuItem;
+import com.beveragebooker.customer_app.models.MenuItem;
 
 import java.util.List;
 
