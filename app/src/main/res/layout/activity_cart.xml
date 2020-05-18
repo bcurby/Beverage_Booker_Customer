@@ -5,9 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".activities.CartActivity">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="619dp"
+        android:background="@android:color/darker_gray"
+        android:padding="4dp"
+        android:scrollbars="vertical" />
 
-        />
+    <Button
+        android:id="@+id/emptyCart"
+        android:layout_width="174dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cartRecyclerView"
+        android:text="Empty Cart"/>
+
 </RelativeLayout>

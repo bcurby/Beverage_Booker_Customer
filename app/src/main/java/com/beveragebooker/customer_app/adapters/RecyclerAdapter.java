@@ -83,6 +83,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.mItemName.setText(currentItem.getName());
         holder.mShortDesc.setText(currentItem.getDescription());
         holder.mPrice.setText('$' + String.valueOf(currentItem.getPrice()));
+
     }
 
     @Override

@@ -22,5 +22,4 @@
         android:layout_below="@id/recyclerView"
         android:layout_marginTop="-115dp" />
 
-
 </RelativeLayout>

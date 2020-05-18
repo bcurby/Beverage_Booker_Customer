@@ -15,6 +15,8 @@ public class SharedPrefManager {
     private static SharedPrefManager mInstance;
     private Context mCtx;
 
+    private ArrayList<MenuItem> mCartItems;
+
     private SharedPrefManager(Context mCtx) {
         this.mCtx = mCtx;
     }
@@ -72,10 +74,6 @@ public class SharedPrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
-    }
-
-    public void saveCart(ArrayList cartArrayList) {
-
 
     }
 }

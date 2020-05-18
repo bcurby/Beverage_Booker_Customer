@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 
 public interface Api {
 
+    //Create User entry in database
     @FormUrlEncoded
     @POST("createuser")
     Call<ResponseBody> createUser(
@@ -24,6 +25,7 @@ public interface Api {
             @Field("phone") String phone
     );
 
+    //Login existing user
     @FormUrlEncoded
     @POST("userlogin")
     Call<LoginResponse> userLogin(
@@ -31,6 +33,19 @@ public interface Api {
             @Field("password") String password
     );
 
+    //Get Menu items from database
     @GET("getitems")
     Call<List<MenuItem>> getItems();
+
+    //Add item to cart
+    @FormUrlEncoded
+    @POST("addtocart")
+    Call<ResponseBody> addToCart(
+            @Field("userID") int userID,
+            @Field("itemID") int itemID,
+            @Field("itemTitle") String itemTitle,
+            @Field("itemPrice") double itemPrice,
+            @Field("itemQuantity") int itemQuantity
+    );
+
 }

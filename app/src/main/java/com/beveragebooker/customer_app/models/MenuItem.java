@@ -20,6 +20,14 @@ public class MenuItem {
         this.price = price;
     }
 
+    public MenuItem(int id, String name, String description, double price, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public MenuItem(int id, double price) {
         this.id = id;
         this.price = price;
