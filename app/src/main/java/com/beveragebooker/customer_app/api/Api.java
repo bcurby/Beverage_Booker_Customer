@@ -37,6 +37,12 @@ public interface Api {
     @GET("getitems")
     Call<List<MenuItem>> getItems();
 
+
+    //Get Menu items from database
+    @GET("getcartitems")
+    Call<List<MenuItem>> getCartItems();
+
+
     //Add item to cart
     @FormUrlEncoded
     @POST("addtocart")

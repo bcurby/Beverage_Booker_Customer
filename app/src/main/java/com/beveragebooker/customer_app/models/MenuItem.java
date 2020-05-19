@@ -33,6 +33,11 @@ public class MenuItem {
         this.price = price;
     }
 
+    public MenuItem(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
     public int getId() {
         return id;
@@ -58,10 +63,5 @@ public class MenuItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public void incrementQuantity() {
-        setQuantity(getQuantity() + 1);
-
     }
 }

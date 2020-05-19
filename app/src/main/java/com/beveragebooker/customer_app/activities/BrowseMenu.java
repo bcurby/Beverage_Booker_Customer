@@ -1,4 +1,4 @@
-package com.beveragebooker.customer_app;
+package com.beveragebooker.customer_app.activities;
 
 import android.content.Intent;
 
@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.beveragebooker.customer_app.activities.CartActivity;
+import com.beveragebooker.customer_app.R;
 
 import com.beveragebooker.customer_app.adapters.RecyclerAdapter;
 import com.beveragebooker.customer_app.api.RetrofitClient;
@@ -69,9 +69,9 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
         });
 
 
-        mMenuItems = new ArrayList<MenuItem>();
+        mMenuItems = new ArrayList<>();
 
-        mRecyclerAdapter = new RecyclerAdapter(BrowseMenu.this, mMenuItems);
+        mRecyclerAdapter = new RecyclerAdapter(mMenuItems);
 
         mRecyclerView.setAdapter(mRecyclerAdapter);
 

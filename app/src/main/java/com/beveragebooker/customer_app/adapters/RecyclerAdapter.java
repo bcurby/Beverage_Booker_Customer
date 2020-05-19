@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.beveragebooker.customer_app.BrowseMenu;
 import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.R;
 
@@ -62,7 +61,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         }
     }
 
-    public RecyclerAdapter(BrowseMenu browseMenu, ArrayList<MenuItem> listItems) {
+    public RecyclerAdapter(ArrayList<MenuItem> listItems) {
         menuItems = listItems;
     }
 
