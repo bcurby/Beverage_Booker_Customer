@@ -11,6 +11,8 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface Api {
 
@@ -38,9 +40,11 @@ public interface Api {
     Call<List<MenuItem>> getItems();
 
 
-    //Get Menu items from database
+    //Get Cart items from database
     @GET("getcartitems")
-    Call<List<MenuItem>> getCartItems();
+    Call<List<MenuItem>> getCartItems(
+            @Query("userID") int userID
+    );
 
 
     //Add item to cart
@@ -51,7 +55,8 @@ public interface Api {
             @Field("itemID") int itemID,
             @Field("itemTitle") String itemTitle,
             @Field("itemPrice") double itemPrice,
-            @Field("itemQuantity") int itemQuantity
+            @Field("itemQuantity") int itemQuantity,
+            @Field("cartStatus") String cartStatus
     );
 
 }

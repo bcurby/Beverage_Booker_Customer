@@ -10,8 +10,6 @@ import android.widget.Button;
 
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +40,6 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     //Added Fill Cart
     private RecyclerAdapter mRecyclerAdapter;
     private ArrayList<MenuItem> mMenuItems;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     //View Cart Button
     private Button viewCart;
@@ -98,35 +95,32 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 String itemTitle = itemClicked.getName();
                 System.out.println("Title: " + itemTitle);
 
-                //Price of item clicked
+                //Price of clicked item
                 double itemPrice = itemClicked.getPrice();
                 System.out.println("Price: " + itemPrice);
 
-                //Quantity of item clicked
+                //Quantity of clicked item
                 itemClicked.setQuantity(1);
                 int itemQuantity = itemClicked.getQuantity();
                 System.out.println("Quantity: " + itemQuantity);
 
+                //Set cart status to active cart
+                String cartStatus = "active";
+
                 Call<ResponseBody> call = RetrofitClient
                         .getInstance()
                         .getApi()
-                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity);
+                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, cartStatus);
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.code() == 201) {
 
-                            String s = null;
-                            try {
-                                s = response.body().string();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            Toast.makeText(BrowseMenu.this, s, Toast.LENGTH_LONG).show();
+                        if (response.code() == 303) {
+                            Toast.makeText(BrowseMenu.this, "Item added to cart", Toast.LENGTH_LONG).show();
 
-                        } else if (response.code() == 422) {
-                            Toast.makeText(BrowseMenu.this, "User already exists",
+                        } else if (response.code() == 304) {
+                            Toast.makeText(BrowseMenu.this, "Item already in cart",
                                     Toast.LENGTH_LONG).show();
                         }
                     }

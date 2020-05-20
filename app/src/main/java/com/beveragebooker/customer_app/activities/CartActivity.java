@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -14,6 +15,7 @@ import com.beveragebooker.customer_app.adapters.CartAdapter;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 
 import com.beveragebooker.customer_app.models.MenuItem;
+import com.beveragebooker.customer_app.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +24,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInstance;
+
 
 public class CartActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private CartAdapter mCartAdapter;
 
-    private List<MenuItem> CartItemList;
+    private List<MenuItem> cartItemList;
+
+    private TextView cartTotal;
 
 
 
@@ -37,32 +43,45 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         
-        CartItemList = new ArrayList<>();
+        cartItemList = new ArrayList<>();
 
         mRecyclerView = findViewById(R.id.cartRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mCartAdapter = new CartAdapter(CartItemList);
+        mCartAdapter = new CartAdapter(cartItemList);
 
         mRecyclerView.setAdapter(mCartAdapter);
+
+        cartTotal = findViewById(R.id.cartTotal);
+
+        final User loggedUser = getInstance(CartActivity.this).getUser();
+        int userID = loggedUser.getId();
+        System.out.println("Get Cart Items UserID:" + userID);
 
         Call<List<MenuItem>> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getCartItems();
+                .getCartItems(userID);
 
         call.enqueue(new Callback<List<MenuItem>>() {
 
             @Override
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
+
+                //Cart items are retrieved from database
                 if (response.code() == 200) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        CartItemList.add(response.body().get(i));
+                        cartItemList.add(response.body().get(i));
                     }
-
                     mCartAdapter.notifyDataSetChanged();
+
+                //Cart is empty
+                } else if (response.code() == 305) {
+                    Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_LONG).show();
                 }
+                //Display the total of items in the cart
+                cartTotal.setText("Cart Total: $" + (getCartTotal()));
             }
 
             @Override
@@ -71,6 +90,30 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    //Method that calculates the total of items in the cart
+    private double getCartTotal() {
+
+        double cartTotal = 0;
+
+        for (int i = 0; i < cartItemList.size(); i++) {
+
+            int quantity = cartItemList.get(i).getQuantity();
+            System.out.println("Quantity: " + quantity);
+
+            double price = cartItemList.get(i).getPrice();
+            System.out.println("Price: " + price);
+
+            double itemTotal = quantity * price;
+            System.out.println("Item Total: " + itemTotal);
+
+            cartTotal += itemTotal;
+            System.out.println("Cart Total: " + cartTotal);
+
+
+        }
+        return cartTotal;
     }
 
 }
