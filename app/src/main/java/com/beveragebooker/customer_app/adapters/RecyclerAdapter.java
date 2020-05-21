@@ -3,6 +3,7 @@ package com.beveragebooker.customer_app.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -10,19 +11,32 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.beveragebooker.customer_app.MenuItem;
+import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
-    private ArrayList<MenuItem> menuItems;
 
-    static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+    private ArrayList<MenuItem> menuItems;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    //Add to Cart button listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         TextView mItemID;
         TextView mItemName;
         TextView mShortDesc;
         TextView mPrice;
 
+        Button mAddToCart;
 
 
         RecyclerViewHolder(@NonNull View itemView) {
@@ -31,6 +45,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             mItemName = itemView.findViewById(R.id.itemName);
             mShortDesc = itemView.findViewById(R.id.itemDesc);
             mPrice = itemView.findViewById(R.id.itemPrice);
+            mAddToCart = itemView.findViewById(R.id.addToCart);
+
+            mAddToCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -54,7 +81,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.mItemID.setText(String.valueOf(currentItem.getId()));
         holder.mItemName.setText(currentItem.getName());
         holder.mShortDesc.setText(currentItem.getDescription());
-        holder.mPrice.setText(String.valueOf(currentItem.getPrice()));
+        holder.mPrice.setText('$' + String.valueOf(currentItem.getPrice()));
+
     }
 
     @Override

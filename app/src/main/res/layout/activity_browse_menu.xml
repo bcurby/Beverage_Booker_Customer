@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,5 +14,12 @@
         android:scrollbars="vertical"
         app:layoutManager="GridLayoutManager" />
 
+    <Button
+        android:id="@+id/viewCart"
+        android:text="Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerView"
+        android:layout_marginTop="-115dp" />
 
 </RelativeLayout>

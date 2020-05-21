@@ -1,4 +1,4 @@
-package com.beveragebooker.customer_app;
+package com.beveragebooker.customer_app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.beveragebooker.customer_app.R;
+import com.beveragebooker.customer_app.activities.BrowseMenu;
 
 public class PrimaryMenu extends AppCompatActivity {
 
@@ -17,7 +20,7 @@ public class PrimaryMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_primary_menu);
 
-        menuLink = (Button) findViewById(R.id.menuLink);
+        menuLink = findViewById(R.id.menuLink);
         menuLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

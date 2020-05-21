@@ -12,10 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ProfileActivity"></activity>
-        <activity android:name=".BrowseMenu" />
+        <activity android:name=".activities.CartActivity"></activity>
+        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.BrowseMenu" />
         <activity android:name=".activities.CreateUserActivity" />
-        <activity android:name=".PrimaryMenu" />
+        <activity android:name=".activities.PrimaryMenu" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

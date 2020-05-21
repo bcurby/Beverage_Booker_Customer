@@ -96,13 +96,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
-
-
-                    //Toast.makeText(MainActivity.this, loginResponse.getMessage(),
-                            //Toast.LENGTH_LONG).show();
-                    //startActivity(new Intent(getApplicationContext(),
-                            //PrimaryMenu.class));
-
                 }else{
 
                     //Show the error message
