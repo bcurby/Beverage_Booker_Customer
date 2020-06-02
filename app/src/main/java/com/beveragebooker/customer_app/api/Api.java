@@ -59,4 +59,14 @@ public interface Api {
             @Field("cartStatus") String cartStatus
     );
 
+    //Place an Order
+    @FormUrlEncoded
+    @POST("placeorder")
+    Call<ResponseBody> placeOrder(
+            @Field("userID") int userID,
+            @Field("creditCardNumber") int creditCardNumber,
+            @Field("creditCardCVV") int creditCardCVV,
+            @Field("creditCardExpiryMonth") int creditCardExpiryMonth,
+            @Field("CreditCardExpiryYear") int creditCardExpiryYear
+    );
 }

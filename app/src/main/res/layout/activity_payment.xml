@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context=".activities.PaymentActivity">
+
+    <LinearLayout
+        android:id="@+id/paymentLinearLayout"
+        android:layout_width="315dp"
+        android:layout_height="322dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editTextCreditCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:inputType="number"
+            android:hint="16-digit Credit Card Number" />
+
+        <EditText
+            android:id="@+id/editTextCVV"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            android:hint="3-digit CVV" />
+
+        <EditText
+            android:id="@+id/editTextExpiryMonth"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            android:hint="2-digit Month" />
+
+        <EditText
+            android:id="@+id/editTextExpiryYear"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            android:hint="2-digit Year" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/openPlaceOrderButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/paymentLinearLayout"
+        android:layout_marginVertical="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Continue" />
+
+
+</RelativeLayout>

@@ -20,5 +20,14 @@
         android:layout_below="@id/cartRecyclerView"
         android:layout_marginTop="1dp" />
 
+    <Button
+        android:id="@+id/checkoutButton"
+        android:text="Checkout"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/cartRecyclerView"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp" />
+
 
 </RelativeLayout>
