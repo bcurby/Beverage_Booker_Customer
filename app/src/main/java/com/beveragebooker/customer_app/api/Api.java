@@ -64,9 +64,10 @@ public interface Api {
     @POST("placeorder")
     Call<ResponseBody> placeOrder(
             @Field("userID") int userID,
-            @Field("creditCardNumber") int creditCardNumber,
+            @Field("creditCardNumber") long creditCardNumber,
             @Field("creditCardCVV") int creditCardCVV,
             @Field("expiryMonth") int expiryMonth,
-            @Field("expiryYear") int expiryYear
+            @Field("expiryYear") int expiryYear,
+            @Field("orderTotal") double orderTotal
     );
 }

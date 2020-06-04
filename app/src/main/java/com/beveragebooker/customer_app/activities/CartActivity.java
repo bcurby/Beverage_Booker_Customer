@@ -65,9 +65,13 @@ public class CartActivity extends AppCompatActivity {
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToCheckout();
+                if (getCartTotal() > 0) {
+                    goToCheckout();
+                } else {
+                    Toast.makeText(CartActivity.this,
+                            "Please add an item to your cart before clicking Checkout", Toast.LENGTH_LONG).show();
+                }
             }
-
         });
 
         final User loggedUser = getInstance(CartActivity.this).getUser();

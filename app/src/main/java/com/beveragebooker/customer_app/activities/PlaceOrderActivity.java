@@ -3,14 +3,22 @@ package com.beveragebooker.customer_app.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.beveragebooker.customer_app.R;
+import com.beveragebooker.customer_app.adapters.CartAdapter;
 import com.beveragebooker.customer_app.api.RetrofitClient;
+import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -23,7 +31,15 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.*;
 
 public class PlaceOrderActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private int creditCardNumber, creditCardCVV, expiryMonth, expiryYear;
+    private int creditCardCVV, expiryMonth, expiryYear;
+    private long creditCardNumber;
+
+    private RecyclerView mRecyclerView;
+    private CartAdapter mCartAdapter;
+
+    private List<MenuItem> cartItemList;
+
+    private TextView orderTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +47,54 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_place_order);
 
         Intent intent = getIntent();
-        creditCardNumber = intent.getIntExtra(PaymentActivity.CREDIT_CARD_NUMBER, 0);
+        creditCardNumber = intent.getLongExtra(PaymentActivity.CREDIT_CARD_NUMBER, 0);
         creditCardCVV = intent.getIntExtra(PaymentActivity.CREDIT_CARD_CVV, 0);
         expiryMonth = intent.getIntExtra(PaymentActivity.CREDIT_CARD_EXPIRY_MONTH, 0);
         expiryYear = intent.getIntExtra(PaymentActivity.CREDIT_CARD_EXPIRY_YEAR, 0);
 
         findViewById(R.id.placeOrderButton).setOnClickListener(this);
+
+        //Recyclerview
+        cartItemList = new ArrayList<>();
+
+        mRecyclerView = findViewById(R.id.placeOrderRecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mCartAdapter = new CartAdapter(cartItemList);
+
+        mRecyclerView.setAdapter(mCartAdapter);
+
+        orderTotal = findViewById(R.id.orderTotal);
+
+        User loggedUser = getInstance(PlaceOrderActivity.this).getUser();
+        int userID = loggedUser.getId();
+
+        Call<List<MenuItem>> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getCartItems(userID);
+
+        call.enqueue(new Callback<List<MenuItem>>() {
+            @Override
+            public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
+
+                //Cart items are retrieved from the database
+                if (response.code() == 200) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        cartItemList.add(response.body().get(i));
+                    }
+                    mCartAdapter.notifyDataSetChanged();
+                }
+                //Display the total of the items in the order
+                orderTotal.setText("Order Total: $" + (getOrderTotal()));
+            }
+
+            @Override
+            public void onFailure(Call<List<MenuItem>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -45,23 +103,23 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void placeOrder() {
+
         final User loggedUser = getInstance(PlaceOrderActivity.this).getUser();
         int userID = loggedUser.getId();
 
-        //int creditCardNumber = 30;
-        //int creditCardCVV = 30;
-        //int creditCardExpiryMonth = 30;
-        //int expiryYear = 30;
+        double orderTotal = getOrderTotal();
 
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .placeOrder(userID, creditCardNumber, creditCardCVV, expiryMonth, expiryYear);
+                .placeOrder(userID, creditCardNumber, creditCardCVV, expiryMonth, expiryYear, orderTotal);
 
+        System.out.println(userID);
         System.out.println(creditCardNumber);
         System.out.println(creditCardCVV);
         System.out.println(expiryMonth);
         System.out.println(expiryYear);
+        System.out.println(orderTotal);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -82,6 +140,30 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
                 Toast.makeText(PlaceOrderActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private double getOrderTotal() {
+
+        double orderTotal = 0;
+
+        for (int i = 0; i < cartItemList.size(); i++) {
+
+            int quantity = cartItemList.get(i).getQuantity();
+            System.out.println("Quantity: " + quantity);
+
+            double price = cartItemList.get(i).getPrice();
+            System.out.println("Price: " + price);
+
+            double itemTotal = quantity * price;
+            System.out.println("Item Total: " + itemTotal);
+
+            orderTotal += itemTotal;
+            System.out.println("Cart Total: " + orderTotal);
+
+
+        }
+        return orderTotal;
+
     }
 }
 
