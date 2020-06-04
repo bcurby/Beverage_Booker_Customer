@@ -66,7 +66,7 @@ public interface Api {
             @Field("userID") int userID,
             @Field("creditCardNumber") int creditCardNumber,
             @Field("creditCardCVV") int creditCardCVV,
-            @Field("creditCardExpiryMonth") int creditCardExpiryMonth,
-            @Field("CreditCardExpiryYear") int creditCardExpiryYear
+            @Field("expiryMonth") int expiryMonth,
+            @Field("expiryYear") int expiryYear
     );
 }
