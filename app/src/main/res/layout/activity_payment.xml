@@ -6,43 +6,97 @@
     android:gravity="center_horizontal"
     tools:context=".activities.PaymentActivity">
 
+
     <LinearLayout
-        android:id="@+id/paymentLinearLayout"
-        android:layout_width="315dp"
-        android:layout_height="322dp"
-        android:orientation="vertical">
+        android:id="@+id/creditCardNumberLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editTextCreditCardNumber"
-            android:layout_width="match_parent"
+            android:id="@+id/editTextCreditCardNumber1"
+            android:layout_width="90dp"
             android:layout_height="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="4-digits"
             android:inputType="number"
-            android:hint="16-digit Credit Card Number" />
+            android:maxLength="4" />
+
+        <EditText
+            android:id="@+id/editTextCreditCardNumber2"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:hint="4-digits"
+            android:inputType="number"
+            android:maxLength="4"
+            android:paddingStart="10dp" />
+
+        <EditText
+            android:id="@+id/editTextCreditCardNumber3"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="4-digits"
+            android:inputType="number"
+            android:maxLength="4" />
+
+        <EditText
+            android:id="@+id/editTextCreditCardNumber4"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:hint="4-digits"
+            android:inputType="number"
+            android:maxLength="4"
+            android:paddingStart="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/creditCardCVVLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/creditCardNumberLayout"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
 
         <EditText
             android:id="@+id/editTextCVV"
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:inputType="number"
-            android:hint="3-digit CVV" />
+            android:hint="3-digit CVV"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/creditCardExpiryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/creditCardCVVLayout"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editTextExpiryMonth"
             android:layout_width="120dp"
             android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
-            android:inputType="number"
-            android:hint="2-digit Month" />
+            android:hint="2-digit Month"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/editTextExpiryYear"
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
+            android:hint="2-digit Year"
             android:inputType="number"
-            android:hint="2-digit Year" />
+            android:paddingStart="10dp" />
 
     </LinearLayout>
 
@@ -50,10 +104,11 @@
         android:id="@+id/openPlaceOrderButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_below="@id/paymentLinearLayout"
+        android:layout_below="@id/creditCardExpiryLayout"
         android:layout_marginVertical="10dp"
         android:layout_marginTop="10dp"
         android:enabled="false"
+        android:paddingLeft="10dp"
         android:text="Continue" />
 
 

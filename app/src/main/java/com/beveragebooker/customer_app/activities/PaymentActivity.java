@@ -18,7 +18,9 @@ public class PaymentActivity extends AppCompatActivity {
     public static final String CREDIT_CARD_EXPIRY_MONTH = "com.beveragebooker.customer_app.CREDIT_CARD_EXPIRY_MONTH";
     public static final String CREDIT_CARD_EXPIRY_YEAR = "com.beveragebooker.customer_app.CREDIT_CARD_EXPIRY_YEAR";
 
-    private EditText editTextCreditCardNumber, editTextCVV, editTextExpiryMonth, editTextExpiryYear;
+    private EditText editTextCreditCardNumber1, editTextCreditCardNumber2, editTextCreditCardNumber3,
+            editTextCreditCardNumber4, editTextCVV, editTextExpiryMonth, editTextExpiryYear;
+
     private Button openPlaceOrderButton;
 
     @Override
@@ -26,7 +28,11 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        editTextCreditCardNumber = findViewById(R.id.editTextCreditCardNumber);
+        editTextCreditCardNumber1 = findViewById(R.id.editTextCreditCardNumber1);
+        editTextCreditCardNumber2 = findViewById(R.id.editTextCreditCardNumber2);
+        editTextCreditCardNumber3 = findViewById(R.id.editTextCreditCardNumber3);
+        editTextCreditCardNumber4 = findViewById(R.id.editTextCreditCardNumber4);
+
         editTextCVV = findViewById(R.id.editTextCVV);
         editTextExpiryMonth = findViewById(R.id.editTextExpiryMonth);
         editTextExpiryYear = findViewById(R.id.editTextExpiryYear);
@@ -34,7 +40,11 @@ public class PaymentActivity extends AppCompatActivity {
         openPlaceOrderButton = findViewById(R.id.openPlaceOrderButton);
 
         //TextWatcher
-        editTextCreditCardNumber.addTextChangedListener(paymentTextWatcher);
+        editTextCreditCardNumber1.addTextChangedListener(paymentTextWatcher);
+        editTextCreditCardNumber2.addTextChangedListener(paymentTextWatcher);
+        editTextCreditCardNumber3.addTextChangedListener(paymentTextWatcher);
+        editTextCreditCardNumber4.addTextChangedListener(paymentTextWatcher);
+
         editTextCVV.addTextChangedListener(paymentTextWatcher);
         editTextExpiryMonth.addTextChangedListener(paymentTextWatcher);
         editTextExpiryYear.addTextChangedListener(paymentTextWatcher);
@@ -59,13 +69,19 @@ public class PaymentActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            String creditCardNumberInput = editTextCreditCardNumber.getText().toString().trim();
+            String creditCardNumberInput1 = editTextCreditCardNumber1.getText().toString().trim();
+            String creditCardNumberInput2 = editTextCreditCardNumber2.getText().toString().trim();
+            String creditCardNumberInput3 = editTextCreditCardNumber2.getText().toString().trim();
+            String creditCardNumberInput4 = editTextCreditCardNumber2.getText().toString().trim();
+
             String creditCardCVVInput = editTextCVV.getText().toString().trim();
             String expiryMonthInput = editTextExpiryMonth.getText().toString().trim();
             String expiryYearInput = editTextExpiryYear.getText().toString().trim();
 
-            openPlaceOrderButton.setEnabled(!creditCardNumberInput.isEmpty() && !creditCardCVVInput.isEmpty()
-            && !expiryMonthInput.isEmpty() && !expiryYearInput.isEmpty());
+            openPlaceOrderButton.setEnabled(!creditCardNumberInput1.isEmpty() &&
+                    !creditCardNumberInput2.isEmpty() && !creditCardNumberInput3.isEmpty() &&
+                    !creditCardNumberInput4.isEmpty() && !creditCardCVVInput.isEmpty() &&
+                    !expiryMonthInput.isEmpty() && !expiryYearInput.isEmpty());
         }
 
         @Override
@@ -76,7 +92,15 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void checkCreditCardInput() {
 
-        String creditCardNumberString = (editTextCreditCardNumber.getText().toString().trim());
+        String creditCardNumberString1 =  editTextCreditCardNumber1.getText().toString().trim();
+        String creditCardNumberString2 = editTextCreditCardNumber2.getText().toString().trim();
+        String creditCardNumberString3 = editTextCreditCardNumber3.getText().toString().trim();
+        String creditCardNumberString4 = editTextCreditCardNumber4.getText().toString().trim();
+
+        String creditCardLong = creditCardNumberString1 + creditCardNumberString2 + creditCardNumberString3
+                + creditCardNumberString4;
+        System.out.println(creditCardLong);
+
         String creditCardCVVString = (editTextCVV.getText().toString().trim());
         String ExpiryMonthString = (editTextExpiryMonth.getText().toString().trim());
         String ExpiryYearString = (editTextExpiryMonth.getText().toString().trim());
@@ -84,27 +108,16 @@ public class PaymentActivity extends AppCompatActivity {
         int expiryMonthInt = Integer.parseInt(editTextExpiryMonth.getText().toString().trim());
         int expiryYearInt = Integer.parseInt(editTextExpiryYear.getText().toString().trim());
 
-        if (creditCardNumberString.length() != 16) {
-            editTextCreditCardNumber.setError("Credit card number must be 16 digits");
-            editTextCreditCardNumber.requestFocus();
-            return;
-        }
-
-        if (creditCardCVVString.isEmpty()) {
-            editTextCVV.setError("3-digit CVV number is required");
-            editTextCVV.requestFocus();
+        if (creditCardLong.length() != 16) {
+            editTextCreditCardNumber1.setError("Credit card number must be 16 digits");
+            editTextCreditCardNumber1.requestFocus();
+            System.out.println(creditCardLong);
             return;
         }
 
         if (creditCardCVVString.length() != 3) {
             editTextCVV.setError("CVV number must be 3 digits");
             editTextCVV.requestFocus();
-            return;
-        }
-
-        if (ExpiryMonthString.isEmpty()) {
-            editTextExpiryMonth.setError("2-digit expiry month number is required");
-            editTextExpiryMonth.requestFocus();
             return;
         }
 
@@ -117,12 +130,6 @@ public class PaymentActivity extends AppCompatActivity {
         if (expiryMonthInt > 12 || expiryMonthInt == 00) {
             editTextExpiryMonth.setError("Expiry month must be a number between 01 and 12");
             editTextExpiryMonth.requestFocus();
-            return;
-        }
-
-        if (ExpiryYearString.isEmpty()) {
-            editTextExpiryYear.setError("2-digit expiry year number is required");
-            editTextExpiryYear.requestFocus();
             return;
         }
 
@@ -144,13 +151,14 @@ public class PaymentActivity extends AppCompatActivity {
             return;
         }
 
-        openPlaceOrder();
+        openPlaceOrder(creditCardLong);
 
     }
 
-    private void openPlaceOrder() {
+    private void openPlaceOrder(String creditCardLong) {
 
-        long creditCardNumber = Long.parseLong(editTextCreditCardNumber.getText().toString().trim());
+        long creditCardNumber = Long.parseLong(creditCardLong.trim());
+        System.out.println(creditCardLong);
 
         int creditCardCCV = Integer.parseInt(editTextCVV.getText().toString().trim());
         int expiryMonth = Integer.parseInt(editTextExpiryMonth.getText().toString().trim());

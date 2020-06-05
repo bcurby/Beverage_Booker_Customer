@@ -126,8 +126,11 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.code() == 401) {
-                    Toast.makeText(PlaceOrderActivity.this, "Your order has been placed",
-                            Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(PlaceOrderActivity.this, OrderConfirmationActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
 
                 } else if (response.code() == 402) {
                     Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your order",
