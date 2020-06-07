@@ -5,7 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,8 @@ public class CartActivity extends AppCompatActivity {
 
     private TextView cartTotal;
 
+    private Button checkoutButton;
+
 
 
     @Override
@@ -54,6 +59,20 @@ public class CartActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mCartAdapter);
 
         cartTotal = findViewById(R.id.cartTotal);
+
+        //Checkout Button
+        checkoutButton = findViewById(R.id.checkoutButton);
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getCartTotal() > 0) {
+                    goToCheckout();
+                } else {
+                    Toast.makeText(CartActivity.this,
+                            "Please add an item to your cart before clicking Checkout", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         final User loggedUser = getInstance(CartActivity.this).getUser();
         int userID = loggedUser.getId();
@@ -116,4 +135,8 @@ public class CartActivity extends AppCompatActivity {
         return cartTotal;
     }
 
+    private void goToCheckout() {
+        Intent intent = new Intent(this, PaymentActivity.class );
+        startActivity(intent);
+    }
 }

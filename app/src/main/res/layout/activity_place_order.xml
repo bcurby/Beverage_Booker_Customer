@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.CartActivity">
+    android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cartRecyclerView"
+        android:id="@+id/placeOrderRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/darker_gray"
@@ -14,20 +16,20 @@
         android:scrollbars="vertical" />
 
     <TextView
-        android:id="@+id/cartTotal"
+        android:id="@+id/orderTotal"
         android:layout_width="206dp"
         android:layout_height="92dp"
-        android:layout_below="@id/cartRecyclerView"
+        android:layout_below="@id/placeOrderRecyclerView"
         android:layout_marginTop="1dp" />
 
     <Button
-        android:id="@+id/checkoutButton"
-        android:text="Checkout"
+        android:id="@+id/placeOrderButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_below="@id/cartRecyclerView"
+        android:layout_below="@id/placeOrderRecyclerView"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="15dp" />
+        android:layout_marginRight="15dp"
+        android:text="Place Order" />
 
 
 </RelativeLayout>
