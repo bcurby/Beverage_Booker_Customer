@@ -42,7 +42,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="28dp"
-            android:layout_marginEnd="230dp"
+            android:layout_marginEnd="200dp"
             android:text="Desc" />
 
         <TextView
@@ -72,8 +72,8 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@color/colorAccent"
-            android:layout_marginStart="180dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginStart="240dp"
 
             />
 
