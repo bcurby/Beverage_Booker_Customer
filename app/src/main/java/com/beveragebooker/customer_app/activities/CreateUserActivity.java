@@ -119,6 +119,8 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                         e.printStackTrace();
                     }
                     Toast.makeText(CreateUserActivity.this, s, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(CreateUserActivity.this, MainActivity.class);
+                    startActivity(intent);
 
                 } else if (response.code() == 422) {
                     Toast.makeText(CreateUserActivity.this, "User already exists",
