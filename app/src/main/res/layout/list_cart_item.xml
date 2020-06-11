@@ -8,6 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="5dp"
         android:layout_margin="4dp">
 
         <TextView
@@ -17,10 +18,10 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="1dp"
             android:text="Name"
             android:textColor="@android:color/black"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -40,8 +41,18 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="13dp"
-            android:layout_marginEnd="65dp"
+            android:layout_marginEnd="80dp"
             android:text="Quantity" />
+
+        <TextView
+            android:id="@+id/cartItemSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-80dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="80dp"
+            android:layout_toEndOf="@+id/cartItemQuantity"
+            android:text="x" />
 
     </RelativeLayout>
 

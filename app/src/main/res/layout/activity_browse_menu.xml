@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/recyclerView"
-        android:layout_marginTop="-115dp" />
+        android:layout_marginTop="-60dp"
+        android:layout_marginStart="300dp" />
 
 </RelativeLayout>
