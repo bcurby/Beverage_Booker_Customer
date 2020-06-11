@@ -6,24 +6,38 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="107dp"
+        android:layout_width="170dp"
         android:layout_height="35dp"
         android:layout_above="@id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:text="Sign Up"
+        android:layout_marginBottom="-60dp"
+        android:text="Create Account"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         tools:layout_editor_absoluteX="288dp"
         tools:layout_editor_absoluteY="424dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="378dp"
-        android:layout_height="250dp"
+        android:layout_width="260dp"
+        android:layout_height="380dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:padding="10dp"
         tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="212dp">
+        tools:layout_editor_absoluteY="182dp">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:text="Email"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            tools:layout_editor_absoluteX="288dp"
+            tools:layout_editor_absoluteY="424dp" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -33,6 +47,15 @@
             android:hint="email"
             android:inputType="textEmailAddress" />
 
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:text="Password"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            tools:layout_editor_absoluteX="288dp"
+            tools:layout_editor_absoluteY="424dp" />
+
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
@@ -40,6 +63,15 @@
             android:drawablePadding="5dp"
             android:hint="password"
             android:inputType="textPassword" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:text="First Name"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            tools:layout_editor_absoluteX="288dp"
+            tools:layout_editor_absoluteY="424dp" />
 
         <EditText
             android:id="@+id/editTextFirstName"
@@ -49,6 +81,15 @@
             android:hint="First Name"
             android:inputType="textPersonName" />
 
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:text="Last Name"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            tools:layout_editor_absoluteX="288dp"
+            tools:layout_editor_absoluteY="424dp" />
+
         <EditText
             android:id="@+id/editTextLastName"
             android:layout_width="match_parent"
@@ -56,6 +97,15 @@
             android:drawablePadding="5dp"
             android:hint="Last Name"
             android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:text="Phone Number"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            tools:layout_editor_absoluteX="288dp"
+            tools:layout_editor_absoluteY="424dp" />
 
         <EditText
             android:id="@+id/editTextPhone"
@@ -69,24 +119,26 @@
 
     <TextView
         android:id="@+id/textViewLogin"
-        android:layout_width="196dp"
-        android:layout_height="80dp"
-        android:layout_below="@id/linearLayout"
-        android:layout_marginTop="13dp"
+        android:layout_width="360dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         android:lineSpacingExtra="7dp"
-        android:text="Already have an Account?\nClick to Login"
+        android:text="Already have an Account? Click to Login"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteX="600dp"
         tools:layout_editor_absoluteY="556dp" />
 
     <Button
         android:id="@+id/buttonSignUp"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginBottom="80dp"
+        android:background="@color/colorSignUpButton"
         android:text="Sign Up"
         android:textAllCaps="false"
         tools:layout_editor_absoluteX="115dp"
