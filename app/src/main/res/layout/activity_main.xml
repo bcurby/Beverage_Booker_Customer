@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="5dp"
-            android:hint="email"
+            android:hint="enter your email here"
             android:inputType="textEmailAddress" />
 
         <TextView
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="5dp"
-            android:hint="password"
+            android:hint="enter your password here"
             android:inputType="textPassword" />
 
     </LinearLayout>
