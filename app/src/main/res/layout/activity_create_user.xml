@@ -35,6 +35,7 @@
             android:layout_height="24dp"
             android:layout_centerHorizontal="true"
             android:text="Email"
+            android:layout_marginStart="3dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             tools:layout_editor_absoluteX="288dp"
             tools:layout_editor_absoluteY="424dp" />
@@ -52,6 +53,7 @@
             android:layout_height="24dp"
             android:layout_centerHorizontal="true"
             android:text="Password"
+            android:layout_marginStart="3dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             tools:layout_editor_absoluteX="288dp"
             tools:layout_editor_absoluteY="424dp" />
@@ -69,6 +71,7 @@
             android:layout_height="24dp"
             android:layout_centerHorizontal="true"
             android:text="First Name"
+            android:layout_marginStart="3dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             tools:layout_editor_absoluteX="288dp"
             tools:layout_editor_absoluteY="424dp" />
@@ -86,6 +89,7 @@
             android:layout_height="24dp"
             android:layout_centerHorizontal="true"
             android:text="Last Name"
+            android:layout_marginStart="3dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             tools:layout_editor_absoluteX="288dp"
             tools:layout_editor_absoluteY="424dp" />
@@ -99,10 +103,11 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:layout_width="120dp"
+            android:layout_width="130dp"
             android:layout_height="24dp"
             android:layout_centerHorizontal="true"
-            android:text="Phone Number"
+            android:text="Mobile Number"
+            android:layout_marginStart="3dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             tools:layout_editor_absoluteX="288dp"
             tools:layout_editor_absoluteY="424dp" />
