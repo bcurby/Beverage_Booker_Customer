@@ -69,7 +69,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:hint="3-digit CVV"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="3"/>
 
     </LinearLayout>
 
@@ -87,7 +88,8 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:hint="2-digit Month"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="2"/>
 
         <EditText
             android:id="@+id/editTextExpiryYear"
@@ -96,6 +98,7 @@
             android:layout_marginTop="20dp"
             android:hint="2-digit Year"
             android:inputType="number"
+            android:maxLength="2"
             android:paddingStart="10dp" />
 
     </LinearLayout>

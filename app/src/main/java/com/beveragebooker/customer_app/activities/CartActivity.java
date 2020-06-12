@@ -20,6 +20,7 @@ import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +130,6 @@ public class CartActivity extends AppCompatActivity {
 
             cartTotal += itemTotal;
             System.out.println("Cart Total: " + cartTotal);
-
 
         }
         return cartTotal;

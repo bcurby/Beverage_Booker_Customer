@@ -105,12 +105,12 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 System.out.println("Quantity: " + itemQuantity);
 
                 //Set cart status to active cart
-                String cartStatus = "active";
+                //String cartStatus = "active";
 
                 Call<ResponseBody> call = RetrofitClient
                         .getInstance()
                         .getApi()
-                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, cartStatus);
+                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity);
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
