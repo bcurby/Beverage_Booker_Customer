@@ -119,7 +119,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                         if (response.code() == 303) {
                             Toast.makeText(BrowseMenu.this, "Item added to cart", Toast.LENGTH_LONG).show();
 
-                        } else if (response.code() == 304) {
+                        } else if (response.code() == 200) {
                             Toast.makeText(BrowseMenu.this, "Item already in cart",
                                     Toast.LENGTH_LONG).show();
                         }

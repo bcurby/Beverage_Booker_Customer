@@ -70,7 +70,7 @@ public class CartActivity extends AppCompatActivity {
                     goToCheckout();
                 } else {
                     Toast.makeText(CartActivity.this,
-                            "Please add an item to your cart before clicking Checkout", Toast.LENGTH_LONG).show();
+                            "Please add an item to your cart before clicking Checkout", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -97,7 +97,7 @@ public class CartActivity extends AppCompatActivity {
                     mCartAdapter.notifyDataSetChanged();
 
                 //Cart is empty
-                } else if (response.code() == 305) {
+                } else if (response.code() == 303) {
                     Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_LONG).show();
                 }
                 //Display the total of items in the cart
