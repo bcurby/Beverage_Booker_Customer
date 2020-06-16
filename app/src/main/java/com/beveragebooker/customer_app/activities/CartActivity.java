@@ -42,6 +42,8 @@ public class CartActivity extends AppCompatActivity {
 
     private Button checkoutButton;
 
+    DecimalFormat currency = new DecimalFormat("###0.00");
+
 
 
     @Override
@@ -101,7 +103,7 @@ public class CartActivity extends AppCompatActivity {
                     Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_LONG).show();
                 }
                 //Display the total of items in the cart
-                cartTotal.setText("Cart Total: $" + (getCartTotal()));
+                cartTotal.setText("Cart Total: $" + currency.format(getCartTotal()));
             }
 
             @Override

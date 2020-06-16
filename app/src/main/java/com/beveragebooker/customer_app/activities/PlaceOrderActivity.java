@@ -17,6 +17,7 @@ import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
     private List<MenuItem> cartItemList;
 
     private TextView orderTotal;
+
+    DecimalFormat currency = new DecimalFormat("###0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
                     mCartAdapter.notifyDataSetChanged();
                 }
                 //Display the total of the items in the order
-                orderTotal.setText("Order Total: $" + (getOrderTotal()));
+                orderTotal.setText("Order Total: $" + currency.format(getOrderTotal()));
             }
 
             @Override
