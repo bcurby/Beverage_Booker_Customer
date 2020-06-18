@@ -12,11 +12,14 @@ import com.beveragebooker.customer_app.R;
 
 import com.beveragebooker.customer_app.models.MenuItem;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private List<MenuItem> cartItemList;
+
+    DecimalFormat currency = new DecimalFormat("###0.00");
 
     public CartAdapter(List<MenuItem> cartItemList) {
         this.cartItemList = cartItemList;
@@ -36,7 +39,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         MenuItem cartItem = cartItemList.get(position);
 
         holder.textViewName.setText(cartItem.getName());
-        holder.textViewPrice.setText(String.valueOf(cartItem.getPrice()));
+        holder.textViewPrice.setText("$" + currency.format(cartItem.getPrice()));
         holder.textViewQuantity.setText(String.valueOf(cartItem.getQuantity()));
     }
 

@@ -93,7 +93,7 @@ public class InstrumentedTestForFillCart {
     public void clickViewCartButton_VerifiesItemInCartWithPrice() {
         onView(withId(R.id.viewCart))
                 .perform(click());
-        onView(allOf(withId(R.id.cartItemPrice), hasSibling(withText("12.5"))))
+        onView(allOf(withId(R.id.cartItemPrice), hasSibling(withText("$12.50"))))
                 .check(matches(isDisplayed()));
     }
 }

@@ -17,6 +17,7 @@ import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
     private List<MenuItem> cartItemList;
 
     private TextView orderTotal;
+
+    DecimalFormat currency = new DecimalFormat("###0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,14 +83,14 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
 
                 //Cart items are retrieved from the database
-                if (response.code() == 200) {
+                if (response.code() == 201) {
                     for (int i = 0; i < response.body().size(); i++) {
                         cartItemList.add(response.body().get(i));
                     }
                     mCartAdapter.notifyDataSetChanged();
                 }
                 //Display the total of the items in the order
-                orderTotal.setText("Order Total: $" + (getOrderTotal()));
+                orderTotal.setText("Order Total: $" + currency.format(getOrderTotal()));
             }
 
             @Override
@@ -125,14 +128,14 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                if (response.code() == 401) {
+                if (response.code() == 201) {
 
                     Intent intent = new Intent(PlaceOrderActivity.this, OrderConfirmationActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
 
-                } else if (response.code() == 402) {
+                } else if (response.code() == 422) {
                     Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your order",
                             Toast.LENGTH_LONG).show();
                 }

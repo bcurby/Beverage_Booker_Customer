@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     private ArrayList<MenuItem> menuItems;
     private OnItemClickListener mListener;
+
+    DecimalFormat currency = new DecimalFormat("###0.00");
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -37,6 +40,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         TextView mPrice;
 
         Button mAddToCart;
+
+
 
 
         RecyclerViewHolder(@NonNull View itemView) {
@@ -81,7 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.mItemID.setText(String.valueOf(currentItem.getId()));
         holder.mItemName.setText(currentItem.getName());
         holder.mShortDesc.setText(currentItem.getDescription());
-        holder.mPrice.setText('$' + String.valueOf(currentItem.getPrice()));
+        holder.mPrice.setText("$" + currency.format(currentItem.getPrice()));
 
     }
 

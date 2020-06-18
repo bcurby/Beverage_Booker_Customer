@@ -20,6 +20,7 @@ import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class CartActivity extends AppCompatActivity {
     private TextView cartTotal;
 
     private Button checkoutButton;
+
+    DecimalFormat currency = new DecimalFormat("###0.00");
 
 
 
@@ -69,7 +72,7 @@ public class CartActivity extends AppCompatActivity {
                     goToCheckout();
                 } else {
                     Toast.makeText(CartActivity.this,
-                            "Please add an item to your cart before clicking Checkout", Toast.LENGTH_LONG).show();
+                            "Please add an item to your cart before clicking Checkout", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -89,18 +92,18 @@ public class CartActivity extends AppCompatActivity {
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
 
                 //Cart items are retrieved from database
-                if (response.code() == 200) {
+                if (response.code() == 201) {
                     for (int i = 0; i < response.body().size(); i++) {
                         cartItemList.add(response.body().get(i));
                     }
                     mCartAdapter.notifyDataSetChanged();
 
                 //Cart is empty
-                } else if (response.code() == 305) {
+                } else if (response.code() == 303) {
                     Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_LONG).show();
                 }
                 //Display the total of items in the cart
-                cartTotal.setText("Cart Total: $" + (getCartTotal()));
+                cartTotal.setText("Cart Total: $" + currency.format(getCartTotal()));
             }
 
             @Override
@@ -129,7 +132,6 @@ public class CartActivity extends AppCompatActivity {
 
             cartTotal += itemTotal;
             System.out.println("Cart Total: " + cartTotal);
-
 
         }
         return cartTotal;
