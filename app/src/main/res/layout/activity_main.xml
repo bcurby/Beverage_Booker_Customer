@@ -6,49 +6,87 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="107dp"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_above="@id/loginText"
+        android:layout_centerHorizontal="true"
+        android:text="Beverage Booker"
+        android:textSize="30dp"
+        android:layout_marginBottom="40dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+        tools:layout_editor_absoluteX="288dp"
+        tools:layout_editor_absoluteY="424dp" />
+
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_width="80dp"
         android:layout_height="35dp"
         android:layout_above="@id/linearLayout"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
         android:text="Log In"
+        android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         tools:layout_editor_absoluteX="288dp"
         tools:layout_editor_absoluteY="424dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="378dp"
-        android:layout_height="250dp"
+        android:layout_width="280dp"
+        android:layout_height="160dp"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical"
         android:padding="10dp"
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="212dp">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:text="Email"
+            android:layout_marginStart="3dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            tools:layout_editor_absoluteX="288dp"
+            tools:layout_editor_absoluteY="424dp" />
 
         <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="5dp"
-            android:hint="email"
+            android:hint="enter your email here"
             android:inputType="textEmailAddress" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:text="Password"
+            android:layout_marginStart="3dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            tools:layout_editor_absoluteX="288dp"
+            tools:layout_editor_absoluteY="424dp" />
 
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="5dp"
-            android:hint="password"
+            android:hint="enter your password here"
             android:inputType="textPassword" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewRegister"
-        android:layout_width="389dp"
-        android:layout_height="80dp"
-        android:layout_below="@id/linearLayout"
-        android:layout_marginTop="10dp"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/buttonLogin"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
         android:lineSpacingExtra="7dp"
         android:text="Don't have an Account?\nClick to Register"
         android:textAlignment="center"
@@ -61,8 +99,9 @@
         android:id="@+id/buttonLogin"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/linearLayout"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="Log In"
         android:textAllCaps="false"
         tools:layout_editor_absoluteX="115dp"

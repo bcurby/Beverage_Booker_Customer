@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static final String BASE_URL = "http://192.168.1.105/BeverageApi/public/";
+
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 
