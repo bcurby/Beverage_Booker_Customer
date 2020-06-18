@@ -1,7 +1,6 @@
 package com.beveragebooker.customer_app;
 
-import android.os.SystemClock;
-
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
@@ -16,7 +15,9 @@ import org.junit.Rule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
+import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.activities.BrowseMenu;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -45,7 +46,7 @@ public class InstrumentedTestForFillCart {
      */
     @Test
     public void ClickAddToCartButton_AddsToCart() {
-        onView(allOf(withId(R.id.addToCart), hasSibling(withText("banana"))))
+        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
                 .perform(click());
     }
 

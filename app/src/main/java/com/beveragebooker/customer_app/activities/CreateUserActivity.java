@@ -79,7 +79,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (password.length() < 6) {
-            editTextPassword.setError("Password should be atleast 6 character long");
+            editTextPassword.setError("Password should be at least 6 characters long");
             editTextPassword.requestFocus();
             return;
         }
@@ -91,7 +91,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (lastName.isEmpty()) {
-            editTextLastName.setError("Last First Name required");
+            editTextLastName.setError("Last Name required");
             editTextLastName.requestFocus();
             return;
         }
