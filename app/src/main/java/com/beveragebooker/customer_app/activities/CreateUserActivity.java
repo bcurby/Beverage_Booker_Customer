@@ -120,7 +120,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                     }
                     Toast.makeText(CreateUserActivity.this, s, Toast.LENGTH_LONG).show();
 
-                } else if (response.code() == 422) {
+                } else if (response.code() == 403) {
                     Toast.makeText(CreateUserActivity.this, "User already exists",
                             Toast.LENGTH_LONG).show();
                 }

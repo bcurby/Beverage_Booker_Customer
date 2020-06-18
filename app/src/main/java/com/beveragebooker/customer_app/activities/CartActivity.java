@@ -92,7 +92,7 @@ public class CartActivity extends AppCompatActivity {
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
 
                 //Cart items are retrieved from database
-                if (response.code() == 200) {
+                if (response.code() == 201) {
                     for (int i = 0; i < response.body().size(); i++) {
                         cartItemList.add(response.body().get(i));
                     }
