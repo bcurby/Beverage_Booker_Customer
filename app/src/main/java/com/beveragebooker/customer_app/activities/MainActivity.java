@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
-
-                if(!loginResponse.isError()) {
+                
+                if(response.code() == 202) {
 
                     //Proceed with Login
                     SharedPrefManager.getInstance(MainActivity.this)
@@ -96,10 +96,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
-                }else{
+                } else if (response.code() ==200) {
+                    Toast.makeText(MainActivity.this, "User does not exist",
+                            Toast.LENGTH_LONG).show();
 
-                    //Show the error message
-                    Toast.makeText(MainActivity.this, loginResponse.getMessage(),
+                } else if (response.code() == 401) {
+                    Toast.makeText(MainActivity.this, "Invalid login credentials",
                             Toast.LENGTH_LONG).show();
                 }
             }
