@@ -97,7 +97,13 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (phone.isEmpty()) {
-            editTextPhone.setError("Phone Number required");
+            editTextPhone.setError("Mobile Number required");
+            editTextPhone.requestFocus();
+            return;
+        }
+
+        if (phone.length() != 10) {
+            editTextPhone.setError("Mobile Number must be 10 digits");
             editTextPhone.requestFocus();
             return;
         }
