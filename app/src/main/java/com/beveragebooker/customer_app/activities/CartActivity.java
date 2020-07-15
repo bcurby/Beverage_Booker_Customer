@@ -24,6 +24,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +42,8 @@ public class CartActivity extends AppCompatActivity {
     private TextView cartTotal;
 
     private Button checkoutButton;
+
+    private Button emptyCartButton;
 
     DecimalFormat currency = new DecimalFormat("###0.00");
 
@@ -73,6 +76,20 @@ public class CartActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(CartActivity.this,
                             "Please add an item to your cart before clicking Checkout", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        //EmptyCart Button
+        emptyCartButton = findViewById(R.id.emptyCartButton);
+        emptyCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getCartTotal() > 0) {
+                    emptyTheCart();
+                } else {
+                    Toast.makeText(CartActivity.this,
+                            "There are no items in the cart to empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -135,6 +152,36 @@ public class CartActivity extends AppCompatActivity {
 
         }
         return cartTotal;
+    }
+
+    private void emptyTheCart() {
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .emptyCart(71);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.code() == 201) {
+                    Toast.makeText(CartActivity.this, "Cart emptied", Toast.LENGTH_LONG).show();
+
+                } else if (response.code() == 402) {
+                    Toast.makeText(CartActivity.this, "Cart failed to empty",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                Toast.makeText(CartActivity.this, t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
 
     private void goToCheckout() {

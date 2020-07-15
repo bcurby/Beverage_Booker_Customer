@@ -7,6 +7,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -68,5 +69,12 @@ public interface Api {
             @Field("expiryMonth") int expiryMonth,
             @Field("expiryYear") int expiryYear,
             @Field("orderTotal") double orderTotal
+    );
+
+    //Empty Cart
+    @FormUrlEncoded
+    @POST("emptycart")
+    Call<ResponseBody> emptyCart(
+            @Field("cartID") int cartID
     );
 }
