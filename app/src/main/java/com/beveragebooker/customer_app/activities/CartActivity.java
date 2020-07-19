@@ -87,6 +87,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (getCartTotal() > 0) {
                     emptyTheCart();
+                    goToMenu();
                 } else {
                     Toast.makeText(CartActivity.this,
                             "There are no items in the cart to empty", Toast.LENGTH_SHORT).show();
@@ -154,11 +155,14 @@ public class CartActivity extends AppCompatActivity {
         return cartTotal;
     }
 
-    private void emptyTheCart() {
+    public void emptyTheCart() {
+        System.out.println("testEmptyTheCartSuccess"); // works
+        final User loggedUser = getInstance(CartActivity.this).getUser();
+        int userID = loggedUser.getId();
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .emptyCart(71);
+                .emptyCart(userID);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -186,6 +190,11 @@ public class CartActivity extends AppCompatActivity {
 
     private void goToCheckout() {
         Intent intent = new Intent(this, PaymentActivity.class );
+        startActivity(intent);
+    }
+
+    private void goToMenu() {
+        Intent intent = new Intent(this, BrowseMenu.class );
         startActivity(intent);
     }
 }

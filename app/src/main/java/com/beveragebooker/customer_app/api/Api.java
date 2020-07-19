@@ -75,6 +75,6 @@ public interface Api {
     @FormUrlEncoded
     @POST("emptycart")
     Call<ResponseBody> emptyCart(
-            @Field("cartID") int cartID
+            @Field("userID") int userID
     );
 }
