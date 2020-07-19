@@ -20,12 +20,12 @@
         android:text="Continue"/>
 
     <Button
-        android:id="@+id/clearButton"
+        android:id="@+id/signOutButton"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_below="@id/continueButton"
         android:layout_centerHorizontal="true"
-        android:text="Clear"/>
+        android:text="Sign Out"/>
 
 
 

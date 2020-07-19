@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         textView.setText("Welcome back " + user.getFirstName());
 
         findViewById(R.id.continueButton).setOnClickListener(this);
-        findViewById(R.id.clearButton).setOnClickListener(this);
+        findViewById(R.id.signOutButton).setOnClickListener(this);
 
     }
 
@@ -54,9 +54,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(this, PrimaryMenu.class));
                 break;
 
-            case R.id.clearButton:
+            case R.id.signOutButton:
                 SharedPrefManager.getInstance(this).clear();
-                startActivity(new Intent(this, CreateUserActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 break;
         }
     }
