@@ -1,9 +1,11 @@
 package com.beveragebooker.customer_app.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +15,10 @@ import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText editTextEmail;
     private EditText editTextPassword;
-
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +128,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonLogin:
                 userLogin();
 
+//                FirebaseInstanceId.getInstance().getInstanceId()
+//                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                                if (!task.isSuccessful()) {
+//                                    Log.w(TAG, "getInstanceId failed", task.getException());
+//                                    return;
+//                                }
+//
+//                                // Get new Instance ID token
+//                                String token = task.getResult().getToken();
+//
+//                                // Log and toast
+//                                String msg = getString(R.string.msg_token_fmt, token);
+//                                Log.d(TAG, msg);
+//                                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
                 break;
 
             case R.id.textViewRegister:
@@ -131,4 +155,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
 }
