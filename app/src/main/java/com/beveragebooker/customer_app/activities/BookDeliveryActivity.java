@@ -38,18 +38,43 @@ public class BookDeliveryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createNewDelivery();
-                goToPayment();
             }
         });
     }
 
     private void createNewDelivery() {
+        boolean checker = false;
+
         User loggedUser = getInstance(BookDeliveryActivity.this).getUser();
         int userID = loggedUser.getId();
         String streetNumber = editTextStreetNumber.getText().toString().trim();
         String streetName = editTextStreetName.getText().toString().trim();
-        int postCode = Integer.parseInt(editTextPostCode.getText().toString().trim());
         String cityTown = editTextCityTown.getText().toString().trim();
+        String postCodeString = editTextPostCode.getText().toString().trim();
+
+        while (checker == false) {
+            if (streetNumber.isEmpty()) {
+                editTextStreetNumber.setError("Street number must contain something");
+                return;
+            } else if (streetName.isEmpty()) {
+                editTextStreetName.setError("Street name must contain something");
+                return;
+            } else if (postCodeString.isEmpty() || postCodeString.length() != 4) {
+                editTextPostCode.setError("Post code must contain 4 numbers");
+                return;
+            } else if (!android.text.TextUtils.isDigitsOnly(postCodeString)) {
+                editTextPostCode.setError("Post code must be only numbers");
+                return;
+            } else if (cityTown.isEmpty()) {
+                editTextCityTown.setError("city / town must contain something");
+                return;
+            } else {
+                checker = true;
+            }
+        }
+        int postCode = Integer.parseInt(editTextPostCode.getText().toString().trim());
+
+
 
 
         Call<ResponseBody> call = RetrofitClient
@@ -72,6 +97,7 @@ public class BookDeliveryActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+        goToPayment();
     }
 
     private void goToPayment() {
