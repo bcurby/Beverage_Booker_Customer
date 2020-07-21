@@ -77,4 +77,15 @@ public interface Api {
     Call<ResponseBody> emptyCart(
             @Field("userID") int userID
     );
+
+    //Book Delivery
+    @FormUrlEncoded
+    @POST("bookdelivery")
+    Call<ResponseBody> bookDelivery(
+            @Field("userID") int userID,
+            @Field("streetNumber") String streetNumber,
+            @Field("streetName") String streetName,
+            @Field("postCode") int postCode,
+            @Field("cityTown") String cityTown
+    );
 }
