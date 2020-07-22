@@ -33,6 +33,8 @@ public class InstrumentedTestForPlaceOrder {
     public void GoToCheckOut() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
+        onView(withId(R.id.PickUpButton))
+                .perform(click());
         onView(withId(R.id.creditCardNumberLayout))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.editTextCreditCardNumber1))
@@ -65,6 +67,8 @@ public class InstrumentedTestForPlaceOrder {
     public void PaymentInformation_ErrorAtCardNumber_TooLittleNumbers() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
+        onView(withId(R.id.PickUpButton))
+                .perform(click());
         onView(withId(R.id.editTextCreditCardNumber1))
                 .perform(typeText("1234"));
         onView(withId(R.id.editTextCreditCardNumber2))
@@ -92,6 +96,8 @@ public class InstrumentedTestForPlaceOrder {
     @Test
     public void PaymentInformation_ErrorAtCVV_TooLittleNumbers() {
         onView(withId(R.id.checkoutButton))
+                .perform(click());
+        onView(withId(R.id.PickUpButton))
                 .perform(click());
         onView(withId(R.id.editTextCreditCardNumber1))
                 .perform(typeText("1234"));
@@ -121,6 +127,8 @@ public class InstrumentedTestForPlaceOrder {
     public void PaymentInformation_ErrorAtMonth_OutOfBounds() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
+        onView(withId(R.id.PickUpButton))
+                .perform(click());
         onView(withId(R.id.editTextCreditCardNumber1))
                 .perform(typeText("1234"));
         onView(withId(R.id.editTextCreditCardNumber2))
@@ -147,6 +155,8 @@ public class InstrumentedTestForPlaceOrder {
      */
     public void PaymentInformation_ErrorAtYear_OutOfBounds() {
         onView(withId(R.id.checkoutButton))
+                .perform(click());
+        onView(withId(R.id.PickUpButton))
                 .perform(click());
         onView(withId(R.id.editTextCreditCardNumber1))
                 .perform(typeText("1234"));
@@ -175,6 +185,8 @@ public class InstrumentedTestForPlaceOrder {
     @Test
     public void zPaymentInformation_PlaceOrder_OrderConfirmation_MainMenu() {
         onView(withId(R.id.checkoutButton))
+                .perform(click());
+        onView(withId(R.id.PickUpButton))
                 .perform(click());
         onView(withId(R.id.editTextCreditCardNumber1))
                 .perform(typeText("1234"));
