@@ -35,6 +35,10 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
     private int creditCardCVV, expiryMonth, expiryYear;
     private long creditCardNumber;
 
+    private String streetNumber, streetName, cityTown;
+    private int postCode, deliveryStatusInt;
+    private boolean deliveryStatus;
+
     private RecyclerView mRecyclerView;
     private CartAdapter mCartAdapter;
 
@@ -55,6 +59,16 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         expiryMonth = intent.getIntExtra(PaymentActivity.CREDIT_CARD_EXPIRY_MONTH, 0);
         expiryYear = intent.getIntExtra(PaymentActivity.CREDIT_CARD_EXPIRY_YEAR, 0);
 
+        streetNumber = intent.getStringExtra(PaymentActivity.STREET_NUMBER);
+        streetName = intent.getStringExtra(PaymentActivity.STREET_NAME);
+        postCode = intent.getIntExtra(PaymentActivity.POST_CODE, 0);
+        cityTown = intent.getStringExtra(PaymentActivity.CITY_TOWN);
+        deliveryStatus = intent.getBooleanExtra(PaymentActivity.DELIVERY_STATUS, false);
+        if(deliveryStatus == true) {
+            deliveryStatusInt = 1;
+        } else {
+            deliveryStatusInt = 0;
+        }
         findViewById(R.id.placeOrderButton).setOnClickListener(this);
 
         //Recyclerview
@@ -102,6 +116,9 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        if(deliveryStatus == true) {
+            createNewDelivery();
+        }
         placeOrder();
     }
 
@@ -115,13 +132,14 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .placeOrder(userID, creditCardNumber, creditCardCVV, expiryMonth, expiryYear, orderTotal);
+                .placeOrder(userID, creditCardNumber, creditCardCVV, expiryMonth, expiryYear, deliveryStatusInt, orderTotal);
 
         System.out.println(userID);
         System.out.println(creditCardNumber);
         System.out.println(creditCardCVV);
         System.out.println(expiryMonth);
         System.out.println(expiryYear);
+        System.out.println(deliveryStatus);
         System.out.println(orderTotal);
 
         call.enqueue(new Callback<ResponseBody>() {
@@ -131,6 +149,7 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
                 if (response.code() == 201) {
 
                     Intent intent = new Intent(PlaceOrderActivity.this, OrderConfirmationActivity.class);
+
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
@@ -144,6 +163,34 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(PlaceOrderActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void createNewDelivery() {
+        User loggedUser = getInstance(PlaceOrderActivity.this).getUser();
+        int userID = loggedUser.getId();
+
+        System.out.println("userID: " + userID + " " + streetNumber + " " + streetName + " " + postCode + " " + cityTown);
+
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .bookDelivery(userID, streetNumber, streetName, postCode, cityTown);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 201) {
+                    Toast.makeText(PlaceOrderActivity.this, "Delivery Submitted", Toast.LENGTH_LONG).show();
+                }else if (response.code() == 422) {
+                    Toast.makeText(PlaceOrderActivity.this, "Delivery Failed", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(PlaceOrderActivity.this, t.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

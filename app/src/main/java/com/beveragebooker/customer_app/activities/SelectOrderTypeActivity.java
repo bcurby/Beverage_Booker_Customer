@@ -11,6 +11,8 @@ import com.beveragebooker.customer_app.R;
 
 public class SelectOrderTypeActivity extends AppCompatActivity {
 
+    public static final String DELIVERY_STATUS = "com.beveragebooker.customer_app.DELIVERY_STATUS";
+
     private Button PickUpButton;
     private Button DeliveryButton;
 

@@ -5,19 +5,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.beveragebooker.customer_app.R;
-import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.User;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInstance;
 
 public class BookDeliveryActivity extends AppCompatActivity {
+
+    public static final String STREET_NUMBER_PAYMENT = "com.beveragebooker.customer_app.STREET_NUMBER_PAYMENT";
+    public static final String STREET_NAME_PAYMENT = "com.beveragebooker.customer_app.STREET_NAME_PAYMENT";
+    public static final String POST_CODE_PAYMENT = "com.beveragebooker.customer_app.POST_CODE_PAYMENT";
+    public static final String CITY_TOWN_PAYMENT = "com.beveragebooker.customer_app.CITY_TOWN_PAYMENT";
+    public static final String DELIVERY_STATUS_PAYMENT = "com.beveragebooker.customer_app.DELIVERY_STATUS_PAYMENT";
 
     private EditText editTextCityTown, editTextStreetName, editTextStreetNumber, editTextPostCode;
 
@@ -72,36 +72,22 @@ public class BookDeliveryActivity extends AppCompatActivity {
                 checker = true;
             }
         }
-        int postCode = Integer.parseInt(editTextPostCode.getText().toString().trim());
-
-
-
-
-        Call<ResponseBody> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .bookDelivery(userID, streetNumber, streetName, postCode, cityTown);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.code() == 201) {
-                    Toast.makeText(BookDeliveryActivity.this, "Delivery Submitted", Toast.LENGTH_LONG).show();
-                }else if (response.code() == 422) {
-                    Toast.makeText(BookDeliveryActivity.this, "Delivery Failed", Toast.LENGTH_LONG).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(BookDeliveryActivity.this, t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
         goToPayment();
     }
 
     private void goToPayment() {
+        String streetNumber = editTextStreetNumber.getText().toString().trim();
+        String streetName = editTextStreetName.getText().toString().trim();
+        int postCode = Integer.parseInt(editTextPostCode.getText().toString().trim());
+        String cityTown = editTextCityTown.getText().toString().trim();
+        boolean deliveryStatus = true;
+
         Intent intent = new Intent(this, PaymentActivity.class );
+        intent.putExtra(STREET_NUMBER_PAYMENT, streetNumber);
+        intent.putExtra(STREET_NAME_PAYMENT, streetName);
+        intent.putExtra(POST_CODE_PAYMENT, postCode);
+        intent.putExtra(CITY_TOWN_PAYMENT, cityTown);
+        intent.putExtra(DELIVERY_STATUS_PAYMENT, deliveryStatus);
         startActivity(intent);
     }
 }

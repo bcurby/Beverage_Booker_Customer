@@ -68,7 +68,9 @@ public interface Api {
             @Field("creditCardCVV") int creditCardCVV,
             @Field("expiryMonth") int expiryMonth,
             @Field("expiryYear") int expiryYear,
+            @Field("deliveryStatus") int deliveryStatus,
             @Field("orderTotal") double orderTotal
+
     );
 
     //Empty Cart
