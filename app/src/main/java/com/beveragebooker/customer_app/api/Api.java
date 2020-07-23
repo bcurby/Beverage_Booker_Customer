@@ -68,7 +68,9 @@ public interface Api {
             @Field("creditCardCVV") int creditCardCVV,
             @Field("expiryMonth") int expiryMonth,
             @Field("expiryYear") int expiryYear,
+            @Field("deliveryStatus") int deliveryStatus,
             @Field("orderTotal") double orderTotal
+
     );
 
     //Empty Cart
@@ -76,5 +78,16 @@ public interface Api {
     @POST("emptycart")
     Call<ResponseBody> emptyCart(
             @Field("userID") int userID
+    );
+
+    //Book Delivery
+    @FormUrlEncoded
+    @POST("bookdelivery")
+    Call<ResponseBody> bookDelivery(
+            @Field("userID") int userID,
+            @Field("streetNumber") int streetNumber,
+            @Field("streetName") String streetName,
+            @Field("postCode") int postCode,
+            @Field("cityTown") String cityTown
     );
 }

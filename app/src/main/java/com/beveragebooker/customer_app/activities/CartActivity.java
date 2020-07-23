@@ -189,7 +189,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void goToCheckout() {
-        Intent intent = new Intent(this, PaymentActivity.class );
+        Intent intent = new Intent(this, SelectOrderTypeActivity.class );
         startActivity(intent);
     }
 

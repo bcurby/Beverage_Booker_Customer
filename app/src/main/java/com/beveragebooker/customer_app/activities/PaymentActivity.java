@@ -17,6 +17,15 @@ public class PaymentActivity extends AppCompatActivity {
     public static final String CREDIT_CARD_CVV = "com.beveragebooker.customer_app.CREDIT_CARD_CVV";
     public static final String CREDIT_CARD_EXPIRY_MONTH = "com.beveragebooker.customer_app.CREDIT_CARD_EXPIRY_MONTH";
     public static final String CREDIT_CARD_EXPIRY_YEAR = "com.beveragebooker.customer_app.CREDIT_CARD_EXPIRY_YEAR";
+    public static final String STREET_NUMBER = "com.beveragebooker.customer_app.STREET_NUMBER";
+    public static final String STREET_NAME = "com.beveragebooker.customer_app.STREET_NAME";
+    public static final String POST_CODE = "com.beveragebooker.customer_app.POST_CODE";
+    public static final String CITY_TOWN = "com.beveragebooker.customer_app.CITY_TOWN";
+    public static final String DELIVERY_STATUS = "com.beveragebooker.customer_app.DELIVERY_STATUS";
+
+    private String streetName, cityTown;
+    private int streetNumber, postCode;
+    private boolean deliveryStatus;
 
     private EditText editTextCreditCardNumber1, editTextCreditCardNumber2, editTextCreditCardNumber3,
             editTextCreditCardNumber4, editTextCVV, editTextExpiryMonth, editTextExpiryYear;
@@ -165,12 +174,27 @@ public class PaymentActivity extends AppCompatActivity {
         int expiryYear = Integer.parseInt(editTextExpiryYear.getText().toString().trim());
 
 
+        Intent getDeliveryInfo = getIntent();
+        streetNumber = getDeliveryInfo.getIntExtra(BookDeliveryActivity.STREET_NUMBER_PAYMENT, 0);
+        streetName = getDeliveryInfo.getStringExtra(BookDeliveryActivity.STREET_NAME_PAYMENT);
+        postCode = getDeliveryInfo.getIntExtra(BookDeliveryActivity.POST_CODE_PAYMENT, 0);
+        cityTown = getDeliveryInfo.getStringExtra(BookDeliveryActivity.CITY_TOWN_PAYMENT);
+        deliveryStatus = getDeliveryInfo.getBooleanExtra(BookDeliveryActivity.DELIVERY_STATUS_PAYMENT, false);
+
+
         Intent intent = new Intent(this, PlaceOrderActivity.class );
         intent.putExtra(CREDIT_CARD_NUMBER, creditCardNumber);
         intent.putExtra(CREDIT_CARD_CVV, creditCardCCV);
         intent.putExtra(CREDIT_CARD_EXPIRY_MONTH, expiryMonth);
         intent.putExtra(CREDIT_CARD_EXPIRY_YEAR, expiryYear);
 
+        if(deliveryStatus == true) {
+            intent.putExtra(STREET_NUMBER, streetNumber);
+            intent.putExtra(STREET_NAME, streetName);
+            intent.putExtra(POST_CODE, postCode);
+            intent.putExtra(CITY_TOWN, cityTown);
+            intent.putExtra(DELIVERY_STATUS, deliveryStatus);
+        }
         startActivity(intent);
     }
 }
