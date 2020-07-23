@@ -62,9 +62,6 @@ public class BookDeliveryActivity extends AppCompatActivity {
             } else if (postCodeString.isEmpty() || postCodeString.length() != 4) {
                 editTextPostCode.setError("Post code must contain 4 numbers");
                 return;
-            } else if (!android.text.TextUtils.isDigitsOnly(postCodeString)) {
-                editTextPostCode.setError("Post code must be only numbers");
-                return;
             } else if (cityTown.isEmpty()) {
                 editTextCityTown.setError("city / town must contain something");
                 return;
@@ -76,7 +73,7 @@ public class BookDeliveryActivity extends AppCompatActivity {
     }
 
     private void goToPayment() {
-        String streetNumber = editTextStreetNumber.getText().toString().trim();
+        int streetNumber = Integer.parseInt(editTextStreetNumber.getText().toString().trim());
         String streetName = editTextStreetName.getText().toString().trim();
         int postCode = Integer.parseInt(editTextPostCode.getText().toString().trim());
         String cityTown = editTextCityTown.getText().toString().trim();

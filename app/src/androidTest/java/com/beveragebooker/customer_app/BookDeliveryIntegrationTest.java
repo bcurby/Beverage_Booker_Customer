@@ -61,7 +61,7 @@ public class BookDeliveryIntegrationTest {
         onView(withId(R.id.DeliveryButton))
                 .check(doesNotExist());
         onView(withId(R.id.editTextStreetNumber))
-                .perform(typeText("StreetNumber"));
+                .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
                 .perform(typeText("StreetName"));
         onView(withId(R.id.editTextPostCode))

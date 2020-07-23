@@ -23,8 +23,8 @@ public class PaymentActivity extends AppCompatActivity {
     public static final String CITY_TOWN = "com.beveragebooker.customer_app.CITY_TOWN";
     public static final String DELIVERY_STATUS = "com.beveragebooker.customer_app.DELIVERY_STATUS";
 
-    private String streetNumber, streetName, cityTown;
-    private int postCode;
+    private String streetName, cityTown;
+    private int streetNumber, postCode;
     private boolean deliveryStatus;
 
     private EditText editTextCreditCardNumber1, editTextCreditCardNumber2, editTextCreditCardNumber3,
@@ -175,7 +175,7 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         Intent getDeliveryInfo = getIntent();
-        streetNumber = getDeliveryInfo.getStringExtra(BookDeliveryActivity.STREET_NUMBER_PAYMENT);
+        streetNumber = getDeliveryInfo.getIntExtra(BookDeliveryActivity.STREET_NUMBER_PAYMENT, 0);
         streetName = getDeliveryInfo.getStringExtra(BookDeliveryActivity.STREET_NAME_PAYMENT);
         postCode = getDeliveryInfo.getIntExtra(BookDeliveryActivity.POST_CODE_PAYMENT, 0);
         cityTown = getDeliveryInfo.getStringExtra(BookDeliveryActivity.CITY_TOWN_PAYMENT);

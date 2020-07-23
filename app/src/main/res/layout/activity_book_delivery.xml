@@ -17,7 +17,8 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
-            android:hint="Street Number" />
+            android:hint="Street Number"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/editTextStreetName"
@@ -34,7 +35,8 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:hint="Post Code"
-            android:maxLength="4" />
+            android:maxLength="4"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/editTextCityTown"

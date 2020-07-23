@@ -152,7 +152,7 @@ public class InstrumentedBookDeliveryTest {
         onView(withId(R.id.DeliveryButton))
                 .perform(click());
         onView(withId(R.id.editTextStreetNumber))
-                .perform(typeText("StreetNumber"));
+                .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
                 .perform(typeText("")); //This is where the error is
         onView(withId(R.id.editTextPostCode))
@@ -189,7 +189,7 @@ public class InstrumentedBookDeliveryTest {
         onView(withId(R.id.DeliveryButton))
                 .perform(click());
         onView(withId(R.id.editTextStreetNumber))
-                .perform(typeText("StreetNumber"));
+                .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
                 .perform(typeText("StreetName"));
         onView(withId(R.id.editTextPostCode))
@@ -200,22 +200,6 @@ public class InstrumentedBookDeliveryTest {
                 .perform(click());
         onView(withId(R.id.editTextPostCode))
                 .check(matches(hasErrorText("Post code must contain 4 numbers")));
-        onView(withId(R.id.creditCardNumberLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardCVVLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardExpiryLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.openPlaceOrderButton))
-                .check(doesNotExist());
-        onView(withId(R.id.editTextPostCode))
-                .perform(clearText());
-        onView(withId(R.id.editTextPostCode))
-                .perform(typeText("abcd"), closeSoftKeyboard()); //This is where the error is
-        onView(withId(R.id.ProceedToPaymentButton))
-                .perform(click());
-        onView(withId(R.id.editTextPostCode))
-                .check(matches(hasErrorText("Post code must be only numbers")));
         onView(withId(R.id.creditCardNumberLayout))
                 .check(doesNotExist());
         onView(withId(R.id.creditCardCVVLayout))
