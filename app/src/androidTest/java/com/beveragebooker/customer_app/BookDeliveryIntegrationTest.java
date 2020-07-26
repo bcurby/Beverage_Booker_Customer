@@ -64,10 +64,10 @@ public class BookDeliveryIntegrationTest {
                 .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
                 .perform(typeText("StreetName"));
-        onView(withId(R.id.editTextPostCode))
-                .perform(typeText("2700"));
-        onView(withId(R.id.editTextCityTown))
-                .perform(typeText("City"), closeSoftKeyboard());
+        //onView(withId(R.id.editTextPostCode))
+            //    .perform(typeText("2700"));
+        //onView(withId(R.id.editTextCityTown))
+            //    .perform(typeText("City"), closeSoftKeyboard());
         onView(withId(R.id.ProceedToPaymentButton))
                 .perform(click());
 
