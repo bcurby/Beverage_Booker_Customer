@@ -7,6 +7,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -67,6 +68,26 @@ public interface Api {
             @Field("creditCardCVV") int creditCardCVV,
             @Field("expiryMonth") int expiryMonth,
             @Field("expiryYear") int expiryYear,
+            @Field("deliveryStatus") int deliveryStatus,
             @Field("orderTotal") double orderTotal
+
+    );
+
+    //Empty Cart
+    @FormUrlEncoded
+    @POST("emptycart")
+    Call<ResponseBody> emptyCart(
+            @Field("userID") int userID
+    );
+
+    //Book Delivery
+    @FormUrlEncoded
+    @POST("bookdelivery")
+    Call<ResponseBody> bookDelivery(
+            @Field("userID") int userID,
+            @Field("streetNumber") int streetNumber,
+            @Field("streetName") String streetName,
+            @Field("postCode") int postCode,
+            @Field("cityTown") String cityTown
     );
 }

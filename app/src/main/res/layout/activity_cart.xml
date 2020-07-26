@@ -24,7 +24,7 @@
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="75dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
 
@@ -32,10 +32,21 @@
         android:id="@+id/checkoutButton"
         android:layout_width="120dp"
         android:layout_height="50dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_alignParentRight="true"
         android:text="Checkout" />
+
+    <Button
+        android:id="@+id/emptyCartButton"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Empty Cart" />
 
 
 </RelativeLayout>
