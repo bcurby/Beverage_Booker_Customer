@@ -35,8 +35,8 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
     private int creditCardCVV, expiryMonth, expiryYear;
     private long creditCardNumber;
 
-    private String streetName, cityTown;
-    private int streetNumber, postCode, deliveryStatusInt;
+    private String streetNumber, streetName;
+    private int deliveryStatusInt;
     private boolean deliveryStatus;
 
     private RecyclerView mRecyclerView;
@@ -59,10 +59,9 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         expiryMonth = intent.getIntExtra(PaymentActivity.CREDIT_CARD_EXPIRY_MONTH, 0);
         expiryYear = intent.getIntExtra(PaymentActivity.CREDIT_CARD_EXPIRY_YEAR, 0);
 
-        streetNumber = intent.getIntExtra(PaymentActivity.STREET_NUMBER, 0);
+        streetNumber = intent.getStringExtra(PaymentActivity.STREET_NUMBER);
         streetName = intent.getStringExtra(PaymentActivity.STREET_NAME);
-        postCode = intent.getIntExtra(PaymentActivity.POST_CODE, 0);
-        cityTown = intent.getStringExtra(PaymentActivity.CITY_TOWN);
+
         deliveryStatus = intent.getBooleanExtra(PaymentActivity.DELIVERY_STATUS, false);
         if(deliveryStatus == true) {
             deliveryStatusInt = 1;
@@ -174,7 +173,7 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .bookDelivery(userID, streetNumber, streetName, postCode, cityTown);
+                .bookDelivery(userID, streetNumber, streetName);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
