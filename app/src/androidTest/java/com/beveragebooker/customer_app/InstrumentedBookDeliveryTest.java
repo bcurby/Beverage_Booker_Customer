@@ -119,11 +119,11 @@ public class InstrumentedBookDeliveryTest {
         onView(withId(R.id.editTextStreetNumber))
                 .perform(typeText("")); //This is where the error is
         onView(withId(R.id.editTextStreetName))
-                .perform(typeText("StreetName"));
+                .perform(typeText("StreetName"), closeSoftKeyboard());
         onView(withId(R.id.ProceedToPaymentButton))
                 .perform(click());
         onView(withId(R.id.editTextStreetNumber))
-                .check(matches(hasErrorText("Street number must contain something")));
+                .check(matches(hasErrorText("Street number field must contain a street number")));
         onView(withId(R.id.creditCardNumberLayout))
                 .check(doesNotExist());
         onView(withId(R.id.creditCardCVVLayout))
@@ -150,42 +150,11 @@ public class InstrumentedBookDeliveryTest {
         onView(withId(R.id.editTextStreetNumber))
                 .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
-                .perform(typeText("")); //This is where the error is
+                .perform(typeText(""), closeSoftKeyboard()); //This is where the error is
         onView(withId(R.id.ProceedToPaymentButton))
                 .perform(click());
         onView(withId(R.id.editTextStreetName))
-                .check(matches(hasErrorText("Street name must contain something")));
-        onView(withId(R.id.creditCardNumberLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardCVVLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardExpiryLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.openPlaceOrderButton))
-                .check(doesNotExist());
-    }
-
-    /**
-     * Does the same as above - but the error is at postCode now, this
-     * also checks both possible things (postCode isn't long enough and
-     * postCode is not numbers).
-     */
-    @Test
-    public void BookDeliveryE_FillOutInformation_ErrorAtPostCode() {
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
-                .perform(click());
-        onView(withId(R.id.viewCart))
-                .perform(click());
-        onView(withId(R.id.checkoutButton))
-                .perform(click());
-        onView(withId(R.id.DeliveryButton))
-                .perform(click());
-        onView(withId(R.id.editTextStreetNumber))
-                .perform(typeText("123"));
-        onView(withId(R.id.editTextStreetName))
-                .perform(typeText("StreetName"));
-        onView(withId(R.id.ProceedToPaymentButton))
-                .perform(click());
+                .check(matches(hasErrorText("Street name field must contain a street name")));
         onView(withId(R.id.creditCardNumberLayout))
                 .check(doesNotExist());
         onView(withId(R.id.creditCardCVVLayout))
