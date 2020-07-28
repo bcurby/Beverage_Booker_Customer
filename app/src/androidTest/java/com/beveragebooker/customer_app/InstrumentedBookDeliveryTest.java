@@ -120,10 +120,6 @@ public class InstrumentedBookDeliveryTest {
                 .perform(typeText("")); //This is where the error is
         onView(withId(R.id.editTextStreetName))
                 .perform(typeText("StreetName"));
-        //onView(withId(R.id.editTextPostCode))
-              //  .perform(typeText("2700"));
-        //onView(withId(R.id.editTextCityTown))
-              //  .perform(typeText("City"), closeSoftKeyboard());
         onView(withId(R.id.ProceedToPaymentButton))
                 .perform(click());
         onView(withId(R.id.editTextStreetNumber))
@@ -155,10 +151,6 @@ public class InstrumentedBookDeliveryTest {
                 .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
                 .perform(typeText("")); //This is where the error is
-       // onView(withId(R.id.editTextPostCode))
-           //     .perform(typeText("2700"));
-        //onView(withId(R.id.editTextCityTown))
-           //     .perform(typeText("City"), closeSoftKeyboard());
         onView(withId(R.id.ProceedToPaymentButton))
                 .perform(click());
         onView(withId(R.id.editTextStreetName))
@@ -192,14 +184,8 @@ public class InstrumentedBookDeliveryTest {
                 .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
                 .perform(typeText("StreetName"));
-       // onView(withId(R.id.editTextPostCode))
-         //       .perform(typeText("270")); //This is where the error is
-        //onView(withId(R.id.editTextCityTown))
-            //    .perform(typeText("City"), closeSoftKeyboard());
         onView(withId(R.id.ProceedToPaymentButton))
                 .perform(click());
-       // onView(withId(R.id.editTextPostCode))
-           //     .check(matches(hasErrorText("Post code must contain 4 numbers")));
         onView(withId(R.id.creditCardNumberLayout))
                 .check(doesNotExist());
         onView(withId(R.id.creditCardCVVLayout))
