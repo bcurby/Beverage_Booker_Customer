@@ -25,7 +25,7 @@
         <activity android:name=".activities.ProfileActivity" />
         <activity android:name=".activities.BrowseMenu" />
         <activity android:name=".activities.CreateUserActivity" />
-        <activity android:name=".activities.PrimaryMenu" />
+        <activity android:name=".activities.PrimaryMenu"/>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +35,7 @@
         </activity>
 
         <service
-            android:name=".notifications.FirebaseMessagingService"
+            android:name=".notifications.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
