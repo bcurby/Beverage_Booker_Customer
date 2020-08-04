@@ -1,27 +1,23 @@
 package com.beveragebooker.customer_app;
 
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import com.beveragebooker.customer_app.activities.BrowseMenu;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import org.junit.Rule;
-
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-
-import com.beveragebooker.customer_app.R;
-import com.beveragebooker.customer_app.activities.BrowseMenu;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 
 /**
@@ -46,7 +42,7 @@ public class InstrumentedTestForFillCart {
      */
     @Test
     public void ClickAddToCartButton_AddsToCart() {
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
+        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText(""))))
                 .perform(click());
     }
 
