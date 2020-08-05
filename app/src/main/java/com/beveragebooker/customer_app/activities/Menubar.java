@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import com.beveragebooker.customer_app.R;
-
+import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 
 public class Menubar extends Fragment {
@@ -34,7 +34,7 @@ public class Menubar extends Fragment {
         Button homeButton = (Button) view.findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
-                Intent intent = new Intent(Menubar.super.getActivity(), ProfileActivity.class);
+                Intent intent = new Intent(Menubar.super.getActivity(), PrimaryMenu.class);
                 startActivity(intent);
             }
         });
@@ -50,6 +50,14 @@ public class Menubar extends Fragment {
             public void onClick(View view){
                 Intent intent = new Intent(Menubar.super.getActivity(), CartActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        Button signOutMenuButton = (Button) view.findViewById(R.id.signOutMenuButton);
+        signOutMenuButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view){
+                SharedPrefManager.getInstance(Menubar.super.getActivity()).clear();
+                startActivity(new Intent(Menubar.super.getActivity(), MainActivity.class));
             }
         });
     }
