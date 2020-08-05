@@ -14,7 +14,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      *
      * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
      */
-    // [START receive_message]
+    // [START receive_message] remoteMessage is the message value
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // [START_EXCLUDE]
@@ -88,6 +88,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //                .build();
 //        WorkManager.getInstance().beginWith(work).enqueue();
         // [END dispatch_job]
+        Log.d(TAG, "scheduleJob: this is a schedules job");
     }
 
     /**
