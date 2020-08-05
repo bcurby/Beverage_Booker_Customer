@@ -63,11 +63,7 @@ public class BookDeliveryIntegrationTest {
         onView(withId(R.id.editTextStreetNumber))
                 .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
-                .perform(typeText("StreetName"));
-        onView(withId(R.id.editTextPostCode))
-                .perform(typeText("2700"));
-        onView(withId(R.id.editTextCityTown))
-                .perform(typeText("City"), closeSoftKeyboard());
+                .perform(typeText("StreetName"), closeSoftKeyboard());
         onView(withId(R.id.ProceedToPaymentButton))
                 .perform(click());
 

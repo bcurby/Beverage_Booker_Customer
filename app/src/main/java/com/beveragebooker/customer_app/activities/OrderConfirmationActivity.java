@@ -28,7 +28,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         User user = SharedPrefManager.getInstance(this).getUser();
 
         orderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
-                + "\nYour order will be ready for pickup in 15 minutes.");
+                + "\nYour order will be ready shortly.");
 
         returnToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -85,9 +85,7 @@ public interface Api {
     @POST("bookdelivery")
     Call<ResponseBody> bookDelivery(
             @Field("userID") int userID,
-            @Field("streetNumber") int streetNumber,
-            @Field("streetName") String streetName,
-            @Field("postCode") int postCode,
-            @Field("cityTown") String cityTown
+            @Field("streetNumber") String streetNumber,
+            @Field("streetName") String streetName
     );
 }
