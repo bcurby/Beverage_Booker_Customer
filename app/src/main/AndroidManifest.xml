@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.AccountActivity"></activity>
         <activity android:name=".activities.OrderConfirmationActivity" />
         <activity android:name=".activities.PlaceOrderActivity" />
         <activity android:name=".activities.PaymentActivity" />

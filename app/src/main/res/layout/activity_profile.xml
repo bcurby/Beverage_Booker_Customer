@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".activities.ProfileActivity">
 
+    <fragment android:name="com.beveragebooker.customer_app.activities.Menubar"
+        android:id="@+id/menuBarInsert"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
     <TextView
+        android:layout_below="@id/menuBarInsert"
         android:id="@+id/textViewWelcome"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="202dp"
         android:gravity="center" />
 
     <Button
@@ -20,12 +26,12 @@
         android:text="Continue"/>
 
     <Button
-        android:id="@+id/clearButton"
+        android:id="@+id/signOutButton"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_below="@id/continueButton"
         android:layout_centerHorizontal="true"
-        android:text="Clear"/>
+        android:text="Sign Out"/>
 
 
 
