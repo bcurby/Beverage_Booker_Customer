@@ -31,7 +31,7 @@ public class SignOutIntegrationTest {
      * on the Profile Activity Page.
      */
     @Test
-    public void SignOutOfProfileActivity() {
+    public void SignOut() {
         // Login
             onView(withId(R.id.loginText))
                     .check(matches(isDisplayed()));
@@ -52,18 +52,6 @@ public class SignOutIntegrationTest {
             onView(withId(R.id.signOutButton))
                     .perform(click());
 
-        // Checking we are back on Login Screen
-            onView(withId(R.id.loginText))
-                    .check(matches(isDisplayed()));
-
-    }
-
-    /**
-     * This second test checks the functionality of all the buttons on the
-     * menu bar and eventually signing out of the app.
-     */
-    @Test
-    public void SignOutOfMenuBar() {
         // Login
             onView(withId(R.id.loginText))
                     .check(matches(isDisplayed()));
