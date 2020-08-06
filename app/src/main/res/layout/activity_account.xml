@@ -11,4 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 
+    <TextView
+        android:id="@+id/accountTitle"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="150dp"
+        android:text="Account Page"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="18dp"/>
+
 </RelativeLayout>
