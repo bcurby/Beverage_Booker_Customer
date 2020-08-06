@@ -37,7 +37,7 @@ public class SignOutIntegrationTest {
                     .check(matches(isDisplayed()));
 
             onView(withId(R.id.editTextEmailLogin))
-            .perform(typeText("jaketest@gmail.com"));
+                    .perform(typeText("jaketest@gmail.com"), closeSoftKeyboard());
 
             onView(withId(R.id.editTextPasswordLogin))
                     .perform(typeText("test123"), closeSoftKeyboard());
@@ -69,7 +69,7 @@ public class SignOutIntegrationTest {
                     .check(matches(isDisplayed()));
 
             onView(withId(R.id.editTextEmailLogin))
-                    .perform(typeText("jaketest@gmail.com"));
+                    .perform(typeText("jaketest@gmail.com"), closeSoftKeyboard());
 
             onView(withId(R.id.editTextPasswordLogin))
                     .perform(typeText("test123"), closeSoftKeyboard());
@@ -92,7 +92,7 @@ public class SignOutIntegrationTest {
                     .perform(click());
 
         // Cart Button
-            onView(withId(R.id.textViewWelcome))
+            onView(withId(R.id.editText2))
                     .check(matches(isDisplayed()));
 
             onView(withId(R.id.cartButton))
