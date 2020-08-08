@@ -14,7 +14,6 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".activities.OrderConfirmationActivity" />
         <activity android:name=".activities.PlaceOrderActivity" />
-        <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.BookDeliveryActivity" />
         <activity android:name=".activities.SelectOrderTypeActivity" />
         <activity android:name=".activities.CartActivity" />
