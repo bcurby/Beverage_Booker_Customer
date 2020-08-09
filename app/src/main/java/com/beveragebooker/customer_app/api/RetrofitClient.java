@@ -1,8 +1,6 @@
 package com.beveragebooker.customer_app.api;
 
 
-import android.util.Base64;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -14,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://192.168.86.153/BeverageApi/public/";
+    private static final String BASE_URL = "https://192.168.86.153/BeverageApi/public/";
 
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
