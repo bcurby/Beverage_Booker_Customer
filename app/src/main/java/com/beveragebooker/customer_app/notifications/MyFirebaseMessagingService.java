@@ -2,8 +2,14 @@ package com.beveragebooker.customer_app.notifications;
 
 import android.util.Log;
 
+import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -76,12 +82,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
-        sendRegistrationToServer(token);
+
     }
 
-    private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to app server.
+    public static void sendRegistrationToServer(String token) {
+
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .addToken(token);
+
+        call.enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if(response.code() ==501){
+                    Log.d(TAG,"The token has been received");
+                }
+                else if (response.code() == 502){
+                    Log.d(TAG, "The token was not received");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+
+
+            }
+        });
     }
+
     private void scheduleJob() {
         // [START dispatch_job]
 //        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(MyWorker.class)
