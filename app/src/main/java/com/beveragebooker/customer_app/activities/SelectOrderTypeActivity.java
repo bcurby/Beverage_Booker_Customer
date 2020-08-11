@@ -11,15 +11,21 @@ import com.beveragebooker.customer_app.R;
 
 public class SelectOrderTypeActivity extends AppCompatActivity {
 
-    public static final String DELIVERY_STATUS = "com.beveragebooker.customer_app.DELIVERY_STATUS";
+    public static String CART_TOTAL_ORDER_TYPE = "com.beveragebooker.customer_app.CART_TOTAL_ORDER_TYPE";
 
     private Button PickUpButton;
     private Button DeliveryButton;
+
+    private String orderTotal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_order_type);
+
+        Intent intent = getIntent();
+        orderTotal = intent.getStringExtra(CartActivity.CART_TOTAL);
 
         //PickUp Button
         PickUpButton = findViewById(R.id.PickUpButton);
@@ -42,12 +48,16 @@ public class SelectOrderTypeActivity extends AppCompatActivity {
     }
 
     private void goToPayment() {
-        Intent intent = new Intent(this, PaymentActivity.class );
+        System.out.println("Order Test2: " + orderTotal);
+        Intent intent = new Intent(this, PlaceOrderActivity.class );
+        intent.putExtra(CART_TOTAL_ORDER_TYPE, orderTotal);
         startActivity(intent);
     }
 
     private void goToBookDelivery() {
+        System.out.println("Order Test2: " + orderTotal);
         Intent intent = new Intent(this, BookDeliveryActivity.class );
+        intent.putExtra(CART_TOTAL_ORDER_TYPE, orderTotal);
         startActivity(intent);
     }
 
