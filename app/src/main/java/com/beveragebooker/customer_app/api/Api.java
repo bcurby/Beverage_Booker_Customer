@@ -91,8 +91,8 @@ public interface Api {
     @FormUrlEncoded
     @POST("notificationtoken")
     Call<ResponseBody> addToken(
-            @Field("token") String token
-            //@Field("userID") int userID
+            @Field("token") String token,
+            @Field("email") String email
     );
 
 

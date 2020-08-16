@@ -3,6 +3,7 @@ package com.beveragebooker.customer_app.notifications;
 import android.util.Log;
 
 import com.beveragebooker.customer_app.api.RetrofitClient;
+import com.beveragebooker.customer_app.models.User;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -82,15 +83,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
+        //sendRegistrationToServer(token);
+       // int userID = User.getId();
+        //Log.d(TAG, String.valueOf(userID));
+        Log.d(TAG, "This has been called");
+        //sendRegistrationToServer(token, userID);
 
     }
 
-    public static void sendRegistrationToServer(String token) {
+    public static void sendRegistrationToServer(String token, String email) {
 
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .addToken(token);
+                .addToken(token, email);
 
         call.enqueue(new Callback<ResponseBody>() {
 
@@ -104,6 +110,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     Log.d(TAG, "The token was not received");
                 }
 
+                String msg = String.valueOf(response.code());
+                Log.d(TAG, msg);
             }
 
             @Override
