@@ -11,14 +11,13 @@ import android.widget.Toast;
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.LoginResponse;
-import com.beveragebooker.customer_app.models.User;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-
+import org.jetbrains.annotations.NotNull;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,8 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
 
         setContentView(R.layout.activity_main);
 
@@ -97,14 +94,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(@NotNull Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 
                 if(response.code() == 202) {
 
                     //Proceed with Login
+                    assert loginResponse != null;
                     SharedPrefManager.getInstance(MainActivity.this)
                             .saveUser(loginResponse.getUser());
+                    //send the token to the server
                     sendToken();
                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(@NotNull Call<LoginResponse> call, @NotNull Throwable t) {
 
             }
         });
@@ -146,7 +145,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //Method to send the token to the server using the email address during login
+
     public void sendToken(){
+
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -155,14 +157,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.w(TAG, "getInstanceId failed", task.getException());
                             return;
                         }
+                        // Get the email address for user identification
                         String email = editTextEmail.getText().toString().trim();
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
 
                         // Log and toast
-                        String msg = token;
-                        Log.d(TAG, msg );
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, token);
+                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
                         sendRegistrationToServer(token, email);
 
                     }
