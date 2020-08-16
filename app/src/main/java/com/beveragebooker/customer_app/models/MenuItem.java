@@ -12,6 +12,10 @@ public class MenuItem {
 
     private int quantity;
 
+    private int milk;
+
+    private int sugar;
+
 
     public MenuItem(int id, String name, String description, double price) {
         this.id = id;
@@ -20,12 +24,16 @@ public class MenuItem {
         this.price = price;
     }
 
-    public MenuItem(int id, String name, String description, double price, int quantity) {
+    public MenuItem(int id, String name, String description, double price, int quantity,
+                    int milk, int sugar) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
+        this.milk = milk;
+        this.sugar = sugar;
+
     }
 
     public MenuItem(int id, double price) {
@@ -53,6 +61,14 @@ public class MenuItem {
 
     public double getPrice() {
         return price;
+    }
+
+    public int getMilk() {
+        return milk;
+    }
+
+    public int getSugar() {
+        return sugar;
     }
 
 

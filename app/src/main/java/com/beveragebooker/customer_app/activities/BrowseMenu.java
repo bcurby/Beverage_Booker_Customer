@@ -35,6 +35,12 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.*;
 
 public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnItemClickListener {
 
+    public static final String ITEM_ID = "com.beveragebooker.customer_app.ITEM_ID";
+    public static final String ITEM_NAME = "com.beveragebooker.customer_app.ITEM_NAME";
+    public static final String ITEM_PRICE = "com.beveragebooker.customer_app.ITEM_PRICE";
+    public static final String ITEM_MILK = "com.beveragebooker.customer_app.ITEM_MILK";
+    public static final String ITEM_SUGAR = "com.beveragebooker.customer_app.ITEM_SUGAR";
+
     private RecyclerView mRecyclerView;
 
     //Added Fill Cart
@@ -78,8 +84,6 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
             @Override
             public void onItemClick(int position) {
 
-                goToAddToCart();
-
                 //Item ID of clicked item
                 int itemID = mMenuItems.get(position).getId();
 
@@ -106,9 +110,18 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 int itemQuantity = itemClicked.getQuantity();
                 System.out.println("Quantity: " + itemQuantity);
 
+                int milkStatus = itemClicked.getMilk();
+                System.out.printf("Milk: %d%n", milkStatus);
+
+                int sugarStatus = itemClicked.getSugar();
+                System.out.printf("Sugar: %d%n", sugarStatus);
+
+                goToAddToCart(itemID, itemTitle, itemPrice, milkStatus, sugarStatus);
+
                 //Set cart status to active cart
                 //String cartStatus = "active";
 
+                /*
                 Call<ResponseBody> call = RetrofitClient
                         .getInstance()
                         .getApi()
@@ -134,7 +147,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                                 Toast.LENGTH_LONG).show();
 
                     }
-                });
+                });*/
             }
         });
 
@@ -163,8 +176,15 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
 
     }
 
-    private void goToAddToCart() {
+    private void goToAddToCart(int itemID, String itemTitle, double itemPrice, int milkStatus, int sugarStatus) {
+
         Intent intent = new Intent(this, AddToCartActivity.class);
+        intent.putExtra(ITEM_ID, itemID);
+        intent.putExtra(ITEM_NAME, itemTitle);
+        intent.putExtra(ITEM_PRICE, itemPrice);
+        intent.putExtra(ITEM_MILK, milkStatus);
+        intent.putExtra(ITEM_SUGAR, sugarStatus);
+
         startActivity(intent);
     }
 

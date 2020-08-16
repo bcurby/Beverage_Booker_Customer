@@ -2,6 +2,7 @@ package com.beveragebooker.customer_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -11,6 +12,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.beveragebooker.customer_app.R;
+import com.beveragebooker.customer_app.models.User;
+
+import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInstance;
 
 public class AddToCartActivity extends AppCompatActivity {
 
@@ -19,6 +23,15 @@ public class AddToCartActivity extends AppCompatActivity {
     RadioGroup radioGroupMilk;
     RadioGroup radioGroupSugar;
 
+    int userID;
+    int itemID;
+    String itemTitle;
+    double itemPrice;
+
+    int milk;
+    int sugar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +39,23 @@ public class AddToCartActivity extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.linearLayout);
 
-        int milk = 1;
-        int sugar = 1;
+        Intent intent = getIntent();
+        itemID = intent.getIntExtra(BrowseMenu.ITEM_ID, 0);
+        itemTitle = intent.getStringExtra(BrowseMenu.ITEM_NAME);
+        itemPrice = intent.getDoubleExtra(BrowseMenu.ITEM_PRICE,0);
+
+        milk = intent.getIntExtra(BrowseMenu.ITEM_MILK, 0);
+        sugar = intent.getIntExtra(BrowseMenu.ITEM_SUGAR, 0);
+
+        final User loggedUser = getInstance(AddToCartActivity.this).getUser();
+        userID = loggedUser.getId();
+
+        System.out.println("UserID: " + userID);
+        System.out.println("ItemID: " + itemID);
+        System.out.println("Item Name: " + itemTitle);
+        System.out.println("Price: " + itemPrice);
+        System.out.println("Milk: " + milk);
+        System.out.println("Sugar: " + sugar);
 
         initViews(milk, sugar);
         setListeners(milk, sugar);
