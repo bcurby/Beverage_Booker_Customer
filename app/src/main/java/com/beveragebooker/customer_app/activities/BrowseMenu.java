@@ -78,6 +78,8 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
             @Override
             public void onItemClick(int position) {
 
+                goToAddToCart();
+
                 //Item ID of clicked item
                 int itemID = mMenuItems.get(position).getId();
 
@@ -159,6 +161,11 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
             }
         });
 
+    }
+
+    private void goToAddToCart() {
+        Intent intent = new Intent(this, AddToCartActivity.class);
+        startActivity(intent);
     }
 
 
