@@ -1,6 +1,9 @@
 package com.beveragebooker.customer_app.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -11,6 +14,7 @@ import android.widget.Toast;
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.LoginResponse;
+import com.beveragebooker.customer_app.notifications.NotificationOutput;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +32,9 @@ import retrofit2.Response;
 import static com.beveragebooker.customer_app.notifications.MyFirebaseMessagingService.sendRegistrationToServer;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+    public static final String CHANNEL_ID = "beverageBooker";
+    private static final String CHANNEL_NAME = "orderReady";
+    private static final String CHANNEL_DESC = "notify customer order is ready";
     private EditText editTextEmail;
     private EditText editTextPassword;
     private static final String TAG = "MainActivity";
@@ -36,6 +42,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+
 
         setContentView(R.layout.activity_main);
 
@@ -172,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    }
 
-
-}
 

@@ -53,10 +53,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.5.0'
     implementation 'androidx.work:work-runtime:2.4.0'
     implementation 'com.android.support:multidex:1.0.3'
-
+    implementation 'com.google.gms:google-services:4.3.3'
     //Testing
     implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.0'
+    //noinspection GradleDependency
     testImplementation 'junit:junit:4.12'
+    //noinspection GradleDependency
     testImplementation 'org.mockito:mockito-core:1.10.19'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -64,12 +66,15 @@ dependencies {
     testImplementation 'com.github.nimblehq:robolectric.shadows-supportv4:4.1-SNAPSHOT'
 
     //Retrofit
+    //noinspection GradleDependency
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
 
     //Gson Converter
+    //noinspection GradleDependency
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     //Okhttp3
+    //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
 
     //noinspection GradleCompatible
