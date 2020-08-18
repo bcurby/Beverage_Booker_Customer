@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -31,6 +33,11 @@ public class AddToCartActivity extends AppCompatActivity {
     RadioGroup radioGroupMilk;
     RadioGroup radioGroupSugar;
 
+    CheckBox vanilla;
+    CheckBox caramel;
+    CheckBox chocolate;
+    CheckBox whippedCream;
+
     int userID;
     int itemID;
     String itemTitle;
@@ -38,9 +45,18 @@ public class AddToCartActivity extends AppCompatActivity {
     int itemQuantity;
     String itemMilk;
     String itemSugar;
+    String itemVanilla;
+    String itemCaramel;
+    String itemChocolate;
+    String itemWhippedCream;
+    String itemFrappe;
+    String itemHeated;
 
-    int milk;
-    int sugar;
+    int milkStatus;
+    int sugarStatus;
+    int extrasStatus;
+    int frappeStatus;
+    int heatedStatus;
 
     Button addToCartButton;
 
@@ -57,8 +73,11 @@ public class AddToCartActivity extends AppCompatActivity {
         itemTitle = intent.getStringExtra(BrowseMenu.ITEM_NAME);
         itemPrice = intent.getDoubleExtra(BrowseMenu.ITEM_PRICE,0);
 
-        milk = intent.getIntExtra(BrowseMenu.ITEM_MILK, 0);
-        sugar = intent.getIntExtra(BrowseMenu.ITEM_SUGAR, 0);
+        milkStatus = intent.getIntExtra(BrowseMenu.ITEM_MILK, 0);
+        sugarStatus = intent.getIntExtra(BrowseMenu.ITEM_SUGAR, 0);
+        extrasStatus = intent.getIntExtra(BrowseMenu.ITEM_EXTRAS, 0);
+        frappeStatus = intent.getIntExtra(BrowseMenu.ITEM_FRAPPE, 0);
+        heatedStatus = intent.getIntExtra(BrowseMenu.ITEM_HEATED, 0);
 
         final User loggedUser = getInstance(AddToCartActivity.this).getUser();
         userID = loggedUser.getId();
@@ -69,26 +88,43 @@ public class AddToCartActivity extends AppCompatActivity {
         System.out.println("ItemID: " + itemID);
         System.out.println("Item Name: " + itemTitle);
         System.out.println("Price: " + itemPrice);
-        System.out.println("Milk: " + milk);
-        System.out.println("Sugar: " + sugar);
+        System.out.println("Milk: " + milkStatus);
+        System.out.println("Sugar: " + sugarStatus);
+        System.out.println("Extras: " + extrasStatus);
+        System.out.println("Frappe: " + frappeStatus);
+        System.out.println("Heated: " + heatedStatus);
 
-        itemMilk = "soy milk";
+        itemMilk = "-";
+        itemSugar = "-";
+        itemVanilla = "-";
+        itemCaramel = "-";
+        itemChocolate = "-";
+        itemWhippedCream = "-";
+        itemFrappe = "-";
+        itemHeated = "-";
 
-        itemSugar = "sugar";
+        System.out.println("Item Milk: " + itemMilk);
         System.out.println("Item Sugar: " + itemSugar);
+        System.out.println("Item Frappe: " + itemFrappe);
+        System.out.println("Item Heated: " + itemHeated);
 
-        initViews(milk, sugar);
-        setListeners(milk, sugar);
+        initViews(milkStatus, sugarStatus, extrasStatus);
+        setListeners(milkStatus, sugarStatus, extrasStatus);
 
         addToCartButton = findViewById(R.id.addToCartButton);
         addToCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                System.out.println("Item Milk: " + itemMilk);
+                System.out.println("Item Sugar: " + itemSugar);
+
                 Call<ResponseBody> call = RetrofitClient
                         .getInstance()
                         .getApi()
-                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, itemMilk, itemSugar);
+                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, itemMilk,
+                                itemSugar, itemVanilla, itemCaramel, itemChocolate,
+                                itemWhippedCream, itemFrappe, itemHeated);
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -96,6 +132,8 @@ public class AddToCartActivity extends AppCompatActivity {
 
                         if (response.code() == 200) {
                             Toast.makeText(AddToCartActivity.this, "Item added to cart", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(AddToCartActivity.this, BrowseMenu.class);
+                            startActivity(intent);
 
                         } else if (response.code() == 403) {
                             Toast.makeText(AddToCartActivity.this, "Item already in cart",
@@ -116,67 +154,119 @@ public class AddToCartActivity extends AppCompatActivity {
 
     }
 
-    private void initViews(int milk, int sugar) {
+    private void initViews(int milkStatus, int sugarStatus, int extrasStatus) {
 
-        if (milk == 1) {
+        if (milkStatus == 1) {
 
             View milkView = getLayoutInflater().inflate(R.layout.milk_selection, null, false);
             linearLayout.addView(milkView);
         }
-        if (sugar == 1) {
+
+        if (sugarStatus == 1) {
             View sugarView = getLayoutInflater().inflate(R.layout.sugar_selection, null, false);
             linearLayout.addView(sugarView);
         }
+
+        if (extrasStatus == 1) {
+            View extrasView = getLayoutInflater().inflate(R.layout.extras_selection, null, false);
+            linearLayout.addView(extrasView);
+        }
     }
 
-    private void setListeners(int milk, int sugar) {
+    private void setListeners(int milkStatus, int sugarStatus, int extrasStatus) {
 
-        if (milk == 1) {
+        if (milkStatus == 1) {
             radioGroupMilk = findViewById(R.id.milkRadioGroup);
             radioGroupMilk.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if (checkedId == R.id.fullCream) {
-                        String milkSelection = "full cream milk";
-                        System.out.println(milkSelection);
+                        itemMilk = "full cream milk";
+                        System.out.println(itemMilk);
                     }
 
                     if (checkedId == R.id.skim) {
-                        String milkSelection = "skim milk";
-                        System.out.println(milkSelection);
+                        itemMilk = "skim milk";
+                        System.out.println(itemMilk);
                     }
 
                     if (checkedId == R.id.almond) {
-                        String milkSelection = "almond milk";
-                        System.out.println(milkSelection);
+                        itemMilk = "almond milk";
+                        System.out.println(itemMilk);
                     }
 
                     if (checkedId == R.id.soy) {
-                        String milkSelection = "soy milk";
-                        System.out.println(milkSelection);
+                        itemMilk = "soy milk";
+                        System.out.println(itemMilk);
                     }
                 }
             });
-
         }
-        if (sugar == 1) {
+
+        if (sugarStatus == 1) {
             radioGroupSugar = findViewById(R.id.sugarRadioGroup);
             radioGroupSugar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if (checkedId == R.id.sugar) {
-                        String sugarSelection = "sugar";
-                        System.out.println(sugarSelection);
+                        itemSugar = "sugar";
+                        System.out.println(itemSugar);
                     }
 
                     if (checkedId == R.id.sweetener) {
-                        String sugarSelection = "sweetener";
-                        System.out.println(sugarSelection);
+                        itemSugar = "sweetener";
+                        System.out.println(itemSugar);
                     }
 
                     if (checkedId == R.id.noSugar) {
-                        String sugarSelection = "no sugar/sweetener";
-                        System.out.println(sugarSelection);
+                        itemSugar = "no sugar/sweetener";
+                        System.out.println(itemSugar);
+                    }
+                }
+            });
+        }
+
+        if (extrasStatus == 1) {
+            vanilla = findViewById(R.id.vanilla);
+            vanilla.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (vanilla.isChecked()) {
+                        itemVanilla = "vanilla";
+                        System.out.println(itemVanilla);
+                    }
+                }
+            });
+
+            caramel = findViewById(R.id.caramel);
+            caramel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (caramel.isChecked()) {
+                        itemCaramel = "caramel";
+                        System.out.println(itemCaramel);
+                    }
+                }
+            });
+
+            chocolate = findViewById(R.id.chocolate);
+            chocolate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (chocolate.isChecked()) {
+                        itemChocolate = "chocolate";
+                        System.out.println(itemChocolate);
+                    }
+                }
+            });
+
+            whippedCream = findViewById(R.id.whippedCream);
+            whippedCream.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (whippedCream.isChecked()) {
+                        itemWhippedCream = "whipped cream";
+                        System.out.println(itemWhippedCream);
                     }
                 }
             });

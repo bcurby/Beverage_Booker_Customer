@@ -40,6 +40,9 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     public static final String ITEM_PRICE = "com.beveragebooker.customer_app.ITEM_PRICE";
     public static final String ITEM_MILK = "com.beveragebooker.customer_app.ITEM_MILK";
     public static final String ITEM_SUGAR = "com.beveragebooker.customer_app.ITEM_SUGAR";
+    public static final String ITEM_EXTRAS = "com.beveragebooker.customer_app.ITEM_EXTRAS";
+    public static final String ITEM_FRAPPE = "com.beveragebooker.customer_app.ITEM_FRAPPE";
+    public static final String ITEM_HEATED = "com.beveragebooker.customer_app.ITEM_HEATED";
 
     private RecyclerView mRecyclerView;
 
@@ -116,7 +119,17 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 int sugarStatus = itemClicked.getSugar();
                 System.out.printf("Sugar: %d%n", sugarStatus);
 
-                goToAddToCart(itemID, itemTitle, itemPrice, milkStatus, sugarStatus);
+                int extrasStatus = itemClicked.getExtras();
+                System.out.printf("Extras: %d%n", extrasStatus);
+
+                int frappeStatus = itemClicked.getFrappe();
+                System.out.printf("Frappe: %d%n", frappeStatus);
+
+                int heatedStatus = itemClicked.getHeated();
+                System.out.printf("Heated: %d%n", heatedStatus);
+
+                goToAddToCart(itemID, itemTitle, itemPrice, milkStatus, sugarStatus,
+                        extrasStatus, frappeStatus, heatedStatus);
 
                 //Set cart status to active cart
                 //String cartStatus = "active";
@@ -176,7 +189,8 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
 
     }
 
-    private void goToAddToCart(int itemID, String itemTitle, double itemPrice, int milkStatus, int sugarStatus) {
+    private void goToAddToCart(int itemID, String itemTitle, double itemPrice, int milkStatus,
+                               int sugarStatus, int extrasStatus, int frappeStatus, int heatedStatus) {
 
         Intent intent = new Intent(this, AddToCartActivity.class);
         intent.putExtra(ITEM_ID, itemID);
@@ -184,6 +198,9 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
         intent.putExtra(ITEM_PRICE, itemPrice);
         intent.putExtra(ITEM_MILK, milkStatus);
         intent.putExtra(ITEM_SUGAR, sugarStatus);
+        intent.putExtra(ITEM_EXTRAS, extrasStatus);
+        intent.putExtra(ITEM_FRAPPE, frappeStatus);
+        intent.putExtra(ITEM_HEATED, heatedStatus);
 
         startActivity(intent);
     }
