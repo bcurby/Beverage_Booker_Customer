@@ -56,7 +56,9 @@ public interface Api {
             @Field("itemID") int itemID,
             @Field("itemTitle") String itemTitle,
             @Field("itemPrice") double itemPrice,
-            @Field("itemQuantity") int itemQuantity
+            @Field("itemQuantity") int itemQuantity,
+            @Field("itemMilk") String itemMilk,
+            @Field("itemSugar") String itemSugar
     );
 
     //Place an Order
