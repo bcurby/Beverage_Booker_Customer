@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.User;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -32,11 +33,16 @@ public class AddToCartActivity extends AppCompatActivity {
 
     RadioGroup radioGroupMilk;
     RadioGroup radioGroupSugar;
+    RadioGroup radioGroupFrappe;
 
     CheckBox vanilla;
     CheckBox caramel;
     CheckBox chocolate;
     CheckBox whippedCream;
+
+    CheckBox heated;
+
+    ElegantNumberButton qtyButton;
 
     int userID;
     int itemID;
@@ -108,8 +114,8 @@ public class AddToCartActivity extends AppCompatActivity {
         System.out.println("Item Frappe: " + itemFrappe);
         System.out.println("Item Heated: " + itemHeated);
 
-        initViews(milkStatus, sugarStatus, extrasStatus);
-        setListeners(milkStatus, sugarStatus, extrasStatus);
+        initViews(milkStatus, sugarStatus, extrasStatus, frappeStatus, heatedStatus);
+        setListeners(milkStatus, sugarStatus, extrasStatus, frappeStatus, heatedStatus);
 
         addToCartButton = findViewById(R.id.addToCartButton);
         addToCartButton.setOnClickListener(new View.OnClickListener() {
@@ -152,9 +158,18 @@ public class AddToCartActivity extends AppCompatActivity {
             }
         });
 
+        qtyButton = findViewById(R.id.qtyButton);
+        qtyButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String stringItemQuantity = qtyButton.getNumber();
+                itemQuantity = Integer.parseInt(stringItemQuantity);
+                System.out.println("Qty: " + itemQuantity);
+            }
+        });
     }
 
-    private void initViews(int milkStatus, int sugarStatus, int extrasStatus) {
+    private void initViews(int milkStatus, int sugarStatus, int extrasStatus, int frappeStatus, int heatedStatus) {
 
         if (milkStatus == 1) {
 
@@ -171,9 +186,19 @@ public class AddToCartActivity extends AppCompatActivity {
             View extrasView = getLayoutInflater().inflate(R.layout.extras_selection, null, false);
             linearLayout.addView(extrasView);
         }
+
+        if (frappeStatus == 1) {
+            View frappeView = getLayoutInflater().inflate(R.layout.frappe_selection, null, false);
+            linearLayout.addView(frappeView);
+        }
+
+        if (heatedStatus == 1) {
+            View heatedView = getLayoutInflater().inflate(R.layout.heated_selection, null, false);
+            linearLayout.addView(heatedView);
+        }
     }
 
-    private void setListeners(int milkStatus, int sugarStatus, int extrasStatus) {
+    private void setListeners(int milkStatus, int sugarStatus, int extrasStatus, int frappeStatus, int heatedStatus) {
 
         if (milkStatus == 1) {
             radioGroupMilk = findViewById(R.id.milkRadioGroup);
@@ -267,6 +292,47 @@ public class AddToCartActivity extends AppCompatActivity {
                     if (whippedCream.isChecked()) {
                         itemWhippedCream = "whipped cream";
                         System.out.println(itemWhippedCream);
+                    }
+                }
+            });
+        }
+
+        if (frappeStatus == 1) {
+            radioGroupFrappe = findViewById(R.id.frappeRadioGroup);
+            radioGroupFrappe.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    if (checkedId == R.id.chocolateFrappe) {
+                        itemFrappe = "chocolate";
+                        System.out.println(itemFrappe);
+                    }
+
+                    if (checkedId == R.id.caramelFrappe) {
+                        itemFrappe = "caramel";
+                        System.out.println(itemFrappe);
+                    }
+
+                    if (checkedId == R.id.coffeeFrappe) {
+                        itemFrappe = "coffee";
+                        System.out.println(itemFrappe);
+                    }
+
+                    if (checkedId == R.id.mochaFrappe) {
+                        itemFrappe = "mocha";
+                        System.out.println(itemFrappe);
+                    }
+                }
+            });
+        }
+
+        if (heatedStatus == 1) {
+            heated = findViewById(R.id.heated);
+            heated.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (heated.isChecked()) {
+                        itemHeated = "heated";
+                        System.out.println(itemHeated);
                     }
                 }
             });

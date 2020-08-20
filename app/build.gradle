@@ -84,4 +84,7 @@ dependencies {
     implementation 'com.stripe:stripe-android:14.4.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+
+    //Elegant Number Button
+    implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 }
