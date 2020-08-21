@@ -12,7 +12,8 @@
     <RadioGroup
         android:id="@+id/frappeRadioGroup"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/chocolateFrappe">
 
         <RadioButton
             android:id="@+id/chocolateFrappe"

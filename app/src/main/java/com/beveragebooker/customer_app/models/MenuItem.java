@@ -16,6 +16,8 @@ public class MenuItem {
 
     private int sugar;
 
+    private int decaf;
+
     private int extras;
 
     private int frappe;
@@ -31,7 +33,7 @@ public class MenuItem {
     }
 
     public MenuItem(int id, String name, String description, double price, int quantity,
-                    int milk, int sugar, int extras, int frappe, int heated) {
+                    int milk, int sugar, int decaf, int extras, int frappe, int heated) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,6 +41,7 @@ public class MenuItem {
         this.quantity = quantity;
         this.milk = milk;
         this.sugar = sugar;
+        this.decaf = decaf;
         this.extras = extras;
         this.frappe = frappe;
         this.heated = heated;
@@ -73,6 +76,10 @@ public class MenuItem {
 
     public int getMilk() {
         return milk;
+    }
+
+    public int getDecaf() {
+        return decaf;
     }
 
     public int getSugar() {

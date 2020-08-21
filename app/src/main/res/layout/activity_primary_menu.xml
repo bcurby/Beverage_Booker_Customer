@@ -13,6 +13,14 @@
 
     <Button
         android:layout_below="@id/editText2"
+        android:id="@+id/foodMenuButton"
+        android:layout_width="285dp"
+        android:layout_height="wrap_content"
+        android:text="Food"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_below="@id/foodMenuButton"
         android:id="@+id/menuLink"
         android:layout_width="285dp"
         android:layout_height="wrap_content"

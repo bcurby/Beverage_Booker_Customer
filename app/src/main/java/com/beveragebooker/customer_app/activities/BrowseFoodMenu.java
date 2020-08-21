@@ -33,17 +33,18 @@ import retrofit2.Response;
 
 import static com.beveragebooker.customer_app.storage.SharedPrefManager.*;
 
-public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnItemClickListener {
+public class BrowseFoodMenu extends AppCompatActivity implements RecyclerAdapter.OnItemClickListener {
 
-    public static final String ITEM_ID = "com.beveragebooker.customer_app.ITEM_ID";
-    public static final String ITEM_NAME = "com.beveragebooker.customer_app.ITEM_NAME";
-    public static final String ITEM_PRICE = "com.beveragebooker.customer_app.ITEM_PRICE";
-    public static final String ITEM_MILK = "com.beveragebooker.customer_app.ITEM_MILK";
-    public static final String ITEM_DECAF = "com.beveragebooker.customer_app.ITEM_DECAF";
-    public static final String ITEM_SUGAR = "com.beveragebooker.customer_app.ITEM_SUGAR";
-    public static final String ITEM_EXTRAS = "com.beveragebooker.customer_app.ITEM_EXTRAS";
-    public static final String ITEM_FRAPPE = "com.beveragebooker.customer_app.ITEM_FRAPPE";
-    public static final String ITEM_HEATED = "com.beveragebooker.customer_app.ITEM_HEATED";
+    public static final String ITEM_ID_FOOD = "com.beveragebooker.customer_app.ITEM_ID_FOOD";
+    public static final String ITEM_NAME_FOOD = "com.beveragebooker.customer_app.ITEM_NAME_FOOD";
+    public static final String ITEM_PRICE_FOOD = "com.beveragebooker.customer_app.ITEM_PRICE_FOOD";
+    public static final String ITEM_MILK_FOOD = "com.beveragebooker.customer_app.ITEM_MILK_FOOD";
+    public static final String ITEM_DECAF_FOOD = "com.beveragebooker.customer_app.ITEM_DECAF_FOOD";
+    public static final String ITEM_SUGAR_FOOD = "com.beveragebooker.customer_app.ITEM_SUGAR_FOOD";
+    public static final String ITEM_EXTRAS_FOOD = "com.beveragebooker.customer_app.ITEM_EXTRAS_FOOD";
+    public static final String ITEM_FRAPPE_FOOD = "com.beveragebooker.customer_app.ITEM_FRAPPE_FOOD";
+    public static final String ITEM_HEATED_FOOD = "com.beveragebooker.customer_app.ITEM_HEATED_FOOD";
+    public static final String ITEM_TYPE_FOOD = "com.beveragebooker.customer_app.ITEM_TYPE_FOOD";
 
     private RecyclerView mRecyclerView;
 
@@ -54,7 +55,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     //View Cart Button
     private Button viewCart;
 
-    private String itemType = "drink";
+    private String itemType = "food";
 
 
     @Override
@@ -99,7 +100,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 System.out.println("Item ID: " +itemID);
 
                 //Logged in User ID
-                final User loggedUser = getInstance(BrowseMenu.this).getUser();
+                final User loggedUser = getInstance(BrowseFoodMenu.this).getUser();
                 int userID = loggedUser.getId();
                 System.out.println("UserID: " + userID);
 
@@ -180,7 +181,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
                 if (response.code() == 200) {
                     for (int i = 0; i < response.body().size(); i++) {
-                            mMenuItems.add(response.body().get(i));
+                        mMenuItems.add(response.body().get(i));
                     }
 
                     mRecyclerAdapter.notifyDataSetChanged();
@@ -189,7 +190,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
 
             @Override
             public void onFailure(Call<List<MenuItem>> call, Throwable t) {
-                Toast.makeText(BrowseMenu.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(BrowseFoodMenu.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -199,15 +200,16 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                                int sugarStatus, int decafStatus, int extrasStatus, int frappeStatus, int heatedStatus) {
 
         Intent intent = new Intent(this, AddToCartActivity.class);
-        intent.putExtra(ITEM_ID, itemID);
-        intent.putExtra(ITEM_NAME, itemTitle);
-        intent.putExtra(ITEM_PRICE, itemPrice);
-        intent.putExtra(ITEM_MILK, milkStatus);
-        intent.putExtra(ITEM_SUGAR, sugarStatus);
-        intent.putExtra(ITEM_DECAF, decafStatus);
-        intent.putExtra(ITEM_EXTRAS, extrasStatus);
-        intent.putExtra(ITEM_FRAPPE, frappeStatus);
-        intent.putExtra(ITEM_HEATED, heatedStatus);
+        intent.putExtra(ITEM_ID_FOOD, itemID);
+        intent.putExtra(ITEM_NAME_FOOD, itemTitle);
+        intent.putExtra(ITEM_PRICE_FOOD, itemPrice);
+        intent.putExtra(ITEM_MILK_FOOD, milkStatus);
+        intent.putExtra(ITEM_SUGAR_FOOD, sugarStatus);
+        intent.putExtra(ITEM_DECAF_FOOD, decafStatus);
+        intent.putExtra(ITEM_EXTRAS_FOOD, extrasStatus);
+        intent.putExtra(ITEM_FRAPPE_FOOD, frappeStatus);
+        intent.putExtra(ITEM_HEATED_FOOD, heatedStatus);
+        intent.putExtra(ITEM_TYPE_FOOD, itemType);
 
         startActivity(intent);
     }

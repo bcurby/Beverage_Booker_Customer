@@ -20,6 +20,8 @@ import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.User;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
+import java.util.Objects;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +36,8 @@ public class AddToCartActivity extends AppCompatActivity {
     RadioGroup radioGroupMilk;
     RadioGroup radioGroupSugar;
     RadioGroup radioGroupFrappe;
+
+    CheckBox decaf;
 
     CheckBox vanilla;
     CheckBox caramel;
@@ -51,6 +55,7 @@ public class AddToCartActivity extends AppCompatActivity {
     int itemQuantity;
     String itemMilk;
     String itemSugar;
+    String itemDecaf;
     String itemVanilla;
     String itemCaramel;
     String itemChocolate;
@@ -60,6 +65,7 @@ public class AddToCartActivity extends AppCompatActivity {
 
     int milkStatus;
     int sugarStatus;
+    int decafStatus;
     int extrasStatus;
     int frappeStatus;
     int heatedStatus;
@@ -75,15 +81,33 @@ public class AddToCartActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.linearLayout);
 
         Intent intent = getIntent();
-        itemID = intent.getIntExtra(BrowseMenu.ITEM_ID, 0);
-        itemTitle = intent.getStringExtra(BrowseMenu.ITEM_NAME);
-        itemPrice = intent.getDoubleExtra(BrowseMenu.ITEM_PRICE,0);
 
-        milkStatus = intent.getIntExtra(BrowseMenu.ITEM_MILK, 0);
-        sugarStatus = intent.getIntExtra(BrowseMenu.ITEM_SUGAR, 0);
-        extrasStatus = intent.getIntExtra(BrowseMenu.ITEM_EXTRAS, 0);
-        frappeStatus = intent.getIntExtra(BrowseMenu.ITEM_FRAPPE, 0);
-        heatedStatus = intent.getIntExtra(BrowseMenu.ITEM_HEATED, 0);
+        if(Objects.equals(intent.getStringExtra("com.beveragebooker.customer_app.ITEM_TYPE_FOOD"), "food")) {
+
+            itemID = intent.getIntExtra(BrowseFoodMenu.ITEM_ID_FOOD, 0);
+            itemTitle = intent.getStringExtra(BrowseFoodMenu.ITEM_NAME_FOOD);
+            itemPrice = intent.getDoubleExtra(BrowseFoodMenu.ITEM_PRICE_FOOD,0);
+
+            milkStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_MILK_FOOD, 0);
+            sugarStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_SUGAR_FOOD, 0);
+            decafStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_DECAF_FOOD, 0);
+            extrasStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_EXTRAS_FOOD, 0);
+            frappeStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_FRAPPE_FOOD, 0);
+            heatedStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_HEATED_FOOD, 0);
+
+        } else if (intent.getStringExtra("com.beveragebooker.customer_app.ITEM_NAME") != null) {
+
+            itemID = intent.getIntExtra(BrowseMenu.ITEM_ID, 0);
+            itemTitle = intent.getStringExtra(BrowseMenu.ITEM_NAME);
+            itemPrice = intent.getDoubleExtra(BrowseMenu.ITEM_PRICE, 0);
+
+            milkStatus = intent.getIntExtra(BrowseMenu.ITEM_MILK, 0);
+            sugarStatus = intent.getIntExtra(BrowseMenu.ITEM_SUGAR, 0);
+            decafStatus = intent.getIntExtra(BrowseMenu.ITEM_DECAF, 0);
+            extrasStatus = intent.getIntExtra(BrowseMenu.ITEM_EXTRAS, 0);
+            frappeStatus = intent.getIntExtra(BrowseMenu.ITEM_FRAPPE, 0);
+            heatedStatus = intent.getIntExtra(BrowseMenu.ITEM_HEATED, 0);
+        }
 
         final User loggedUser = getInstance(AddToCartActivity.this).getUser();
         userID = loggedUser.getId();
@@ -100,13 +124,14 @@ public class AddToCartActivity extends AppCompatActivity {
         System.out.println("Frappe: " + frappeStatus);
         System.out.println("Heated: " + heatedStatus);
 
-        itemMilk = "-";
-        itemSugar = "-";
+        itemMilk = "full cream milk";
+        itemSugar = "sugar";
+        itemDecaf = "-";
         itemVanilla = "-";
         itemCaramel = "-";
         itemChocolate = "-";
         itemWhippedCream = "-";
-        itemFrappe = "-";
+        itemFrappe = "chocolate";
         itemHeated = "-";
 
         System.out.println("Item Milk: " + itemMilk);
@@ -114,8 +139,8 @@ public class AddToCartActivity extends AppCompatActivity {
         System.out.println("Item Frappe: " + itemFrappe);
         System.out.println("Item Heated: " + itemHeated);
 
-        initViews(milkStatus, sugarStatus, extrasStatus, frappeStatus, heatedStatus);
-        setListeners(milkStatus, sugarStatus, extrasStatus, frappeStatus, heatedStatus);
+        initViews(milkStatus, sugarStatus, decafStatus, extrasStatus, frappeStatus, heatedStatus);
+        setListeners(milkStatus, sugarStatus, decafStatus, extrasStatus, frappeStatus, heatedStatus);
 
         addToCartButton = findViewById(R.id.addToCartButton);
         addToCartButton.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +154,7 @@ public class AddToCartActivity extends AppCompatActivity {
                         .getInstance()
                         .getApi()
                         .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, itemMilk,
-                                itemSugar, itemVanilla, itemCaramel, itemChocolate,
+                                itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate,
                                 itemWhippedCream, itemFrappe, itemHeated);
 
                 call.enqueue(new Callback<ResponseBody>() {
@@ -169,7 +194,8 @@ public class AddToCartActivity extends AppCompatActivity {
         });
     }
 
-    private void initViews(int milkStatus, int sugarStatus, int extrasStatus, int frappeStatus, int heatedStatus) {
+    private void initViews(int milkStatus, int sugarStatus, int decafStatus, int extrasStatus,
+                           int frappeStatus, int heatedStatus) {
 
         if (milkStatus == 1) {
 
@@ -180,6 +206,11 @@ public class AddToCartActivity extends AppCompatActivity {
         if (sugarStatus == 1) {
             View sugarView = getLayoutInflater().inflate(R.layout.sugar_selection, null, false);
             linearLayout.addView(sugarView);
+        }
+
+        if (decafStatus == 1) {
+            View decafView = getLayoutInflater().inflate(R.layout.decaf_selection, null, false);
+            linearLayout.addView(decafView);
         }
 
         if (extrasStatus == 1) {
@@ -198,7 +229,8 @@ public class AddToCartActivity extends AppCompatActivity {
         }
     }
 
-    private void setListeners(int milkStatus, int sugarStatus, int extrasStatus, int frappeStatus, int heatedStatus) {
+    private void setListeners(int milkStatus, int sugarStatus, int decafStatus,
+                              int extrasStatus, int frappeStatus, int heatedStatus) {
 
         if (milkStatus == 1) {
             radioGroupMilk = findViewById(R.id.milkRadioGroup);
@@ -226,6 +258,8 @@ public class AddToCartActivity extends AppCompatActivity {
                     }
                 }
             });
+        } else {
+            itemMilk = "-";
         }
 
         if (sugarStatus == 1) {
@@ -246,6 +280,21 @@ public class AddToCartActivity extends AppCompatActivity {
                     if (checkedId == R.id.noSugar) {
                         itemSugar = "no sugar/sweetener";
                         System.out.println(itemSugar);
+                    }
+                }
+            });
+        } else {
+            itemSugar = "-";
+        }
+
+        if (decafStatus == 1) {
+            decaf = findViewById(R.id.decafCheck);
+            decaf.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (decaf.isChecked()) {
+                        itemDecaf = "decaf";
+                        System.out.println(itemDecaf);
                     }
                 }
             });
@@ -323,6 +372,8 @@ public class AddToCartActivity extends AppCompatActivity {
                     }
                 }
             });
+        } else {
+            itemFrappe = "-";
         }
 
         if (heatedStatus == 1) {
