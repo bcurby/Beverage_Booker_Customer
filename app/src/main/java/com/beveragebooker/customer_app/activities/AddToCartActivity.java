@@ -31,6 +31,8 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInsta
 
 public class AddToCartActivity extends AppCompatActivity {
 
+    public static final String ITEM_TYPE_RETURN = "com.beveragebooker.customer_app.ITEM_TYPE_RETURN";
+
     LinearLayout linearLayout;
 
     RadioGroup radioGroupMilk;
@@ -62,6 +64,7 @@ public class AddToCartActivity extends AppCompatActivity {
     String itemWhippedCream;
     String itemFrappe;
     String itemHeated;
+    String itemType;
 
     int milkStatus;
     int sugarStatus;
@@ -82,32 +85,17 @@ public class AddToCartActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(Objects.equals(intent.getStringExtra("com.beveragebooker.customer_app.ITEM_TYPE_FOOD"), "food")) {
+        itemID = intent.getIntExtra(BrowseMenu.ITEM_ID, 0);
+        itemTitle = intent.getStringExtra(BrowseMenu.ITEM_NAME);
+        itemPrice = intent.getDoubleExtra(BrowseMenu.ITEM_PRICE, 0);
 
-            itemID = intent.getIntExtra(BrowseFoodMenu.ITEM_ID_FOOD, 0);
-            itemTitle = intent.getStringExtra(BrowseFoodMenu.ITEM_NAME_FOOD);
-            itemPrice = intent.getDoubleExtra(BrowseFoodMenu.ITEM_PRICE_FOOD,0);
-
-            milkStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_MILK_FOOD, 0);
-            sugarStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_SUGAR_FOOD, 0);
-            decafStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_DECAF_FOOD, 0);
-            extrasStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_EXTRAS_FOOD, 0);
-            frappeStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_FRAPPE_FOOD, 0);
-            heatedStatus = intent.getIntExtra(BrowseFoodMenu.ITEM_HEATED_FOOD, 0);
-
-        } else if (intent.getStringExtra("com.beveragebooker.customer_app.ITEM_NAME") != null) {
-
-            itemID = intent.getIntExtra(BrowseMenu.ITEM_ID, 0);
-            itemTitle = intent.getStringExtra(BrowseMenu.ITEM_NAME);
-            itemPrice = intent.getDoubleExtra(BrowseMenu.ITEM_PRICE, 0);
-
-            milkStatus = intent.getIntExtra(BrowseMenu.ITEM_MILK, 0);
-            sugarStatus = intent.getIntExtra(BrowseMenu.ITEM_SUGAR, 0);
-            decafStatus = intent.getIntExtra(BrowseMenu.ITEM_DECAF, 0);
-            extrasStatus = intent.getIntExtra(BrowseMenu.ITEM_EXTRAS, 0);
-            frappeStatus = intent.getIntExtra(BrowseMenu.ITEM_FRAPPE, 0);
-            heatedStatus = intent.getIntExtra(BrowseMenu.ITEM_HEATED, 0);
-        }
+        milkStatus = intent.getIntExtra(BrowseMenu.ITEM_MILK, 0);
+        sugarStatus = intent.getIntExtra(BrowseMenu.ITEM_SUGAR, 0);
+        decafStatus = intent.getIntExtra(BrowseMenu.ITEM_DECAF, 0);
+        extrasStatus = intent.getIntExtra(BrowseMenu.ITEM_EXTRAS, 0);
+        frappeStatus = intent.getIntExtra(BrowseMenu.ITEM_FRAPPE, 0);
+        heatedStatus = intent.getIntExtra(BrowseMenu.ITEM_HEATED, 0);
+        itemType = intent.getStringExtra(BrowseMenu.ITEM_TYPE);
 
         final User loggedUser = getInstance(AddToCartActivity.this).getUser();
         userID = loggedUser.getId();
@@ -123,6 +111,7 @@ public class AddToCartActivity extends AppCompatActivity {
         System.out.println("Extras: " + extrasStatus);
         System.out.println("Frappe: " + frappeStatus);
         System.out.println("Heated: " + heatedStatus);
+        System.out.println("itemType: " + itemType);
 
         itemMilk = "full cream milk";
         itemSugar = "sugar";
@@ -155,7 +144,7 @@ public class AddToCartActivity extends AppCompatActivity {
                         .getApi()
                         .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, itemMilk,
                                 itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate,
-                                itemWhippedCream, itemFrappe, itemHeated);
+                                itemWhippedCream, itemFrappe, itemHeated, itemType);
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -164,6 +153,8 @@ public class AddToCartActivity extends AppCompatActivity {
                         if (response.code() == 200) {
                             Toast.makeText(AddToCartActivity.this, "Item added to cart", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(AddToCartActivity.this, BrowseMenu.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(ITEM_TYPE_RETURN, itemType);
                             startActivity(intent);
 
                         } else if (response.code() == 403) {

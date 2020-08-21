@@ -68,7 +68,8 @@ public interface Api {
             @Field("itemChocolate") String itemChocolate,
             @Field("itemWhippedCream") String itemWhippedCream,
             @Field("itemFrappe") String itemFrappe,
-            @Field("itemHeated") String itemHeated
+            @Field("itemHeated") String itemHeated,
+            @Field("itemType") String itemType
     );
 
     //Place an Order
