@@ -292,7 +292,7 @@ public class AddToCartActivity extends AppCompatActivity {
                     }
 
                     if (checkedId == R.id.noSugar) {
-                        itemSugar = "no sugar/sweetener";
+                        itemSugar = "no sugar";
                         System.out.println(itemSugar);
                     }
                 }

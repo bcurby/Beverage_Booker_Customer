@@ -24,7 +24,7 @@
         android:id="@+id/menuLink"
         android:layout_width="285dp"
         android:layout_height="wrap_content"
-        android:text="Menu"
+        android:text="Drink"
         android:layout_centerHorizontal="true" />
 
     <EditText
