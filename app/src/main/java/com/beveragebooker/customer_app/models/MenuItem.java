@@ -23,6 +23,7 @@ public class MenuItem {
     private String itemWhippedCream;
     private String itemFrappe;
     private String itemHeated;
+    private String itemComment;
 
 
     public MenuItem(int id, String name, String description, double price) {
@@ -134,6 +135,10 @@ public class MenuItem {
 
     public String getItemHeated() {
         return itemHeated;
+    }
+
+    public String getItemComment() {
+        return itemComment;
     }
 
 

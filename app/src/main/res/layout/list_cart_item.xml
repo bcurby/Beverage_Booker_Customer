@@ -14,7 +14,7 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/cartItemName2"
+            android:id="@+id/optionsTitle"
             android:layout_width="66dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -23,6 +23,20 @@
             android:layout_marginEnd="321dp"
             android:layout_marginBottom="65dp"
             android:text="Options"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/optionsTitle2"
+            android:layout_width="66dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="75dp"
+            android:layout_marginBottom="65dp"
+            android:text="Comment"
             android:textColor="@android:color/black"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -114,6 +128,19 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="170dp"
             android:layout_marginBottom="50dp"
+            android:textColor="@android:color/black"
+            android:textSize="10sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/cartItemComment"
+            android:layout_width="115dp"
+            android:layout_height="46dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="19dp"
             android:textColor="@android:color/black"
             android:textSize="10sp"
             android:textStyle="normal" />

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="vertical"
     tools:context=".activities.AddToCartActivity">
 
     <LinearLayout
@@ -12,12 +13,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextComment"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:hint="Please comment any other requests here"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:maxLength="45"
+        tools:ignore="MissingConstraints" />
     
     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
         android:id="@+id/qtyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/editTextComment"
         app:initialNumber="1"
         app:finalNumber="20"/>
 

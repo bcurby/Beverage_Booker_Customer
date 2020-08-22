@@ -50,6 +50,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.textViewWhippedCream.setText(cartItem.getItemWhippedCream());
         holder.textViewFrappe.setText(cartItem.getItemFrappe());
         holder.textViewHeated.setText(cartItem.getItemHeated());
+        holder.textViewComment.setText(cartItem.getItemComment());
     }
 
     @Override
@@ -61,7 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         TextView textViewName, textViewPrice, textViewQuantity, textViewMilk, textViewSugar,
         textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
-        textViewFrappe, textViewHeated;
+        textViewFrappe, textViewHeated, textViewComment;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -79,6 +80,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewWhippedCream = itemView.findViewById(R.id.cartItemWhippedCream);
             textViewFrappe = itemView.findViewById(R.id.cartItemFrappe);
             textViewHeated = itemView.findViewById(R.id.cartItemHeated);
+            textViewComment = itemView.findViewById(R.id.cartItemComment);
         }
     }
 }
