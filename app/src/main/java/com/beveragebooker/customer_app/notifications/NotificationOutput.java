@@ -1,6 +1,5 @@
 package com.beveragebooker.customer_app.notifications;
 
-import android.app.Notification;
 import android.content.Context;
 
 import com.beveragebooker.customer_app.R;
