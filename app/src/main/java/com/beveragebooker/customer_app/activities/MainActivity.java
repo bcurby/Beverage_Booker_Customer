@@ -132,16 +132,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (response.code() == 401) {
                     Toast.makeText(MainActivity.this, "Invalid login credentials",
                             Toast.LENGTH_LONG).show();
-                }
+                  }
             }
-
-
             @Override
             public void onFailure(@NotNull Call<LoginResponse> call, @NotNull Throwable t) {
 
             }
         });
-
     }
 
     @Override
@@ -150,14 +147,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonLogin:
                 userLogin();
-
                 break;
 
             case R.id.textViewRegister:
                 startActivity(new Intent(this, CreateUserActivity.class));
                 break;
-
-
         }
     }
 
