@@ -6,10 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.models.User;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInstance;
 
@@ -38,6 +47,30 @@ public class BookDeliveryActivity extends AppCompatActivity {
         editTextStreetNumber = findViewById(R.id.editTextStreetNumber);
         editTextStreetName = findViewById(R.id.editTextStreetName);
 
+        //initialize places
+        Places.initialize(getApplicationContext(), "AIzaSyCyd9DNtP8fAnic_H5XwgCef7dmqj_7vB0");
+
+        //set edittext non focusable
+        editTextStreetNumber.setFocusable(false);
+        editTextStreetNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //initialise place field list
+                List<Place.Field> fieldList = Collections.singletonList(Place.Field.ADDRESS);
+
+                //create intent
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY,
+                        fieldList).build(BookDeliveryActivity.this);
+
+                //start activity result
+                startActivityForResult(intent, 100);
+
+            }
+        });
+
+
+
+
         ProceedToPaymentButton = findViewById(R.id.ProceedToPaymentButton);
         ProceedToPaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +78,19 @@ public class BookDeliveryActivity extends AppCompatActivity {
                 createNewDelivery();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK){
+            //when success
+            //initialize place
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            //set address on EditText
+            editTextStreetNumber.setText(place.getAddress());
+
+        }
     }
 
     private void createNewDelivery() {
