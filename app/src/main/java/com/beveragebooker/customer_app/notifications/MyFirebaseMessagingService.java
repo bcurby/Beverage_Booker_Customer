@@ -1,11 +1,17 @@
 package com.beveragebooker.customer_app.notifications;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.util.Log;
 
+import com.beveragebooker.customer_app.R;
+import com.beveragebooker.customer_app.activities.MainActivity;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import androidx.core.app.NotificationCompat;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,15 +53,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 
-
-
-
-
         }
+    }
+
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
-    }
     // [END receive_message]
 
 
