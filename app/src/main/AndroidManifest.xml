@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.beveragebooker.customer_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.AccountActivity"></activity>
+        <activity android:name=".activities.AccountActivity"/>
         <activity android:name=".activities.OrderConfirmationActivity" />
         <activity android:name=".activities.PlaceOrderActivity" />
         <activity android:name=".activities.PaymentActivity" />
@@ -36,7 +37,9 @@
 
         <service
             android:name=".notifications.MyFirebaseMessagingService"
-            android:exported="false">
+            android:exported="false"
+            android:directBootAware="true"
+            tools:targetApi="n">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
