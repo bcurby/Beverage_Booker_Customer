@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,12 +15,15 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInsta
 
 public class BookDeliveryActivity extends AppCompatActivity {
 
-    public static final String STREET_NUMBER_PAYMENT = "com.beveragebooker.customer_app.STREET_NUMBER_PAYMENT";
-    public static final String STREET_NAME_PAYMENT = "com.beveragebooker.customer_app.STREET_NAME_PAYMENT";
-    public static final String DELIVERY_STATUS_PAYMENT = "com.beveragebooker.customer_app.DELIVERY_STATUS_PAYMENT";
+    public static final String STREET_NUMBER = "com.beveragebooker.customer_app.STREET_NUMBER";
+    public static final String STREET_NAME = "com.beveragebooker.customer_app.STREET_NAME";
+    public static final String DELIVERY_STATUS = "com.beveragebooker.customer_app.DELIVERY_STATUS";
+
+    public static String CART_TOTAL_BOOK_DELIVERY = "com.beveragebooker.customer_app.CART_TOTAL_BOOK_DELIVERY";
 
     private EditText editTextStreetNumber, editTextStreetName;
-    //
+
+    private String orderTotal;
 
     private Button ProceedToPaymentButton;
 
@@ -30,10 +32,11 @@ public class BookDeliveryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_delivery);
 
+        Intent intent = getIntent();
+        orderTotal = intent.getStringExtra(SelectOrderTypeActivity.CART_TOTAL_ORDER_TYPE);
+
         editTextStreetNumber = findViewById(R.id.editTextStreetNumber);
         editTextStreetName = findViewById(R.id.editTextStreetName);
-        //textViewPostCode = findViewById(R.id.textViewPostCode);
-        //textViewCityTown = findViewById(R.id.textViewCityTown);
 
         ProceedToPaymentButton = findViewById(R.id.ProceedToPaymentButton);
         ProceedToPaymentButton.setOnClickListener(new View.OnClickListener() {
@@ -74,12 +77,12 @@ public class BookDeliveryActivity extends AppCompatActivity {
         boolean deliveryStatus = true;
 
 
-        Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(STREET_NUMBER_PAYMENT, streetNumber);
-        intent.putExtra(STREET_NAME_PAYMENT, streetName);
-        //intent.putExtra(POST_CODE_PAYMENT, postCode);
-        //intent.putExtra(CITY_TOWN_PAYMENT, cityTown);
-        intent.putExtra(DELIVERY_STATUS_PAYMENT, deliveryStatus);
+        Intent intent = new Intent(this, PlaceOrderActivity.class);
+        intent.putExtra(STREET_NUMBER, streetNumber);
+        intent.putExtra(STREET_NAME, streetName);
+        intent.putExtra(DELIVERY_STATUS, deliveryStatus);
+
+        intent.putExtra(CART_TOTAL_BOOK_DELIVERY, orderTotal);
         startActivity(intent);
     }
 }

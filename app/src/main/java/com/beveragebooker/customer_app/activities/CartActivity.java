@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.adapters.CartAdapter;
@@ -33,6 +31,8 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInsta
 
 
 public class CartActivity extends AppCompatActivity {
+
+    public static String CART_TOTAL = "com.beveragebooker.customer_app.CART_TOTAL";
 
     private RecyclerView mRecyclerView;
     private CartAdapter mCartAdapter;
@@ -122,6 +122,8 @@ public class CartActivity extends AppCompatActivity {
                 }
                 //Display the total of items in the cart
                 cartTotal.setText("Cart Total: $" + currency.format(getCartTotal()));
+                CART_TOTAL = String.valueOf(getCartTotal());
+                System.out.println("CART TOTAL: " + CART_TOTAL);
             }
 
             @Override
@@ -189,7 +191,11 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void goToCheckout() {
+        String orderTotal = String.valueOf(getCartTotal());
+        System.out.println("Order Test: " +orderTotal);
         Intent intent = new Intent(this, SelectOrderTypeActivity.class );
+        intent.putExtra(CART_TOTAL, orderTotal);
+
         startActivity(intent);
     }
 
