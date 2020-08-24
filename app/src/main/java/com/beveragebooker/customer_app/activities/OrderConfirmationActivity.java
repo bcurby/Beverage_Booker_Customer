@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.models.User;
+import com.beveragebooker.customer_app.notifications.NotificationOutput;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
@@ -29,6 +30,14 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         orderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
                 + "\nYour order will be ready shortly.");
+
+        String title = "Order Ready";
+        String body = user.getFirstName() + " your order is ready to enjoy";
+
+        //add the call for the completed order notification
+        NotificationOutput.displayNotification(this, title, body);
+
+
 
         returnToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override

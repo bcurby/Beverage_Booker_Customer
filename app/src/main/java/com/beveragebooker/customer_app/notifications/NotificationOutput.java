@@ -19,10 +19,12 @@ public class NotificationOutput {
 
                         .setContentTitle(title)
                         .setContentText(body)
+                        .setAutoCancel(true)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
+
         NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from(context);
-        mNotificationMgr.notify(1, mBuilder.build());
+        mNotificationMgr.notify(0, mBuilder.build());
 
     }
 
