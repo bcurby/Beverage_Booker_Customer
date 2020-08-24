@@ -5,16 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".activities.CartActivity">
 
-    <fragment android:name="com.beveragebooker.customer_app.activities.Menubar"
+    <fragment
         android:id="@+id/menuBarInsert"
+        android:name="com.beveragebooker.customer_app.activities.Menubar"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/menuBarInsert"
         android:id="@+id/cartRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="432dp"
+        android:layout_below="@id/menuBarInsert"
         android:background="@android:color/darker_gray"
         android:padding="4dp"
         android:scrollbars="vertical" />
@@ -23,30 +24,33 @@
         android:id="@+id/cartTotal"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="75dp"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="75dp" />
 
     <Button
         android:id="@+id/checkoutButton"
         android:layout_width="120dp"
         android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:text="Checkout" />
 
     <Button
         android:id="@+id/emptyCartButton"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="24dp"
         android:text="Empty Cart" />
 
-
 </RelativeLayout>
+
+
+
+

@@ -37,7 +37,10 @@ public interface Api {
 
     //Get Menu items from database
     @GET("getitems")
-    Call<List<MenuItem>> getItems();
+    Call<List<MenuItem>> getItems(
+            @Query("itemType") String itemType
+    );
+
 
 
     //Get Cart items from database
@@ -55,7 +58,18 @@ public interface Api {
             @Field("itemID") int itemID,
             @Field("itemTitle") String itemTitle,
             @Field("itemPrice") double itemPrice,
-            @Field("itemQuantity") int itemQuantity
+            @Field("itemQuantity") int itemQuantity,
+            @Field("itemMilk") String itemMilk,
+            @Field("itemSugar") String itemSugar,
+            @Field("itemDecaf") String itemDecaf,
+            @Field("itemVanilla") String itemVanilla,
+            @Field("itemCaramel") String itemCaramel,
+            @Field("itemChocolate") String itemChocolate,
+            @Field("itemWhippedCream") String itemWhippedCream,
+            @Field("itemFrappe") String itemFrappe,
+            @Field("itemHeated") String itemHeated,
+            @Field("itemComment") String itemComment,
+            @Field("itemType") String itemType
     );
 
     //Place an Order
