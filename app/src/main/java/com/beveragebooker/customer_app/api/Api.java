@@ -97,4 +97,12 @@ public interface Api {
             @Field("streetNumber") String streetNumber,
             @Field("streetName") String streetName
     );
+
+    //Delete item from database
+    @FormUrlEncoded
+    @POST("deletecartitem")
+    Call<ResponseBody> deleteCartItem(
+            @Field("userID") int userID,
+            @Field("itemID") int itemID
+    );
 }

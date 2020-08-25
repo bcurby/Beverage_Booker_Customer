@@ -3,6 +3,7 @@ package com.beveragebooker.customer_app.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +19,19 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private List<MenuItem> cartItemList;
+    private OnItemClickListener itemListener;
+
+
 
     DecimalFormat currency = new DecimalFormat("###0.00");
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnButtonClickListener(OnItemClickListener listener) {
+        itemListener = listener;
+    }
 
     public CartAdapter(List<MenuItem> cartItemList) {
         this.cartItemList = cartItemList;
@@ -63,11 +75,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView textViewName, textViewPrice, textViewQuantity, textViewMilk, textViewSugar,
         textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
         textViewFrappe, textViewHeated, textViewComment;
+        Button deleteMenuItem;
 
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-
             textViewName = itemView.findViewById(R.id.cartItemName);
             textViewPrice = itemView.findViewById(R.id.cartItemPrice);
             textViewQuantity = itemView.findViewById(R.id.cartItemQuantity);
@@ -81,6 +93,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewFrappe = itemView.findViewById(R.id.cartItemFrappe);
             textViewHeated = itemView.findViewById(R.id.cartItemHeated);
             textViewComment = itemView.findViewById(R.id.cartItemComment);
+            deleteMenuItem = itemView.findViewById(R.id.deleteMenuItem);
+
+            deleteMenuItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            itemListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

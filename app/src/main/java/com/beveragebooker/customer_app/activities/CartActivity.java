@@ -1,9 +1,11 @@
 package com.beveragebooker.customer_app.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +47,10 @@ public class CartActivity extends AppCompatActivity {
 
     private Button emptyCartButton;
 
+    int itemID;
+
+    MenuItem itemClicked;
+
     DecimalFormat currency = new DecimalFormat("###0.00");
 
 
@@ -65,6 +71,16 @@ public class CartActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mCartAdapter);
 
         cartTotal = findViewById(R.id.cartTotal);
+
+        //modify and delete buttons
+        mCartAdapter.setOnButtonClickListener(new CartAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                itemID = cartItemList.get(position).getId();
+                itemClicked = cartItemList.get(position);
+                deleteCartItem();
+            }
+        });
 
         //Checkout Button
         checkoutButton = findViewById(R.id.checkoutButton);
@@ -131,7 +147,6 @@ public class CartActivity extends AppCompatActivity {
                 Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     //Method that calculates the total of items in the cart
@@ -201,6 +216,33 @@ public class CartActivity extends AppCompatActivity {
 
     private void goToMenu() {
         Intent intent = new Intent(this, BrowseMenu.class );
+        startActivity(intent);
+    }
+
+    private void deleteCartItem() {
+        final User loggedUser = getInstance(CartActivity.this).getUser();
+        int userID = loggedUser.getId();
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .deleteCartItem(userID, itemID);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 201) {
+                    Toast.makeText(CartActivity.this, "Item Deleted", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 402) {
+                    Toast.makeText(CartActivity.this, "Item Failed To Delete", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Intent intent = getIntent();
+        finish();
         startActivity(intent);
     }
 }

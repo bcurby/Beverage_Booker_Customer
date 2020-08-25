@@ -214,6 +214,19 @@
             android:layout_marginBottom="82dp"
             android:text="Qty: " />
 
+        <Button
+            android:id="@+id/deleteCartItem"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="78dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Delete"
+            android:textSize="10dp" />
+
     </RelativeLayout>
 
 
