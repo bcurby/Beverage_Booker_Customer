@@ -103,6 +103,6 @@ public interface Api {
     @POST("deletecartitem")
     Call<ResponseBody> deleteCartItem(
             @Field("userID") int userID,
-            @Field("itemID") int itemID
+            @Field("itemTitle") String itemTitle
     );
 }

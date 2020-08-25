@@ -1,11 +1,9 @@
 package com.beveragebooker.customer_app.activities;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -35,49 +33,38 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInsta
 public class CartActivity extends AppCompatActivity {
 
     public static String CART_TOTAL = "com.beveragebooker.customer_app.CART_TOTAL";
-
     private RecyclerView mRecyclerView;
     private CartAdapter mCartAdapter;
-
-    private List<MenuItem> cartItemList;
+    private ArrayList<MenuItem> cartItemList;
+    MenuItem itemClicked;
+    String itemTitle;
 
     private TextView cartTotal;
-
     private Button checkoutButton;
-
     private Button emptyCartButton;
 
-    int itemID;
-
-    MenuItem itemClicked;
-
     DecimalFormat currency = new DecimalFormat("###0.00");
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        
-        cartItemList = new ArrayList<>();
 
         mRecyclerView = findViewById(R.id.cartRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        cartItemList = new ArrayList<>();
         mCartAdapter = new CartAdapter(cartItemList);
-
         mRecyclerView.setAdapter(mCartAdapter);
-
         cartTotal = findViewById(R.id.cartTotal);
 
-        //modify and delete buttons
+        //delete button
         mCartAdapter.setOnButtonClickListener(new CartAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                itemID = cartItemList.get(position).getId();
                 itemClicked = cartItemList.get(position);
+                itemTitle = cartItemList.get(position).getName();
                 deleteCartItem();
             }
         });
@@ -222,10 +209,12 @@ public class CartActivity extends AppCompatActivity {
     private void deleteCartItem() {
         final User loggedUser = getInstance(CartActivity.this).getUser();
         int userID = loggedUser.getId();
+        System.out.println(userID);
+        System.out.println(itemTitle);
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .deleteCartItem(userID, itemID);
+                .deleteCartItem(userID, itemTitle);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -233,6 +222,8 @@ public class CartActivity extends AppCompatActivity {
                     Toast.makeText(CartActivity.this, "Item Deleted", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 402) {
                     Toast.makeText(CartActivity.this, "Item Failed To Delete", Toast.LENGTH_LONG).show();
+                } else {
+                    System.out.println(response.code());
                 }
             }
             @Override

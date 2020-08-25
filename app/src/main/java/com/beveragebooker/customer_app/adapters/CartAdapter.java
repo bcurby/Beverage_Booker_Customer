@@ -22,7 +22,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private OnItemClickListener itemListener;
 
 
-
     DecimalFormat currency = new DecimalFormat("###0.00");
 
     public interface OnItemClickListener {
@@ -47,7 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CartViewHolder holder, final int position) {
         MenuItem cartItem = cartItemList.get(position);
 
         holder.textViewName.setText(cartItem.getName());
@@ -63,6 +62,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.textViewFrappe.setText(cartItem.getItemFrappe());
         holder.textViewHeated.setText(cartItem.getItemHeated());
         holder.textViewComment.setText(cartItem.getItemComment());
+
+        holder.deleteCartItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemListener != null) {
+                    int pos = position;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        itemListener.onItemClick(pos);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -71,11 +82,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     class CartViewHolder extends RecyclerView.ViewHolder {
-
         TextView textViewName, textViewPrice, textViewQuantity, textViewMilk, textViewSugar,
         textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
         textViewFrappe, textViewHeated, textViewComment;
-        Button deleteMenuItem;
+        Button deleteCartItem;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -93,19 +103,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewFrappe = itemView.findViewById(R.id.cartItemFrappe);
             textViewHeated = itemView.findViewById(R.id.cartItemHeated);
             textViewComment = itemView.findViewById(R.id.cartItemComment);
-            deleteMenuItem = itemView.findViewById(R.id.deleteMenuItem);
+            deleteCartItem = itemView.findViewById(R.id.deleteCartItem);
 
-            deleteMenuItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (itemListener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            itemListener.onItemClick(position);
-                        }
-                    }
-                }
-            });
+
         }
     }
 }
