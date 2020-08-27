@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please select size:" />
+
+    <RadioGroup
+        android:id="@+id/sizeRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/smallSize">
+
+        <RadioButton
+            android:id="@+id/smallSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small" />
+
+        <RadioButton
+            android:id="@+id/mediumSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium" />
+
+        <RadioButton
+            android:id="@+id/largeSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Large" />
+
+    </RadioGroup>
+
+
+</LinearLayout>

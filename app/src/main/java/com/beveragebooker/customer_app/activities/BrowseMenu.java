@@ -35,6 +35,18 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.*;
 
 public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnItemClickListener {
 
+    public static final String ITEM_ID = "com.beveragebooker.customer_app.ITEM_ID";
+    public static final String ITEM_NAME = "com.beveragebooker.customer_app.ITEM_NAME";
+    public static final String ITEM_PRICE = "com.beveragebooker.customer_app.ITEM_PRICE";
+    public static final String ITEM_MILK = "com.beveragebooker.customer_app.ITEM_MILK";
+    public static final String ITEM_DECAF = "com.beveragebooker.customer_app.ITEM_DECAF";
+    public static final String ITEM_SUGAR = "com.beveragebooker.customer_app.ITEM_SUGAR";
+    public static final String ITEM_EXTRAS = "com.beveragebooker.customer_app.ITEM_EXTRAS";
+    public static final String ITEM_FRAPPE = "com.beveragebooker.customer_app.ITEM_FRAPPE";
+    public static final String ITEM_HEATED = "com.beveragebooker.customer_app.ITEM_HEATED";
+    public static final String ITEM_TYPE = "com.beveragebooker.customer_app.ITEM_TYPE";
+
+
     private RecyclerView mRecyclerView;
 
     //Added Fill Cart
@@ -44,11 +56,22 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     //View Cart Button
     private Button viewCart;
 
+    private String itemType;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_menu);
+
+        Intent intent = getIntent();
+
+        if (intent.getStringExtra(PrimaryMenu.ITEM_TYPE_MENU) != null) {
+            itemType = intent.getStringExtra(PrimaryMenu.ITEM_TYPE_MENU);
+        } else if (intent.getStringExtra(AddToCartActivity.ITEM_TYPE_RETURN) != null) {
+            itemType = intent.getStringExtra(AddToCartActivity.ITEM_TYPE_RETURN);
+        }
+
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -83,8 +106,8 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
 
                 //Check position
                 MenuItem itemClicked = mMenuItems.get(position);
-                System.out.println("position: " +position);
-                System.out.println("Item ID: " +itemID);
+                System.out.println("position: " + position);
+                System.out.println("Item ID: " + itemID);
 
                 //Logged in User ID
                 final User loggedUser = getInstance(BrowseMenu.this).getUser();
@@ -104,49 +127,41 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 int itemQuantity = itemClicked.getQuantity();
                 System.out.println("Quantity: " + itemQuantity);
 
-                //Set cart status to active cart
-                //String cartStatus = "active";
+                int milkStatus = itemClicked.getMilk();
+                System.out.printf("Milk: %d%n", milkStatus);
 
-                Call<ResponseBody> call = RetrofitClient
-                        .getInstance()
-                        .getApi()
-                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity);
+                int sugarStatus = itemClicked.getSugar();
+                System.out.printf("Sugar: %d%n", sugarStatus);
 
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                int decafStatus = itemClicked.getDecaf();
+                System.out.printf("Decaf: %d%n", decafStatus);
 
-                        if (response.code() == 200) {
-                            Toast.makeText(BrowseMenu.this, "Item added to cart", Toast.LENGTH_LONG).show();
+                int extrasStatus = itemClicked.getExtras();
+                System.out.printf("Extras: %d%n", extrasStatus);
 
-                        } else if (response.code() == 403) {
-                            Toast.makeText(BrowseMenu.this, "Item already in cart",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
+                int frappeStatus = itemClicked.getFrappe();
+                System.out.printf("Frappe: %d%n", frappeStatus);
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                int heatedStatus = itemClicked.getHeated();
+                System.out.printf("Heated: %d%n", heatedStatus);
 
-                        Toast.makeText(BrowseMenu.this, t.getMessage(),
-                                Toast.LENGTH_LONG).show();
+                goToAddToCart(itemID, itemTitle, itemPrice, milkStatus, sugarStatus, decafStatus,
+                        extrasStatus, frappeStatus, heatedStatus, itemType);
 
-                    }
-                });
             }
         });
 
         Call<List<MenuItem>> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getItems();
+                .getItems(itemType);
 
         call.enqueue(new Callback<List<MenuItem>>() {
             @Override
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
                 if (response.code() == 200) {
                     for (int i = 0; i < response.body().size(); i++) {
-                            mMenuItems.add(response.body().get(i));
+                        mMenuItems.add(response.body().get(i));
                     }
 
                     mRecyclerAdapter.notifyDataSetChanged();
@@ -161,6 +176,25 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
 
     }
 
+    private void goToAddToCart(int itemID, String itemTitle, double itemPrice, int milkStatus,
+                               int sugarStatus, int decafStatus, int extrasStatus, int frappeStatus,
+                               int heatedStatus, String itemType) {
+
+        Intent intent = new Intent(this, AddToCartActivity.class);
+        intent.putExtra(ITEM_ID, itemID);
+        intent.putExtra(ITEM_NAME, itemTitle);
+        intent.putExtra(ITEM_PRICE, itemPrice);
+        intent.putExtra(ITEM_MILK, milkStatus);
+        intent.putExtra(ITEM_SUGAR, sugarStatus);
+        intent.putExtra(ITEM_DECAF, decafStatus);
+        intent.putExtra(ITEM_EXTRAS, extrasStatus);
+        intent.putExtra(ITEM_FRAPPE, frappeStatus);
+        intent.putExtra(ITEM_HEATED, heatedStatus);
+        intent.putExtra(ITEM_TYPE, itemType);
+
+        startActivity(intent);
+    }
+
 
     @Override
     public void onItemClick(int position) {
@@ -168,7 +202,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
 
 
     private void openCart() {
-        Intent intent = new Intent(this, CartActivity.class );
+        Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
 }

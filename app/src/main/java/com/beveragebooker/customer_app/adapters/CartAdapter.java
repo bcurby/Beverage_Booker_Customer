@@ -41,6 +41,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.textViewName.setText(cartItem.getName());
         holder.textViewPrice.setText("$" + currency.format(cartItem.getPrice()));
         holder.textViewQuantity.setText(String.valueOf(cartItem.getQuantity()));
+        holder.textViewMilk.setText(cartItem.getItemMilk());
+        holder.textViewSugar.setText(cartItem.getItemSugar());
+        holder.textViewDecaf.setText(cartItem.getItemDecaf());
+        holder.textViewVanilla.setText(cartItem.getItemVanilla());
+        holder.textViewCaramel.setText(cartItem.getItemCaramel());
+        holder.textViewChocolate.setText(cartItem.getItemChocolate());
+        holder.textViewWhippedCream.setText(cartItem.getItemWhippedCream());
+        holder.textViewFrappe.setText(cartItem.getItemFrappe());
+        holder.textViewHeated.setText(cartItem.getItemHeated());
+        holder.textViewComment.setText(cartItem.getItemComment());
     }
 
     @Override
@@ -50,7 +60,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     class CartViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName, textViewPrice, textViewQuantity;
+        TextView textViewName, textViewPrice, textViewQuantity, textViewMilk, textViewSugar,
+        textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
+        textViewFrappe, textViewHeated, textViewComment;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -59,7 +71,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewName = itemView.findViewById(R.id.cartItemName);
             textViewPrice = itemView.findViewById(R.id.cartItemPrice);
             textViewQuantity = itemView.findViewById(R.id.cartItemQuantity);
-
+            textViewMilk = itemView.findViewById(R.id.cartItemMilk);
+            textViewSugar = itemView.findViewById(R.id.cartItemSugar);
+            textViewDecaf = itemView.findViewById(R.id.cartItemDecaf);
+            textViewVanilla = itemView.findViewById(R.id.cartItemVanilla);
+            textViewCaramel = itemView.findViewById(R.id.cartItemCaramel);
+            textViewChocolate = itemView.findViewById(R.id.cartItemChocolate);
+            textViewWhippedCream = itemView.findViewById(R.id.cartItemWhippedCream);
+            textViewFrappe = itemView.findViewById(R.id.cartItemFrappe);
+            textViewHeated = itemView.findViewById(R.id.cartItemHeated);
+            textViewComment = itemView.findViewById(R.id.cartItemComment);
         }
     }
 }
