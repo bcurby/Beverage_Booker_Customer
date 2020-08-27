@@ -2,6 +2,7 @@ package com.beveragebooker.customer_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,16 +14,19 @@ import com.beveragebooker.customer_app.models.User;
 import com.beveragebooker.customer_app.notifications.NotificationOutput;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
+import java.util.Objects;
+
 public class OrderConfirmationActivity extends AppCompatActivity {
 
     private TextView orderConfirmTextView;
     private Button returnToMainMenuButton;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
-
+        int orderID = Integer.parseInt(Objects.requireNonNull(getIntent().getStringExtra("ORDER_ID")));
         orderConfirmTextView = findViewById(R.id.textViewOrderConfirm);
         returnToMainMenuButton = findViewById(R.id.returnToMainMenu);
 
@@ -35,7 +39,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         String body = user.getFirstName() + " your order is ready to enjoy";
 
         //add the call for the completed order notification
-        NotificationOutput.displayNotification(this, title, body);
+        NotificationOutput.displayNotification(this, title, body, orderID);
 
 
 

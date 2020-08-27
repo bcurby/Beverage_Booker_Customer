@@ -31,7 +31,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String title = remoteMessage.getNotification().getTitle();
         String body = remoteMessage.getNotification().getBody();
-        NotificationOutput.displayNotification(getApplicationContext(), title, body);
+        //NotificationOutput.displayNotification(getApplicationContext(), title, body);
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
@@ -104,7 +104,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
 
                 String msg = String.valueOf(response.code());
-                Log.d(TAG, msg);
+                Log.d(TAG, msg + "failed");
             }
 
             @Override

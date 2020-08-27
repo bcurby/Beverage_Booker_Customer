@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.AccountActivity"/>
+        <activity android:name=".activities.AddToCartActivity" />
+        <activity android:name=".activities.AccountActivity" />
         <activity android:name=".activities.OrderConfirmationActivity" />
         <activity android:name=".activities.PlaceOrderActivity" />
         <activity android:name=".activities.BookDeliveryActivity" />
@@ -25,7 +26,7 @@
         <activity android:name=".activities.ProfileActivity" />
         <activity android:name=".activities.BrowseMenu" />
         <activity android:name=".activities.CreateUserActivity" />
-        <activity android:name=".activities.PrimaryMenu"/>
+        <activity android:name=".activities.PrimaryMenu" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

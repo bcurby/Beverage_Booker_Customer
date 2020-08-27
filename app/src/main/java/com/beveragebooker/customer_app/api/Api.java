@@ -104,6 +104,10 @@ public interface Api {
             @Field("email") String email
     );
 
-
+    //Get status of the order from db
+    @GET("getOrderStatus")
+    Call<ResponseBody> getStatus(
+            @Query("orderID") int orderID
+    );
 
 }
