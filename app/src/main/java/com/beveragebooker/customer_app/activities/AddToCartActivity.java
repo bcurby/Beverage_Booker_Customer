@@ -38,6 +38,7 @@ public class AddToCartActivity extends AppCompatActivity {
 
     LinearLayout linearLayout;
 
+    RadioGroup radioGroupSize;
     RadioGroup radioGroupMilk;
     RadioGroup radioGroupSugar;
     RadioGroup radioGroupFrappe;
@@ -71,6 +72,7 @@ public class AddToCartActivity extends AppCompatActivity {
     String itemHeated;
     String itemType;
     String itemComment;
+    String itemSize;
 
     int milkStatus;
     int sugarStatus;
@@ -119,6 +121,7 @@ public class AddToCartActivity extends AppCompatActivity {
         System.out.println("Heated: " + heatedStatus);
         System.out.println("itemType: " + itemType);
 
+        itemSize = "small";
         itemMilk = "full cream milk";
         itemSugar = "sugar";
         itemDecaf = "-";
@@ -151,7 +154,7 @@ public class AddToCartActivity extends AppCompatActivity {
         System.out.println("Item Frappe: " + itemFrappe);
         System.out.println("Item Heated: " + itemHeated);
 
-        initViews(milkStatus, sugarStatus, decafStatus, extrasStatus, frappeStatus, heatedStatus);
+        initViews(itemType, milkStatus, sugarStatus, decafStatus, extrasStatus, frappeStatus, heatedStatus);
         setListeners(milkStatus, sugarStatus, decafStatus, extrasStatus, frappeStatus, heatedStatus);
 
         addToCartButton = findViewById(R.id.addToCartButton);
@@ -159,13 +162,24 @@ public class AddToCartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (itemSize.equals("medium")){
+                    itemPrice = itemPrice + 0.50;
+                    System.out.print("itemPrice: " + itemPrice);
+                }
+
+                if (itemSize.equals("large")){
+                    itemPrice = itemPrice + 1.00;
+                    System.out.print("itemPrice: " + itemPrice);
+                }
+
+
                 System.out.println("Item Milk: " + itemMilk);
                 System.out.println("Item Sugar: " + itemSugar);
 
                 Call<ResponseBody> call = RetrofitClient
                         .getInstance()
                         .getApi()
-                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, itemMilk,
+                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, itemSize, itemMilk,
                                 itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate,
                                 itemWhippedCream, itemFrappe, itemHeated, itemComment, itemType);
 
@@ -181,7 +195,7 @@ public class AddToCartActivity extends AppCompatActivity {
                             startActivity(intent);
 
                         } else if (response.code() == 403) {
-                            Toast.makeText(AddToCartActivity.this, "Item already in cart",
+                            Toast.makeText(AddToCartActivity.this, "There was a problem adding the item to cart",
                                     Toast.LENGTH_LONG).show();
                         }
                     }
@@ -208,11 +222,15 @@ public class AddToCartActivity extends AppCompatActivity {
         });
     }
 
-    private void initViews(int milkStatus, int sugarStatus, int decafStatus, int extrasStatus,
+    private void initViews(String itemType, int milkStatus, int sugarStatus, int decafStatus, int extrasStatus,
                            int frappeStatus, int heatedStatus) {
 
-        if (milkStatus == 1) {
+        if (itemType.equals("drink")) {
+            View sizeView = getLayoutInflater().inflate(R.layout.size_selection, null, false);
+            linearLayout.addView(sizeView);
+        }
 
+        if (milkStatus == 1) {
             View milkView = getLayoutInflater().inflate(R.layout.milk_selection, null, false);
             linearLayout.addView(milkView);
         }
@@ -245,6 +263,31 @@ public class AddToCartActivity extends AppCompatActivity {
 
     private void setListeners(int milkStatus, int sugarStatus, int decafStatus,
                               int extrasStatus, int frappeStatus, int heatedStatus) {
+
+        if (itemType.equals("drink")) {
+            radioGroupSize = findViewById(R.id.sizeRadioGroup);
+            radioGroupSize.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    if (checkedId == R.id.smallSize) {
+                                itemSize = "small";
+                                System.out.println(itemSize);
+                            }
+
+                            if (checkedId == R.id.mediumSize) {
+                                itemSize = "medium";
+                                System.out.println(itemSize);
+                            }
+
+                            if (checkedId == R.id.largeSize) {
+                                itemSize = "large";
+                                System.out.println(itemSize);
+                    }
+                }
+            });
+        } else {
+            itemSize = "-";
+        }
 
         if (milkStatus == 1) {
             radioGroupMilk = findViewById(R.id.milkRadioGroup);
