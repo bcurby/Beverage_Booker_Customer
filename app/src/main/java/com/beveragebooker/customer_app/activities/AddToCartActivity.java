@@ -121,6 +121,7 @@ public class AddToCartActivity extends AppCompatActivity {
         System.out.println("Heated: " + heatedStatus);
         System.out.println("itemType: " + itemType);
 
+        itemSize = "small";
         itemMilk = "full cream milk";
         itemSugar = "sugar";
         itemDecaf = "-";
@@ -178,7 +179,7 @@ public class AddToCartActivity extends AppCompatActivity {
                 Call<ResponseBody> call = RetrofitClient
                         .getInstance()
                         .getApi()
-                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, itemMilk,
+                        .addToCart(userID, itemID, itemTitle, itemPrice, itemQuantity, itemSize, itemMilk,
                                 itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate,
                                 itemWhippedCream, itemFrappe, itemHeated, itemComment, itemType);
 
@@ -269,22 +270,23 @@ public class AddToCartActivity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if (checkedId == R.id.smallSize) {
-                        itemSize = "small";
-                        System.out.println(itemSize);
-                    }
+                                itemSize = "small";
+                                System.out.println(itemSize);
+                            }
 
-                    if (checkedId == R.id.mediumSize) {
-                        itemSize = "medium";
+                            if (checkedId == R.id.mediumSize) {
+                                itemSize = "medium";
+                                System.out.println(itemSize);
+                            }
 
-                        System.out.println(itemSize);
-                    }
-
-                    if (checkedId == R.id.largeSize) {
-                        itemSize = "large";
-                        System.out.println(itemSize);
+                            if (checkedId == R.id.largeSize) {
+                                itemSize = "large";
+                                System.out.println(itemSize);
                     }
                 }
             });
+        } else {
+            itemSize = "-";
         }
 
         if (milkStatus == 1) {
