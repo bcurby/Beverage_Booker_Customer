@@ -197,6 +197,10 @@ public class AddToCartActivity extends AppCompatActivity {
                         } else if (response.code() == 403) {
                             Toast.makeText(AddToCartActivity.this, "There was a problem adding the item to cart",
                                     Toast.LENGTH_LONG).show();
+
+                        } else if (response.code() == 402) {
+                            Toast.makeText(AddToCartActivity.this, "There is not that quantity of the item in stock",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
 
