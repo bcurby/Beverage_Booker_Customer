@@ -35,6 +35,20 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/soldOutStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="163dp"
+            android:layout_marginTop="7dp"
+            android:text="SOLD OUT"
+            android:visibility="invisible"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/itemDesc"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
