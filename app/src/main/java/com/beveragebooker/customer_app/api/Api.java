@@ -98,4 +98,10 @@ public interface Api {
             @Field("streetNumber") String streetNumber,
             @Field("streetName") String streetName
     );
+
+    //Returns values for a single menu item
+    @GET("getmenuitem")
+    Call<List<MenuItem>> getMenuItem(
+            @Query("itemID") int itemID
+    );
 }

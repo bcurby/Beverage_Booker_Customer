@@ -16,13 +16,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Color;
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
+import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import okhttp3.ResponseBody;
@@ -35,6 +40,8 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInsta
 public class AddToCartActivity extends AppCompatActivity {
 
     public static final String ITEM_TYPE_RETURN = "com.beveragebooker.customer_app.ITEM_TYPE_RETURN";
+
+    private ArrayList<MenuItem> mSingleMenuItem;
 
     LinearLayout linearLayout;
 
@@ -55,6 +62,7 @@ public class AddToCartActivity extends AppCompatActivity {
     EditText comment;
 
     ElegantNumberButton qtyButton;
+    TextView stockLevel;
 
     int userID;
     int itemID;
@@ -90,6 +98,9 @@ public class AddToCartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_to_cart);
 
         linearLayout = findViewById(R.id.linearLayout);
+        stockLevel = findViewById(R.id.stockLevelAddToCart);
+
+        mSingleMenuItem = new ArrayList<>();
 
         Intent intent = getIntent();
 
@@ -157,17 +168,19 @@ public class AddToCartActivity extends AppCompatActivity {
         initViews(itemType, milkStatus, sugarStatus, decafStatus, extrasStatus, frappeStatus, heatedStatus);
         setListeners(milkStatus, sugarStatus, decafStatus, extrasStatus, frappeStatus, heatedStatus);
 
+        getStockUpdate();
+
         addToCartButton = findViewById(R.id.addToCartButton);
         addToCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (itemSize.equals("medium")){
+                if (itemSize.equals("medium")) {
                     itemPrice = itemPrice + 0.50;
                     System.out.print("itemPrice: " + itemPrice);
                 }
 
-                if (itemSize.equals("large")){
+                if (itemSize.equals("large")) {
                     itemPrice = itemPrice + 1.00;
                     System.out.print("itemPrice: " + itemPrice);
                 }
@@ -199,8 +212,10 @@ public class AddToCartActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
 
                         } else if (response.code() == 402) {
-                            Toast.makeText(AddToCartActivity.this, "There is not that quantity of the item in stock",
+                            Toast.makeText(AddToCartActivity.this, "There is not that quantity of the item in stock. " +
+                                            "Please check updated stock level on screen.",
                                     Toast.LENGTH_LONG).show();
+                            getStockUpdate();
                         }
                     }
 
@@ -222,6 +237,53 @@ public class AddToCartActivity extends AppCompatActivity {
                 String stringItemQuantity = qtyButton.getNumber();
                 itemQuantity = Integer.parseInt(stringItemQuantity);
                 System.out.println("Qty: " + itemQuantity);
+            }
+        });
+    }
+
+    private void getStockUpdate() {
+
+        Call<List<MenuItem>> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getMenuItem(itemID);
+
+        call.enqueue(new Callback<List<MenuItem>>() {
+            @Override
+            public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
+                if (response.code() == 200) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        mSingleMenuItem.add(response.body().get(i));
+                    }
+
+                    MenuItem singleItem = mSingleMenuItem.get(0);
+                    int itemStock = singleItem.getItemStock();
+                    System.out.println("ItemStock: " + itemStock);
+                    int displayedStock = itemStock - 5;
+                    System.out.println("DisplayedStock: " + displayedStock);
+
+                    if (itemType.equals("food") && itemStock > 5) {
+                        stockLevel.setVisibility(TextView.VISIBLE);
+                        stockLevel.setText(displayedStock + " in stock");
+                        qtyButton.setRange(1, displayedStock);
+                    }
+
+                    if (itemType.equals("food") && itemStock <= 5) {
+                        stockLevel.setVisibility(TextView.VISIBLE);
+                        stockLevel.setText("SOLD OUT");
+                        stockLevel.setTextColor(Color.RED);
+                        qtyButton.setVisibility(Button.INVISIBLE);
+                        addToCartButton.setEnabled(false);
+                        addToCartButton.setText("SOLD OUT");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MenuItem>> call, Throwable t) {
+
+                Toast.makeText(AddToCartActivity.this, t.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -274,18 +336,18 @@ public class AddToCartActivity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if (checkedId == R.id.smallSize) {
-                                itemSize = "small";
-                                System.out.println(itemSize);
-                            }
+                        itemSize = "small";
+                        System.out.println(itemSize);
+                    }
 
-                            if (checkedId == R.id.mediumSize) {
-                                itemSize = "medium";
-                                System.out.println(itemSize);
-                            }
+                    if (checkedId == R.id.mediumSize) {
+                        itemSize = "medium";
+                        System.out.println(itemSize);
+                    }
 
-                            if (checkedId == R.id.largeSize) {
-                                itemSize = "large";
-                                System.out.println(itemSize);
+                    if (checkedId == R.id.largeSize) {
+                        itemSize = "large";
+                        System.out.println(itemSize);
                     }
                 }
             });

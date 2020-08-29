@@ -127,8 +127,6 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 int itemQuantity = itemClicked.getQuantity();
                 System.out.println("Quantity: " + itemQuantity);
 
-                //Stock of clicked item
-
 
                 int milkStatus = itemClicked.getMilk();
                 System.out.printf("Milk: %d%n", milkStatus);
