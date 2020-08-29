@@ -40,7 +40,7 @@ public class NotificationOutput {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                if(response.body().equals(0) ) {
+                                if(response.code() == 201) {
 
                                     completeOrder(context, title, body);
 
