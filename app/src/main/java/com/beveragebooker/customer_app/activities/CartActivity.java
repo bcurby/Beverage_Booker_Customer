@@ -37,7 +37,8 @@ public class CartActivity extends AppCompatActivity {
     private CartAdapter mCartAdapter;
     private ArrayList<MenuItem> cartItemList;
     MenuItem itemClicked;
-    String itemTitle;
+    String itemTitle, itemMilk, itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe, itemHeated, itemComment;
+    double itemPrice;
 
     private TextView cartTotal;
     private Button checkoutButton;
@@ -65,6 +66,17 @@ public class CartActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 itemClicked = cartItemList.get(position);
                 itemTitle = cartItemList.get(position).getName();
+                itemPrice = cartItemList.get(position).getPrice();
+                itemMilk = cartItemList.get(position).getItemMilk();
+                itemSugar = cartItemList.get(position).getItemSugar();
+                itemDecaf = cartItemList.get(position).getItemDecaf();
+                itemVanilla = cartItemList.get(position).getItemVanilla();
+                itemCaramel = cartItemList.get(position).getItemCaramel();
+                itemChocolate = cartItemList.get(position).getItemChocolate();
+                itemWhippedCream = cartItemList.get(position).getItemWhippedCream();
+                itemFrappe = cartItemList.get(position).getItemFrappe();
+                itemHeated = cartItemList.get(position).getItemHeated();
+                itemComment = cartItemList.get(position).getItemComment();
                 deleteCartItem();
             }
         });
@@ -214,7 +226,7 @@ public class CartActivity extends AppCompatActivity {
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .deleteCartItem(userID, itemTitle);
+                .deleteCartItem(userID, itemTitle, itemPrice, itemMilk, itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe, itemHeated, itemComment);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
