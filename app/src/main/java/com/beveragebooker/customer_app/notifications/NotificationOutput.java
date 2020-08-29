@@ -1,13 +1,11 @@
 package com.beveragebooker.customer_app.notifications;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.activities.MainActivity;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,11 +19,11 @@ import retrofit2.Response;
 public class NotificationOutput {
     private static Timer myTimer;
 
-    public static void displayNotification(Context context, String title, String body, int orderID) {
+    public static void displayNotification(Context context, String title, String body, int userID) {
 
         //int orderStatus = completeOrder(orderID);
-        final int[] orderOpen = {1};
-        while (orderOpen[0] == 1) {
+        int orderOpen = 1;
+        while (orderOpen == 1) {
 
                 myTimer = new Timer();
                 myTimer.schedule(new TimerTask() {
@@ -35,7 +33,7 @@ public class NotificationOutput {
                         Call<ResponseBody> call = RetrofitClient
                                 .getInstance()
                                 .getApi()
-                                .getStatus(orderID);
+                                .getStatus(userID);
 
                         call.enqueue(new Callback<ResponseBody>() {
 
@@ -45,7 +43,7 @@ public class NotificationOutput {
                                 if(response.body().equals(0) ) {
 
                                     completeOrder(context, title, body);
-                                    orderOpen[0] = 0;
+
                                 }
 
                             }
@@ -59,12 +57,13 @@ public class NotificationOutput {
                     }
                 }, 0, 10000);
 
+                orderOpen = 0;
 
             }
         }
 
 
-    private static int completeOrder(Context context, String title, String body) {
+    private static void completeOrder(Context context, String title, String body) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_notifications)
@@ -78,7 +77,6 @@ public class NotificationOutput {
         NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from(context);
         mNotificationMgr.notify(0, mBuilder.build());
 
-        int orderStatus = 0;
-        return orderStatus;
+
     }
 }

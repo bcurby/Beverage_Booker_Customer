@@ -26,7 +26,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
-        int orderID = Integer.parseInt(Objects.requireNonNull(getIntent().getStringExtra("ORDER_ID")));
         orderConfirmTextView = findViewById(R.id.textViewOrderConfirm);
         returnToMainMenuButton = findViewById(R.id.returnToMainMenu);
 
@@ -38,8 +37,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         String title = "Order Ready";
         String body = user.getFirstName() + " your order is ready to enjoy";
 
+        int userID = user.getId();
+
         //add the call for the completed order notification
-        NotificationOutput.displayNotification(this, title, body, orderID);
+        NotificationOutput.displayNotification(this, title, body, userID);
 
 
 

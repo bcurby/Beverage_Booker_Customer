@@ -368,7 +368,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     int orderID = response.message().indexOf(2);
                     Log.d("GetOrder", String.valueOf(orderID));
                     Intent intent = new Intent(PlaceOrderActivity.this, OrderConfirmationActivity.class);
-                    intent.putExtra("ORDER_ID", orderID);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 

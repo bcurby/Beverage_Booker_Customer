@@ -108,7 +108,7 @@ public interface Api {
     //Get status of the order from db
     @GET("getOrderStatus")
     Call<ResponseBody> getStatus(
-            @Query("orderID") int orderID
+            @Query("userID") int userID
     );
 
 }
