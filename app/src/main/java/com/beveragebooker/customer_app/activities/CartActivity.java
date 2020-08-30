@@ -33,38 +33,41 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInsta
 public class CartActivity extends AppCompatActivity {
 
     public static String CART_TOTAL = "com.beveragebooker.customer_app.CART_TOTAL";
-
     private RecyclerView mRecyclerView;
     private CartAdapter mCartAdapter;
-
-    private List<MenuItem> cartItemList;
+    private ArrayList<MenuItem> cartItemList;
+    MenuItem itemClicked;
+    String itemTitle;
 
     private TextView cartTotal;
-
     private Button checkoutButton;
-
     private Button emptyCartButton;
 
     DecimalFormat currency = new DecimalFormat("###0.00");
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        
-        cartItemList = new ArrayList<>();
 
         mRecyclerView = findViewById(R.id.cartRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        cartItemList = new ArrayList<>();
         mCartAdapter = new CartAdapter(cartItemList);
-
         mRecyclerView.setAdapter(mCartAdapter);
-
         cartTotal = findViewById(R.id.cartTotal);
+
+        //delete button
+        mCartAdapter.setOnButtonClickListener(new CartAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                itemClicked = cartItemList.get(position);
+                itemTitle = cartItemList.get(position).getName();
+                deleteCartItem();
+            }
+        });
 
         //Checkout Button
         checkoutButton = findViewById(R.id.checkoutButton);
@@ -131,7 +134,6 @@ public class CartActivity extends AppCompatActivity {
                 Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     //Method that calculates the total of items in the cart
@@ -203,6 +205,37 @@ public class CartActivity extends AppCompatActivity {
 
     private void goToMenu() {
         Intent intent = new Intent(this, BrowseMenu.class );
+        startActivity(intent);
+    }
+
+    private void deleteCartItem() {
+        final User loggedUser = getInstance(CartActivity.this).getUser();
+        int userID = loggedUser.getId();
+        System.out.println(userID);
+        System.out.println(itemTitle);
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .deleteCartItem(userID, itemTitle);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 201) {
+                    Toast.makeText(CartActivity.this, "Item Deleted", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 402) {
+                    Toast.makeText(CartActivity.this, "Item Failed To Delete", Toast.LENGTH_LONG).show();
+                } else {
+                    System.out.println(response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Intent intent = getIntent();
+        finish();
         startActivity(intent);
     }
 }

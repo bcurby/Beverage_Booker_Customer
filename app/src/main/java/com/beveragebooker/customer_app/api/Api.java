@@ -104,4 +104,12 @@ public interface Api {
     Call<List<MenuItem>> getMenuItem(
             @Query("itemID") int itemID
     );
+
+    //Delete item from database
+    @FormUrlEncoded
+    @POST("deletecartitem")
+    Call<ResponseBody> deleteCartItem(
+            @Field("userID") int userID,
+            @Field("itemTitle") String itemTitle
+    );
 }
