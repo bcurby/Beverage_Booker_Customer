@@ -118,7 +118,7 @@ public class CartActivity extends AppCompatActivity {
 
                 //Cart is empty
                 } else if (response.code() == 303) {
-                    Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_SHORT).show();
                 }
                 //Display the total of items in the cart
                 cartTotal.setText("Cart Total: $" + currency.format(getCartTotal()));
@@ -172,6 +172,8 @@ public class CartActivity extends AppCompatActivity {
 
                 if (response.code() == 201) {
                     Toast.makeText(CartActivity.this, "Cart emptied", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(CartActivity.this, CartActivity.class);
+                    startActivity(intent);
 
                 } else if (response.code() == 402) {
                     Toast.makeText(CartActivity.this, "Cart failed to empty",
