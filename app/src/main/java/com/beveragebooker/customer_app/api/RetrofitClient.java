@@ -14,15 +14,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://192.168.1.3/BeverageApi/public/";
+    private static final String BASE_URL = "http://192.168.1.110/BeverageApi/public/";
     //private static final String BASE_URL = "http://www.beveragebooker.com/BeverageApi/public/";
 
-    private static final String AUTH = "Basic " + Base64.encodeToString(("benn:CoffeeisGood12!").getBytes(), Base64.NO_WRAP);
+    //private static final String AUTH = "Basic " + Base64.encodeToString(("benn:CoffeeisGood12!").getBytes(), Base64.NO_WRAP);
 
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 
-    
+
     private RetrofitClient() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(
@@ -32,7 +32,7 @@ public class RetrofitClient {
                                 Request original = chain.request();
 
                                 Request.Builder requestBuilder = original.newBuilder()
-                                        .addHeader("Authorization", AUTH)
+                                        //.addHeader("Authorization", AUTH)
                                         .method(original.method(), original.body());
 
                                 Request request = requestBuilder.build();
