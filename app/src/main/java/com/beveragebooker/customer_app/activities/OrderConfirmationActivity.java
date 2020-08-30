@@ -20,6 +20,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     private TextView orderConfirmTextView;
     private Button returnToMainMenuButton;
+    User user = SharedPrefManager.getInstance(this).getUser();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -28,26 +29,15 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_confirmation);
         orderConfirmTextView = findViewById(R.id.textViewOrderConfirm);
         returnToMainMenuButton = findViewById(R.id.returnToMainMenu);
-
-        User user = SharedPrefManager.getInstance(this).getUser();
-
         orderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
                 + "\nYour order will be ready shortly.");
-
-        String title = "Order Ready";
-        String body = user.getFirstName() + " your order is ready to enjoy";
-
-        int userID = user.getId();
-
-        //add the call for the completed order notification
-        NotificationOutput.displayNotification(this, title, body, userID);
-
 
 
         returnToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openPrimaryMenu();
+
             }
         });
     }
@@ -55,5 +45,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private void openPrimaryMenu() {
         Intent intent = new Intent(this, PrimaryMenu.class);
         startActivity(intent);
+//        String title = "Order Ready";
+//        String body = user.getFirstName() + " your order is ready to enjoy";
+//        int userID = user.getId();
+//        //add the call for the completed order notification
+//        NotificationOutput.displayNotification(this, title, body, userID);
     }
 }

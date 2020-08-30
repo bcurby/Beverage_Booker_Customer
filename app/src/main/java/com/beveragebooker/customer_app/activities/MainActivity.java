@@ -11,15 +11,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.notifications.NotificationOutput;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,8 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.beveragebooker.customer_app.notifications.MyFirebaseMessagingService.sendRegistrationToServer;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String CHANNEL_ID = "beverageBooker";
@@ -110,17 +105,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(@NotNull Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 
                 if(response.code() == 202) {
 
                     //Proceed with Login
-                    assert loginResponse != null;
                     SharedPrefManager.getInstance(MainActivity.this)
                             .saveUser(loginResponse.getUser());
-                    //send the token to the server
-                    sendToken();
+
                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -134,11 +127,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.LENGTH_LONG).show();
                   }
             }
+
+
             @Override
-            public void onFailure(@NotNull Call<LoginResponse> call, @NotNull Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
 
             }
         });
+
     }
 
     @Override
@@ -147,41 +143,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonLogin:
                 userLogin();
+
                 break;
 
             case R.id.textViewRegister:
                 startActivity(new Intent(this, CreateUserActivity.class));
                 break;
+
+
         }
     }
-
-    //Method to send the token to the server using the email address during login
-
-    public void sendToken(){
-
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "getInstanceId failed", task.getException());
-                            return;
-                        }
-                        // Get the email address for user identification
-                        String email = editTextEmail.getText().toString().trim();
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-
-                        // Log and toast
-                        Log.d(TAG, token);
-                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
-                        sendRegistrationToServer(token, email);
-
-                    }
-                });
-
-    }
-
-    }
-
-
+}

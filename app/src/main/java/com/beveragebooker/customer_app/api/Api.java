@@ -42,7 +42,6 @@ public interface Api {
     );
 
 
-
     //Get Cart items from database
     @GET("getcartitems")
     Call<List<MenuItem>> getCartItems(
@@ -98,17 +97,24 @@ public interface Api {
             @Field("streetName") String streetName
     );
 
-    @FormUrlEncoded
-    @POST("notificationtoken")
-    Call<ResponseBody> addToken(
-            @Field("token") String token,
-            @Field("email") String email
-    );
+//    @FormUrlEncoded
+//    @POST("notificationtoken")
+//    Call<ResponseBody> addToken(
+//            @Field("token") String token,
+//            @Field("email") String email
+//    );
 
     //Get status of the order from db
     @GET("getOrderStatus")
     Call<ResponseBody> getStatus(
             @Query("userID") int userID
+    );
+
+    @FormUrlEncoded
+    @POST("notificationSent")
+    Call<ResponseBody> setStatus(
+
+            @Field("orderID") String orderID
     );
 
 }

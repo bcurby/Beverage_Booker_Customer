@@ -1,9 +1,12 @@
 package com.beveragebooker.customer_app.notifications;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.activities.MainActivity;
+import com.beveragebooker.customer_app.activities.OrderConfirmationActivity;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 
 import java.util.Timer;
@@ -19,11 +22,11 @@ import retrofit2.Response;
 public class NotificationOutput {
     private static Timer myTimer;
 
-    public static void displayNotification(Context context, String title, String body, int userID) {
-
+    public static void displayNotification(OrderConfirmationActivity context, String title, String body, int userID) {
+        Log.d("WHAT HAS HAPPENED", "this has been called");
         //int orderStatus = completeOrder(orderID);
-        int orderOpen = 1;
-        while (orderOpen == 1) {
+        final int[] orderOpen = {1};
+        while (true) {
 
                 myTimer = new Timer();
                 myTimer.schedule(new TimerTask() {
@@ -42,30 +45,26 @@ public class NotificationOutput {
 
                                 if(response.code() == 201) {
 
-                                    completeOrder(context, title, body);
+                                    String orderID = String.valueOf(response.body());
+                                    completeOrder(context, title, body, orderID);
 
                                 }
-
+                                Log.d("WHAT HAS HAPPENED", String.valueOf(+ response.code()));
                             }
-
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                            }
-                        });
-
-                    }
-                }, 0, 10000);
-
-                orderOpen = 0;
-
+                        }
+                });
             }
-        }
+                }, 0, 10000);
+            return;
+      }
+    }
 
 
-    private static void completeOrder(Context context, String title, String body) {
+    private static void completeOrder(OrderConfirmationActivity context, String title, String body, String orderID) {
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
+                new NotificationCompat.Builder((Context) context, MainActivity.CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_notifications)
 
                         .setContentTitle(title)
@@ -74,9 +73,37 @@ public class NotificationOutput {
                         .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from(context);
+        NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from((Context) context);
         mNotificationMgr.notify(0, mBuilder.build());
 
-
-    }
+        changeStatus(orderID);
 }
+
+
+    private static void changeStatus(String orderID){
+
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance().getApi()
+                .setStatus(orderID);
+
+        call.enqueue(new Callback<ResponseBody>() {
+
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                Log.d("Status", "HAS BEEN UPDATED");
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+}
+
