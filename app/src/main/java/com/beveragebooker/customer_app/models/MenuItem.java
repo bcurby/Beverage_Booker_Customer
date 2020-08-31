@@ -14,6 +14,7 @@ public class MenuItem {
     private int frappe;
     private int heated;
 
+    private String itemSize;
     private String itemMilk;
     private String itemSugar;
     private String itemDecaf;
@@ -101,6 +102,11 @@ public class MenuItem {
 
 
     //Menu item options getters
+
+    public String getItemSize() {
+        return itemSize;
+    }
+
     public String getItemMilk() {
         return itemMilk;
     }
