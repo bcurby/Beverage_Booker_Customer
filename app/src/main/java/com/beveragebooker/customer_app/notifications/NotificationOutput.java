@@ -25,11 +25,8 @@ public class NotificationOutput {
     public static void displayNotification(OrderConfirmationActivity context, String title, String body, int userID) {
         Log.d("WHAT HAS HAPPENED", "this has been called");
         //int orderStatus = completeOrder(orderID);
-        final int[] orderOpen = {1};
-        while (true) {
-
-                myTimer = new Timer();
-                myTimer.schedule(new TimerTask() {
+        myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
 
@@ -43,11 +40,11 @@ public class NotificationOutput {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                if(response.code() == 201) {
-
+                                if(response.body() != null) {
                                     String orderID = String.valueOf(response.body());
                                     completeOrder(context, title, body, orderID);
-
+                                    myTimer.cancel();
+                                    myTimer.purge();
                                 }
                                 Log.d("WHAT HAS HAPPENED", String.valueOf(+ response.code()));
                             }
@@ -57,9 +54,8 @@ public class NotificationOutput {
                 });
             }
                 }, 0, 10000);
-            return;
       }
-    }
+
 
 
     private static void completeOrder(OrderConfirmationActivity context, String title, String body, String orderID) {
@@ -82,6 +78,8 @@ public class NotificationOutput {
 
     private static void changeStatus(String orderID){
 
+        Log.d("WHAT HAS HAPPENED", String.valueOf(orderID));
+
         Call<ResponseBody> call = RetrofitClient
                 .getInstance().getApi()
                 .setStatus(orderID);
@@ -93,7 +91,6 @@ public class NotificationOutput {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 Log.d("Status", "HAS BEEN UPDATED");
-
 
             }
 

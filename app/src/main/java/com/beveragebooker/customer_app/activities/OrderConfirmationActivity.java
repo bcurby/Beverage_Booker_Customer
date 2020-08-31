@@ -31,7 +31,11 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         returnToMainMenuButton = findViewById(R.id.returnToMainMenu);
         orderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
                 + "\nYour order will be ready shortly.");
-
+        String title = "Order Ready";
+        String body = user.getFirstName() + " your order is ready to enjoy";
+        int userID = user.getId();
+        //add the call for the completed order notification
+        NotificationOutput.displayNotification(this, title, body, userID);
 
         returnToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,10 +49,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private void openPrimaryMenu() {
         Intent intent = new Intent(this, PrimaryMenu.class);
         startActivity(intent);
-//        String title = "Order Ready";
-//        String body = user.getFirstName() + " your order is ready to enjoy";
-//        int userID = user.getId();
-//        //add the call for the completed order notification
-//        NotificationOutput.displayNotification(this, title, body, userID);
+
     }
 }

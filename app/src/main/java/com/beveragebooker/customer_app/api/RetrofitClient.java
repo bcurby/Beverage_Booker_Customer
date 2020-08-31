@@ -25,6 +25,7 @@ public class RetrofitClient {
 
     private RetrofitClient() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
                 .addInterceptor(
                         new Interceptor() {
                             @Override
