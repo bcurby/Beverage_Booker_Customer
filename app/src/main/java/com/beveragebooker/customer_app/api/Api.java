@@ -98,4 +98,29 @@ public interface Api {
             @Field("streetNumber") String streetNumber,
             @Field("streetName") String streetName
     );
+
+    //Returns values for a single menu item
+    @GET("getmenuitem")
+    Call<List<MenuItem>> getMenuItem(
+            @Query("itemID") int itemID
+    );
+
+    //Delete item from database
+    @FormUrlEncoded
+    @POST("deletecartitem")
+    Call<ResponseBody> deleteCartItem(
+            @Field("userID") int userID,
+            @Field("itemTitle") String itemTitle,
+            @Field("itemPrice") double itemPrice,
+            @Field("itemMilk") String itemMilk,
+            @Field("itemSugar") String itemSugar,
+            @Field("itemDecaf") String itemDecaf,
+            @Field("itemVanilla") String itemVanilla,
+            @Field("itemCaramel") String itemCaramel,
+            @Field("itemChocolate") String itemChocolate,
+            @Field("itemWhippedCream") String itemWhippedCream,
+            @Field("itemFrappe") String itemFrappe,
+            @Field("itemHeated") String itemHeated,
+            @Field("itemComment") String itemComment
+    );
 }

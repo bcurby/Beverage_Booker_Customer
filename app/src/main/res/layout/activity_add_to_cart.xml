@@ -33,12 +33,22 @@
         app:initialNumber="1"
         app:finalNumber="20"/>
 
+    <TextView
+        android:id="@+id/stockLevelAddToCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/qtyButton"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        tools:ignore="MissingConstraints" />
+
     <Button
         android:id="@+id/addToCartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to Cart"
-        app:layout_constraintTop_toBottomOf="@+id/qtyButton"
+        app:layout_constraintTop_toBottomOf="@+id/stockLevelAddToCart"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -87,4 +87,7 @@ dependencies {
 
     //Elegant Number Button
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
+
+    //Scalars
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
 }

@@ -14,6 +14,9 @@ public class MenuItem {
     private int frappe;
     private int heated;
 
+    private String itemType;
+    private int itemStock;
+
     private String itemMilk;
     private String itemSugar;
     private String itemDecaf;
@@ -97,6 +100,17 @@ public class MenuItem {
 
     public int getHeated() {
         return heated;
+    }
+
+
+    //Getter for item stock levels
+    public int getItemStock() {
+        return itemStock;
+    }
+
+    //Getter for itemType
+    public String getItemType() {
+        return itemType;
     }
 
 
