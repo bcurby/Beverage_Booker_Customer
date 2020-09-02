@@ -124,3 +124,25 @@ public interface Api {
             @Field("itemComment") String itemComment
     );
 }
+
+//    @FormUrlEncoded
+//    @POST("notificationtoken")
+//    Call<ResponseBody> addToken(
+//            @Field("token") String token,
+//            @Field("email") String email
+//    );
+
+    //Get status of the order from db
+    @GET("getOrderStatus")
+    Call<ResponseBody> getStatus(
+            @Query("userID") int userID
+    );
+
+    @FormUrlEncoded
+    @POST("notificationSent")
+    Call<ResponseBody> setStatus(
+
+            @Field("orderID") String orderID
+    );
+
+}

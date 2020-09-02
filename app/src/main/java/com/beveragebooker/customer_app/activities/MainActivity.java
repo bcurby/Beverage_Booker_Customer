@@ -1,9 +1,11 @@
 package com.beveragebooker.customer_app.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -12,21 +14,40 @@ import android.widget.Toast;
 import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
+import com.beveragebooker.customer_app.models.LoginResponse;
+import com.beveragebooker.customer_app.notifications.NotificationOutput;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
+import org.jetbrains.annotations.NotNull;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+    public static final String CHANNEL_ID = "beverageBooker";
+    private static final String CHANNEL_NAME = "orderReady";
+    private static final String CHANNEL_DESC = "notify customer order is ready";
     private EditText editTextEmail;
     private EditText editTextPassword;
-
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+
+
         setContentView(R.layout.activity_main);
 
         editTextEmail = findViewById(R.id.editTextEmailLogin);
@@ -34,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.buttonLogin).setOnClickListener(this);
         findViewById(R.id.textViewRegister).setOnClickListener(this);
+
     }
 
     //Check to see whether user is already logged in
@@ -103,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (response.code() == 401) {
                     Toast.makeText(MainActivity.this, "Invalid login credentials",
                             Toast.LENGTH_LONG).show();
-                }
+                  }
             }
 
 

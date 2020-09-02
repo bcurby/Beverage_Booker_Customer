@@ -2,6 +2,7 @@ package com.beveragebooker.customer_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,9 +13,12 @@ import android.widget.TextView;
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.models.User;
+import com.beveragebooker.customer_app.notifications.NotificationOutput;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 import java.util.Locale;
+
+import java.util.Objects;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
     private static final long START_TIME_IN_MILLIS = 600000;
@@ -31,7 +35,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     private long mTimeLeftInMillis;
     private long mEndTime;
+    User user = SharedPrefManager.getInstance(this).getUser();
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,11 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
                 + "\nYour order will be ready shortly.");
+        String title = "Order Ready";
+        String body = user.getFirstName() + " your order is ready to enjoy";
+        int userID = user.getId();
+        //add the call for the completed order notification
+        NotificationOutput.displayNotification(this, title, body, userID);
 
         startTimer();
         mStartPauseButton.setVisibility(View.VISIBLE);

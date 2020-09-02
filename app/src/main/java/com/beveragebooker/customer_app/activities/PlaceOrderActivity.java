@@ -329,8 +329,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 //If payment is successful there will be details in log and UI
                 //Log.i("TAG", "onSuccess:Payment " + gson.toJson(paymentIntent));
                 //activity.displayAlert(
-                        //"Payment completed",
-                       // gson.toJson(paymentIntent)
+                //"Payment completed",
+                // gson.toJson(paymentIntent)
                 //);
 
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
@@ -365,9 +365,9 @@ public class PlaceOrderActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.code() == 201) {
-
+                    int orderID = response.message().indexOf(2);
+                    Log.d("GetOrder", String.valueOf(orderID));
                     Intent intent = new Intent(PlaceOrderActivity.this, OrderConfirmationActivity.class);
-
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
@@ -430,9 +430,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
             orderTotal += itemTotal;
             System.out.println("Cart Total: " + orderTotal);
-            
+
         }
         return orderTotal;
     }
 }
-

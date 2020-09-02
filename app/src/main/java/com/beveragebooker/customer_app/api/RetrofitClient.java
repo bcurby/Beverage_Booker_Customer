@@ -29,6 +29,8 @@ public class RetrofitClient {
 
     private RetrofitClient() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                //retry merged from notifications branch
+                .retryOnConnectionFailure(true)
                 .addInterceptor(
                         new Interceptor() {
                             @Override
