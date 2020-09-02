@@ -18,16 +18,16 @@ import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 import java.util.Locale;
 
-import java.util.Objects;
-
 public class OrderConfirmationActivity extends AppCompatActivity {
-    private static final long START_TIME_IN_MILLIS = 600000;
+    private static long START_TIME_IN_MILLIS = 600000;
 
     private TextView mOrderConfirmTextView;
     private TextView mCountDownTextView;
     private Button mReturnToMainMenuButton;
     private Button mStartPauseButton;
     private Button mResetButton;
+
+    private NotificationOutput notifOut;
 
     private CountDownTimer mCountDownTimer;
 
@@ -56,8 +56,14 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         String title = "Order Ready";
         String body = user.getFirstName() + " your order is ready to enjoy";
         int userID = user.getId();
+        System.out.println("UserID: " + userID);
         //add the call for the completed order notification
+        //NotificationOutput.displayNotification(this, title, body, userID);
         NotificationOutput.displayNotification(this, title, body, userID);
+        //notifOut = new NotificationOutput(this);
+
+        //notifOut.setListener(new NotificationOutput().Listener)
+        //no.stopTimer(this);
 
         startTimer();
         mStartPauseButton.setVisibility(View.VISIBLE);
@@ -114,14 +120,14 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         mTimerRunning = true;
     }
 
-    private void pauseTimer() {
+    public void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
         mStartPauseButton.setText("Start");
         mResetButton.setVisibility(View.VISIBLE);
     }
 
-    private void resetTimer() {
+    public void resetTimer() {
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
         mResetButton.setVisibility(View.INVISIBLE);
@@ -150,6 +156,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         editor.putLong("endTime", mEndTime);
 
         editor.apply();
+
+
 
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
@@ -180,6 +188,16 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void setMillis() {
+        mTimeLeftInMillis = 0;
+        mTimerRunning = false;
+        updateCountDownText();
+    }
+
+    //private static void setMillis() {
+     //   START_TIME_IN_MILLIS = 0;
+    //}
 
     private void openPrimaryMenu() {
         Intent intent = new Intent(this, PrimaryMenu.class);

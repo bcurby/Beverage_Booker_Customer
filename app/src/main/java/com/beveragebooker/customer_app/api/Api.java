@@ -2,6 +2,7 @@ package com.beveragebooker.customer_app.api;
 
 import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.models.MenuItem;
+import com.beveragebooker.customer_app.models.Order;
 
 import java.util.List;
 
@@ -123,7 +124,6 @@ public interface Api {
             @Field("itemHeated") String itemHeated,
             @Field("itemComment") String itemComment
     );
-}
 
 //    @FormUrlEncoded
 //    @POST("notificationtoken")
@@ -133,16 +133,14 @@ public interface Api {
 //    );
 
     //Get status of the order from db
-    @GET("getOrderStatus")
-    Call<ResponseBody> getStatus(
+    @GET("getorderstatus")
+    Call<Order> getOrderStatus(
             @Query("userID") int userID
     );
 
     @FormUrlEncoded
     @POST("notificationSent")
     Call<ResponseBody> setStatus(
-
-            @Field("orderID") String orderID
+            @Field("orderID") int orderID
     );
-
 }
