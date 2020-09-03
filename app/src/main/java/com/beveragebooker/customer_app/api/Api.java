@@ -1,5 +1,6 @@
 package com.beveragebooker.customer_app.api;
 
+import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.Order;
@@ -135,12 +136,19 @@ public interface Api {
     //Get status of the order from db
     @GET("getorderstatus")
     Call<Order> getOrderStatus(
-            @Query("userID") int userID
+            @Query("userID") int userID,
+            @Query("cartID") int cartID
     );
 
     @FormUrlEncoded
     @POST("notificationSent")
     Call<ResponseBody> setStatus(
             @Field("orderID") int orderID
+    );
+
+    //Get status of the order from db
+    @GET("getcartdetails")
+    Call<Cart> getCartDetails(
+            @Query("userID") int userID
     );
 }

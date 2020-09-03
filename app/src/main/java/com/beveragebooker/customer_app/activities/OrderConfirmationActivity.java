@@ -28,6 +28,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private Button mStartPauseButton;
     private Button mResetButton;
 
+    private int cartID;
+
     private NotificationOutput notifOut;
 
     private CountDownTimer mCountDownTimer;
@@ -50,6 +52,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         mStartPauseButton = findViewById(R.id.button_start_pause);
         mResetButton = findViewById(R.id.button_reset);
 
+        Intent intent = getIntent();
+        cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
+        System.out.println("CartID Confirm: " + cartID);
+
         User user = SharedPrefManager.getInstance(this).getUser();
 
         mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
@@ -64,7 +70,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         int userID = user.getId();
         System.out.println("UserID: " + userID);
         //add the call for the completed order notification
-        NotificationOutput.displayNotification(this, title, body, userID);
+        NotificationOutput.displayNotification(this, title, body, userID, cartID);
 
 
         startTimer();

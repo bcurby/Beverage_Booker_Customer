@@ -28,7 +28,7 @@ public class NotificationOutput {
 
     private static Timer myTimer;
 
-    public static void displayNotification(OrderConfirmationActivity context, String title, String body, int userID) {
+    public static void displayNotification(OrderConfirmationActivity context, String title, String body, int userID, int cartID) {
 
         Log.d("WHAT HAS HAPPENED", "this has been called");
         //int orderStatus = completeOrder(orderID);
@@ -40,7 +40,7 @@ public class NotificationOutput {
                 Call<Order> call = RetrofitClient
                         .getInstance()
                         .getApi()
-                        .getOrderStatus(userID);
+                        .getOrderStatus(userID, cartID);
 
                 call.enqueue(new Callback<Order>() {
                     @Override
