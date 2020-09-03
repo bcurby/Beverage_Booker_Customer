@@ -90,7 +90,7 @@ public class NotificationOutput {
 
         //changeStatus(orderID);
 
-        context.resetTimer();
+        context.clearTimer();
 
 
     }

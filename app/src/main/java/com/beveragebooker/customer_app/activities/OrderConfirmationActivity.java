@@ -22,6 +22,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private static long START_TIME_IN_MILLIS = 600000;
 
     private TextView mOrderConfirmTextView;
+    private TextView mOrderCompleted;
     private TextView mCountDownTextView;
     private Button mReturnToMainMenuButton;
     private Button mStartPauseButton;
@@ -53,17 +54,18 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
                 + "\nYour order will be ready shortly.");
+
+        mOrderCompleted = (TextView) findViewById(R.id.textViewOrderComplete);
+        mOrderCompleted.setText("Your order is ready for pick up,   " + user.getFirstName() + ".");
+
+
         String title = "Order Ready";
         String body = user.getFirstName() + " your order is ready to enjoy";
         int userID = user.getId();
         System.out.println("UserID: " + userID);
         //add the call for the completed order notification
-        //NotificationOutput.displayNotification(this, title, body, userID);
         NotificationOutput.displayNotification(this, title, body, userID);
-        //notifOut = new NotificationOutput(this);
 
-        //notifOut.setListener(new NotificationOutput().Listener)
-        //no.stopTimer(this);
 
         startTimer();
         mStartPauseButton.setVisibility(View.VISIBLE);
@@ -128,10 +130,34 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     }
 
     public void resetTimer() {
+
+        //mCountDownTimer.cancel();
+        //mTimerRunning = false;
+        //mTimeLeftInMillis = 0;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
         mResetButton.setVisibility(View.INVISIBLE);
         mStartPauseButton.setVisibility(View.VISIBLE);
+    }
+
+
+    public void clearTimer() {
+        mCountDownTimer.cancel();
+        mTimerRunning = false;
+        mTimeLeftInMillis = 0;
+        updateCountDownText();
+        updateTextView();
+    }
+
+    private void updateTextView() {
+        OrderConfirmationActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mOrderConfirmTextView.setText("Your order is ready for pick up, " + user.getFirstName() + ".");
+                //mOrderCompleted.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     private void updateCountDownText() {
@@ -156,7 +182,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         editor.putLong("endTime", mEndTime);
 
         editor.apply();
-
 
 
         if (mCountDownTimer != null) {
@@ -195,9 +220,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         updateCountDownText();
     }
 
-    //private static void setMillis() {
-     //   START_TIME_IN_MILLIS = 0;
-    //}
 
     private void openPrimaryMenu() {
         Intent intent = new Intent(this, PrimaryMenu.class);
