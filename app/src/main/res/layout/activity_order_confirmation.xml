@@ -65,4 +65,15 @@
         android:visibility="invisible"
         tools:visibility="visible" />
 
+    <ProgressBar
+        android:id="@+id/my_progress_bar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/progress_circle"
+        tools:progress="60"
+
+        android:layout_below="@+id/button_start_pause"
+        />
+
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.beveragebooker.customer_app.R;
@@ -19,7 +20,7 @@ import com.beveragebooker.customer_app.storage.SharedPrefManager;
 import java.util.Locale;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
-    private static long START_TIME_IN_MILLIS = 600000;
+    private static long START_TIME_IN_MILLIS = 20000;
 
     private TextView mOrderConfirmTextView;
     private TextView mOrderCompleted;
@@ -29,8 +30,15 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private Button mResetButton;
 
     private int cartID;
+    ProgressBar orderProgressBar;
+    int percentage = 5;
+    int i;
+    int progressPercentage;
+    int numberOfSeconds = (int)START_TIME_IN_MILLIS/1000;
+    int factor = 100/numberOfSeconds;
 
-    private NotificationOutput notifOut;
+
+    //private NotificationOutput notifOut;
 
     private CountDownTimer mCountDownTimer;
 
@@ -52,6 +60,12 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         mStartPauseButton = findViewById(R.id.button_start_pause);
         mResetButton = findViewById(R.id.button_reset);
 
+        orderProgressBar = findViewById(R.id.my_progress_bar);
+
+        orderProgressBar.setProgress(0);
+        orderProgressBar.setMax(100);
+
+
         Intent intent = getIntent();
         cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
         System.out.println("CartID Confirm: " + cartID);
@@ -62,20 +76,37 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 + "\nYour order will be ready shortly.");
 
         mOrderCompleted = (TextView) findViewById(R.id.textViewOrderComplete);
-        mOrderCompleted.setText("Your order is ready for pick up,   " + user.getFirstName() + ".");
+        //mOrderCompleted.setText("Your order is ready for pick up,   " + user.getFirstName() + ".");
 
 
         String title = "Order Ready";
         String body = user.getFirstName() + " your order is ready to enjoy";
         int userID = user.getId();
         System.out.println("UserID: " + userID);
-        //add the call for the completed order notification
-        NotificationOutput.displayNotification(this, title, body, userID, cartID);
 
-
-        startTimer();
         mStartPauseButton.setVisibility(View.VISIBLE);
         mStartPauseButton.setText("Pause");
+
+        if (cartID != 0) {
+            //add the call for the completed order notification
+            NotificationOutput.displayNotification(this, title, body, userID, cartID);
+
+            //SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+            //mTimerRunning = prefs.getBoolean("timerRunning", false);
+
+            //if (mTimerRunning == false) {
+            resetTimer();
+            startTimer();
+        }
+
+        //So nothing displays if user checks finished order
+        //use orderStatus??
+        if (cartID == 0) {
+            mOrderConfirmTextView.setVisibility(View.INVISIBLE);
+        }
+
+
+
 
         mReturnToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,12 +132,17 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 resetTimer();
             }
         });
-
-        //updateCountDownText();
     }
 
     private void startTimer() {
+
+        //int numberOfSeconds = 600;
+        //int factor = 100/numberOfSeconds;
+        //System.out.println("Factor: " + factor);
+
+        //mTimeLeftInMillis = START_TIME_IN_MILLIS;
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
+
 
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
@@ -114,6 +150,16 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 mTimeLeftInMillis = millisUntilFinished;
                 mStartPauseButton.setText("Pause");
                 updateCountDownText();
+                //i++;
+
+
+
+                int secondsRemaining = (int) (millisUntilFinished / 1000);
+                progressPercentage = (numberOfSeconds-secondsRemaining) * factor ;
+                orderProgressBar.setProgress(progressPercentage);
+                //System.out.println("Progress: " + progressPercentage);
+                //orderProgressBar.setProgress((int)i*100/(60000/1000));
+                //orderProgressBar.setProgress(i*percentage);
             }
 
             @Override
@@ -122,6 +168,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 mStartPauseButton.setText("Start");
                 mStartPauseButton.setVisibility(View.INVISIBLE);
                 mResetButton.setVisibility(View.VISIBLE);
+                updateTextView();
+                orderProgressBar.setProgress(100);
+
             }
         }.start();
 
@@ -144,6 +193,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         updateCountDownText();
         mResetButton.setVisibility(View.INVISIBLE);
         mStartPauseButton.setVisibility(View.VISIBLE);
+        orderProgressBar.setProgress(0);
     }
 
 
@@ -183,6 +233,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
+        //progress
+        editor.putInt("progressPercentage", progressPercentage);
+        //editor.putInt("iValue", i);
+
         editor.putLong("millisLeft", mTimeLeftInMillis);
         editor.putBoolean("timerRunning", mTimerRunning);
         editor.putLong("endTime", mEndTime);
@@ -204,11 +258,16 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         mTimeLeftInMillis = prefs.getLong("millisLeft", START_TIME_IN_MILLIS);
         mTimerRunning = prefs.getBoolean("timerRunning", false);
 
+
         updateCountDownText();
+
 
         if (mTimerRunning) {
             mEndTime = prefs.getLong("endTime", 0);
             mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
+            //i = prefs.getInt("iValue", i);
+            progressPercentage = prefs.getInt("progressPercentage", progressPercentage);
+            orderProgressBar.setProgress(progressPercentage);
 
             if (mTimeLeftInMillis < 0) {
                 mTimeLeftInMillis = 0;
@@ -220,11 +279,11 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         }
     }
 
-    public void setMillis() {
-        mTimeLeftInMillis = 0;
-        mTimerRunning = false;
-        updateCountDownText();
-    }
+    //public void setMillis() {
+      //  mTimeLeftInMillis = 0;
+      //  mTimerRunning = false;
+      //  updateCountDownText();
+   // }
 
 
     private void openPrimaryMenu() {
