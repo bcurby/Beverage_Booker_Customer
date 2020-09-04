@@ -151,4 +151,10 @@ public interface Api {
     Call<Cart> getCartDetails(
             @Query("userID") int userID
     );
+
+    //Get status of the order from db
+    @GET("getcartidfromusers")
+    Call<Order> getCartIDFromUsers(
+            @Query("userID") int userID
+    );
 }

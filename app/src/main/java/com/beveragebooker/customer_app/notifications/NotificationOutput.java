@@ -68,7 +68,7 @@ public class NotificationOutput {
                     }
                 });
             }
-        }, 0, 5000);
+        }, 0, 10000);
     }
 
 

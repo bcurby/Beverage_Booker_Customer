@@ -13,11 +13,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.beveragebooker.customer_app.R;
+import com.beveragebooker.customer_app.api.RetrofitClient;
+import com.beveragebooker.customer_app.models.Cart;
+import com.beveragebooker.customer_app.models.Order;
 import com.beveragebooker.customer_app.models.User;
 import com.beveragebooker.customer_app.notifications.NotificationOutput;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
     private static long START_TIME_IN_MILLIS = 20000;
@@ -29,16 +38,17 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private Button mStartPauseButton;
     private Button mResetButton;
 
-    private int cartID;
+    int cartID;
+    int userID;
+    //public static int orderStatus;
     ProgressBar orderProgressBar;
-    int percentage = 5;
-    int i;
+
+    //private static Timer myTimer;
+
     int progressPercentage;
-    int numberOfSeconds = (int)START_TIME_IN_MILLIS/1000;
-    int factor = 100/numberOfSeconds;
+    int numberOfSeconds = (int) START_TIME_IN_MILLIS / 1000;
+    int factor = 100 / numberOfSeconds;
 
-
-    //private NotificationOutput notifOut;
 
     private CountDownTimer mCountDownTimer;
 
@@ -47,6 +57,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private long mTimeLeftInMillis;
     private long mEndTime;
     User user = SharedPrefManager.getInstance(this).getUser();
+    Cart thisCart;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -68,7 +79,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
-        System.out.println("CartID Confirm: " + cartID);
+        System.out.println("CartID Start: " + cartID);
 
         User user = SharedPrefManager.getInstance(this).getUser();
 
@@ -81,31 +92,54 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         String title = "Order Ready";
         String body = user.getFirstName() + " your order is ready to enjoy";
-        int userID = user.getId();
+        userID = user.getId();
         System.out.println("UserID: " + userID);
 
-        mStartPauseButton.setVisibility(View.VISIBLE);
-        mStartPauseButton.setText("Pause");
+        //mStartPauseButton.setVisibility(View.VISIBLE);
+        //mStartPauseButton.setText("Pause");
+
+        //cartID = getCartID(userID);
+
+
+        //getCartID();
+
+        //setCartID();
+
+
+
+        //cartID = thisCart.getCartID();
+        //System.out.println("CartID Final: " + cartID);
 
         if (cartID != 0) {
             //add the call for the completed order notification
+            //System.out.println("CartID Passed: " + cartID);
             NotificationOutput.displayNotification(this, title, body, userID, cartID);
 
             //SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
             //mTimerRunning = prefs.getBoolean("timerRunning", false);
 
-            //if (mTimerRunning == false) {
+            //System.out.println("Running Status: " + mTimerRunning);
+
+            //if (mTimerRunning == true) {
+            //pauseTimer();
+            //resetTimer();
+            //clearTimer();
             resetTimer();
             startTimer();
         }
-
-        //So nothing displays if user checks finished order
-        //use orderStatus??
+          // onStart();
+        //}
         if (cartID == 0) {
             mOrderConfirmTextView.setVisibility(View.INVISIBLE);
         }
 
+        //So nothing displays if user checks finished order
+        //use orderStatus??
 
+        //if (orderStatus == 0) {
+            //mOrderConfirmTextView.setVisibility(View.INVISIBLE);
+           // updateCountDownText();
+       // }
 
 
         mReturnToMainMenuButton.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +168,99 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         });
     }
 
+    //private void setCartID() {
+
+       // SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        //cartID = prefs.getInt("cartID", newcartID);
+        //System.out.println("CartID Set: " + newcartID);
+    //}
+
+    /*private void checkOrderStatus() {
+
+        System.out.println("Updated UserID: " + userID);
+
+        myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                Call<Order> call = RetrofitClient
+                        .getInstance()
+                        .getApi()
+                        .getCartIDFromUsers(userID);
+
+                call.enqueue(new Callback<Order>() {
+                    @Override
+                    public void onResponse(Call<Order> call, Response<Order> response) {
+                        if (response.code() == 200) {
+
+                            Order thisOrder = response.body();
+                            int thiscartID = thisOrder.getCartID();
+                            int thisOrderStatus = thisOrder.getOrderStatus();
+                            System.out.println("Updated CartID: " + thiscartID);
+                            System.out.println("Updated OrderStatus: " + thisOrderStatus);
+
+                            if (thisOrderStatus == 1 && thiscartID != 0) {
+                                mOrderConfirmTextView.setText("Your order is still in progress");
+                            } else if (thisOrderStatus == 0 && thiscartID != 0) {
+                                mOrderConfirmTextView.setText("Your order is ready");
+                                myTimer.cancel();
+                            }
+                            //SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+                            //SharedPreferences.Editor editor = prefs.edit();
+
+                            //progress
+                            //editor.putInt("cartID", cartID);
+                        }
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<Order> call, Throwable t) {
+
+                    }
+                });
+            }
+        }, 0, 10000);
+    }
+
+    /*private void getCartID() {
+
+        System.out.println("Updated UserID: " + userID);
+
+        Call<Cart> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getCartIDFromUsers(userID);
+
+        call.enqueue(new Callback<Cart>() {
+            @Override
+            public void onResponse(Call<Cart> call, Response<Cart> response) {
+                if (response.code() == 200) {
+
+                    thisCart = response.body();
+                    int returncartID = thisCart.getCartID();
+                    cartID = returncartID;
+                    System.out.println("Updated CartID: " + cartID);
+
+                    SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+
+                    //progress
+                    editor.putInt("cartID", cartID);
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<Cart> call, Throwable t) {
+
+            }
+        });
+
+    //return cartID;
+    }*/
+
     private void startTimer() {
 
         //int numberOfSeconds = 600;
@@ -148,14 +275,13 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 mTimeLeftInMillis = millisUntilFinished;
-                mStartPauseButton.setText("Pause");
+                //mStartPauseButton.setText("Pause");
                 updateCountDownText();
                 //i++;
 
 
-
                 int secondsRemaining = (int) (millisUntilFinished / 1000);
-                progressPercentage = (numberOfSeconds-secondsRemaining) * factor ;
+                progressPercentage = (numberOfSeconds - secondsRemaining) * factor;
                 orderProgressBar.setProgress(progressPercentage);
                 //System.out.println("Progress: " + progressPercentage);
                 //orderProgressBar.setProgress((int)i*100/(60000/1000));
@@ -165,23 +291,37 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                mStartPauseButton.setText("Start");
-                mStartPauseButton.setVisibility(View.INVISIBLE);
-                mResetButton.setVisibility(View.VISIBLE);
-                updateTextView();
+                //mStartPauseButton.setText("Start");
+                //mStartPauseButton.setVisibility(View.INVISIBLE);
+                //mResetButton.setVisibility(View.VISIBLE);
+                updateButtons();
                 orderProgressBar.setProgress(100);
+
+                //getCartID(userID);
+                //checkOrderStatus(cartID);
+
+                //checkOrderStatus();
+
+                //if (orderStatus == 0) {
+                  //  updateTextView();
+                   // System.out.println("orderStatus Timer Finish: " + orderStatus);
+               // } else if (orderStatus == 1) {
+                  //  mOrderConfirmTextView.setText("Your order is close to ready, " + user.getFirstName() + ".");
+               // }
 
             }
         }.start();
 
         mTimerRunning = true;
+        updateButtons();
     }
 
     public void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        mStartPauseButton.setText("Start");
-        mResetButton.setVisibility(View.VISIBLE);
+        //mStartPauseButton.setText("Start");
+        //mResetButton.setVisibility(View.VISIBLE);
+        updateButtons();
     }
 
     public void resetTimer() {
@@ -191,8 +331,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         //mTimeLeftInMillis = 0;
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
-        mResetButton.setVisibility(View.INVISIBLE);
-        mStartPauseButton.setVisibility(View.VISIBLE);
+        updateButtons();
+        //mResetButton.setVisibility(View.INVISIBLE);
+        //mStartPauseButton.setVisibility(View.VISIBLE);
         orderProgressBar.setProgress(0);
     }
 
@@ -244,9 +385,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         editor.apply();
 
 
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-        }
+        if (mCountDownTimer != null) mCountDownTimer.cancel();
     }
 
     @Override
@@ -257,9 +396,17 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         mTimeLeftInMillis = prefs.getLong("millisLeft", START_TIME_IN_MILLIS);
         mTimerRunning = prefs.getBoolean("timerRunning", false);
+        //System.out.println("Timer: " + mTimerRunning);
+
+        //progressPercentage = prefs.getInt("progressPercentage", progressPercentage);
 
 
         updateCountDownText();
+        updateButtons();
+        //checkOrderStatus();
+
+        //getCartID(userID);
+        //checkOrderStatus(cartID);
 
 
         if (mTimerRunning) {
@@ -273,17 +420,37 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 mTimeLeftInMillis = 0;
                 mTimerRunning = false;
                 updateCountDownText();
+                updateButtons();
+                //updateTextView();
+                //orderProgressBar.setProgress(progressPercentage);
+            } else startTimer();
+        }
+    }
+
+    private void updateButtons() {
+        if (mTimerRunning) {
+            mResetButton.setVisibility(View.INVISIBLE);
+            mStartPauseButton.setText("Pause");
+        } else {
+            mStartPauseButton.setText("Start");
+            if (mTimeLeftInMillis < 1000) {
+                mStartPauseButton.setVisibility(View.INVISIBLE);
             } else {
-                startTimer();
+                mStartPauseButton.setVisibility(View.VISIBLE);
+            }
+            if (mTimeLeftInMillis < START_TIME_IN_MILLIS) {
+                mResetButton.setVisibility(View.VISIBLE);
+            } else {
+                mResetButton.setVisibility(View.INVISIBLE);
             }
         }
     }
 
     //public void setMillis() {
-      //  mTimeLeftInMillis = 0;
-      //  mTimerRunning = false;
-      //  updateCountDownText();
-   // }
+    //  mTimeLeftInMillis = 0;
+    //  mTimerRunning = false;
+    //  updateCountDownText();
+    // }
 
 
     private void openPrimaryMenu() {

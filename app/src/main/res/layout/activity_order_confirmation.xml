@@ -71,7 +71,6 @@
         android:layout_height="200dp"
         android:indeterminateOnly="false"
         android:progressDrawable="@drawable/progress_circle"
-        tools:progress="60"
 
         android:layout_below="@+id/button_start_pause"
         />
