@@ -5,7 +5,7 @@ public class Order {
     private int orderID;
     private int cartID;
     private int orderStatus;
-    //private int assignedStaff;
+    private int orderTime;
 
     public  Order() {
 
@@ -29,7 +29,7 @@ public class Order {
         return orderStatus;
     }
 
-    //public int getAssignedStaff() {
-        //return assignedStaff;
-    //}
+    public int getOrderTime() {
+        return orderTime;
+    }
 }
