@@ -108,7 +108,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (getCartTotal() > 0) {
                     emptyTheCart();
-                    goToMenu();
+                    //goToMenu();
                 } else {
                     Toast.makeText(CartActivity.this,
                             "There are no items in the cart to empty", Toast.LENGTH_SHORT).show();
@@ -208,6 +208,9 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     private void goToCheckout() {
