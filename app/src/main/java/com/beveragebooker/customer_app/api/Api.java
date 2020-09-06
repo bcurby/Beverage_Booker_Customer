@@ -111,11 +111,9 @@ public interface Api {
     @FormUrlEncoded
     @POST("deletecartitem")
     Call<ResponseBody> deleteCartItem(
-            @Field("userID") int userID,
-            @Field("itemID") int itemID,
+            @Field("id") int id,
             @Field("itemTitle") String itemTitle,
             @Field("itemPrice") double itemPrice,
-            @Field("itemQuantity") int itemQuantity,
             @Field("itemSize") String itemSize,
             @Field("itemMilk") String itemMilk,
             @Field("itemSugar") String itemSugar,
@@ -126,7 +124,12 @@ public interface Api {
             @Field("itemWhippedCream") String itemWhippedCream,
             @Field("itemFrappe") String itemFrappe,
             @Field("itemHeated") String itemHeated,
-            @Field("itemComment") String itemComment
+            @Field("itemComment") String itemComment,
+            @Field("itemType") String itemType,
+            @Field("userID") int userID,
+            @Field("itemQuantity") int itemQuantity
+
+
     );
 
 //    @FormUrlEncoded

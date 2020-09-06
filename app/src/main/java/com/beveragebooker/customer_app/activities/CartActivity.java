@@ -37,8 +37,11 @@ public class CartActivity extends AppCompatActivity {
     private CartAdapter mCartAdapter;
     private ArrayList<MenuItem> cartItemList;
     MenuItem itemClicked;
-    int itemID;
-    String itemTitle, itemSize, itemMilk, itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe, itemHeated, itemComment;
+    int id;
+
+    String itemTitle, itemSize, itemMilk, itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate,
+            itemWhippedCream, itemFrappe, itemHeated, itemComment, itemType;
+
     double itemPrice;
     int itemQuantity;
 
@@ -67,10 +70,10 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 itemClicked = cartItemList.get(position);
-                itemID = cartItemList.get(position).getId();
+                //ItemID
+                id = itemClicked.getId();
                 itemTitle = cartItemList.get(position).getName();
                 itemPrice = cartItemList.get(position).getPrice();
-                itemQuantity = cartItemList.get(position).getQuantity();
                 itemSize = cartItemList.get(position).getItemSize();
                 itemMilk = cartItemList.get(position).getItemMilk();
                 itemSugar = cartItemList.get(position).getItemSugar();
@@ -82,7 +85,10 @@ public class CartActivity extends AppCompatActivity {
                 itemFrappe = cartItemList.get(position).getItemFrappe();
                 itemHeated = cartItemList.get(position).getItemHeated();
                 itemComment = cartItemList.get(position).getItemComment();
-                System.out.println("ItemID: " + itemID);
+                itemType = cartItemList.get(position).getItemType();
+                itemQuantity = cartItemList.get(position).getQuantity();
+                System.out.println("ItemID: " + id);
+                System.out.println("ItemTitle: " + itemTitle);
                 deleteCartItem();
             }
         });
@@ -237,9 +243,9 @@ public class CartActivity extends AppCompatActivity {
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .deleteCartItem(userID, itemID, itemTitle, itemPrice, itemQuantity, itemSize, itemMilk, itemSugar,
+                .deleteCartItem(id, itemTitle, itemPrice, itemSize, itemMilk, itemSugar,
                         itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe,
-                        itemHeated, itemComment);
+                        itemHeated, itemComment, itemType, userID, itemQuantity);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
