@@ -68,15 +68,15 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_confirmation);
 
         mOrderConfirmTextView = findViewById(R.id.textViewOrderConfirm);
-        mCountDownTextView = findViewById(R.id.textViewCountDown);
+        //mCountDownTextView = findViewById(R.id.textViewCountDown);
         mReturnToMainMenuButton = findViewById(R.id.returnToMainMenu);
-        mStartPauseButton = findViewById(R.id.button_start_pause);
-        mResetButton = findViewById(R.id.button_reset);
+        //mStartPauseButton = findViewById(R.id.button_start_pause);
+        //mResetButton = findViewById(R.id.button_reset);
 
-        orderProgressBar = findViewById(R.id.my_progress_bar);
+        //orderProgressBar = findViewById(R.id.my_progress_bar);
 
-        orderProgressBar.setProgress(0);
-        orderProgressBar.setMax(10000);
+        //orderProgressBar.setProgress(0);
+        //orderProgressBar.setMax(10000);
 
 
         Intent intent = getIntent();
@@ -159,7 +159,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             }
         });
 
-        mStartPauseButton.setOnClickListener(new View.OnClickListener() {
+       /* mStartPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mTimerRunning) {
@@ -175,7 +175,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 resetTimer();
             }
-        });
+        });*/
     }
 
     private void getOrderTime() {
@@ -314,6 +314,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     //return cartID;
     }*/
+
+    /*
 
     private void startTimer() {
 
@@ -511,7 +513,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     //  mTimeLeftInMillis = 0;
     //  mTimerRunning = false;
     //  updateCountDownText();
-    // }
+    // }*/
 
 
     private void openPrimaryMenu() {
