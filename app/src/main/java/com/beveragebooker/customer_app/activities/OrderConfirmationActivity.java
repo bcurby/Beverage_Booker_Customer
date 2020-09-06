@@ -81,7 +81,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
-        cartID = 230;
+        //cartID = 230;
         System.out.println("CartID Start: " + cartID);
 
         User user = SharedPrefManager.getInstance(this).getUser();
@@ -120,7 +120,11 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
             //SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
             //mTimerRunning = prefs.getBoolean("timerRunning", false);
-            getOrderTime();
+
+
+            //getOrderTime();
+
+
             //System.out.println("Running Status: " + mTimerRunning);
 
             //if (mTimerRunning == true) {
