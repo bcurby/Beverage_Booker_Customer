@@ -37,8 +37,10 @@ public class CartActivity extends AppCompatActivity {
     private CartAdapter mCartAdapter;
     private ArrayList<MenuItem> cartItemList;
     MenuItem itemClicked;
-    String itemTitle, itemMilk, itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe, itemHeated, itemComment;
+    int itemID;
+    String itemTitle, itemSize, itemMilk, itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe, itemHeated, itemComment;
     double itemPrice;
+    int itemQuantity;
 
     private TextView cartTotal;
     private Button checkoutButton;
@@ -65,8 +67,11 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 itemClicked = cartItemList.get(position);
+                itemID = cartItemList.get(position).getId();
                 itemTitle = cartItemList.get(position).getName();
                 itemPrice = cartItemList.get(position).getPrice();
+                itemQuantity = cartItemList.get(position).getQuantity();
+                itemSize = cartItemList.get(position).getItemSize();
                 itemMilk = cartItemList.get(position).getItemMilk();
                 itemSugar = cartItemList.get(position).getItemSugar();
                 itemDecaf = cartItemList.get(position).getItemDecaf();
@@ -77,6 +82,7 @@ public class CartActivity extends AppCompatActivity {
                 itemFrappe = cartItemList.get(position).getItemFrappe();
                 itemHeated = cartItemList.get(position).getItemHeated();
                 itemComment = cartItemList.get(position).getItemComment();
+                System.out.println("ItemID: " + itemID);
                 deleteCartItem();
             }
         });
@@ -102,7 +108,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (getCartTotal() > 0) {
                     emptyTheCart();
-                    goToMenu();
+                    //goToMenu();
                 } else {
                     Toast.makeText(CartActivity.this,
                             "There are no items in the cart to empty", Toast.LENGTH_SHORT).show();
@@ -204,6 +210,9 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     private void goToCheckout() {
@@ -228,7 +237,9 @@ public class CartActivity extends AppCompatActivity {
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .deleteCartItem(userID, itemTitle, itemPrice, itemMilk, itemSugar, itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe, itemHeated, itemComment);
+                .deleteCartItem(userID, itemID, itemTitle, itemPrice, itemQuantity, itemSize, itemMilk, itemSugar,
+                        itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe,
+                        itemHeated, itemComment);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
