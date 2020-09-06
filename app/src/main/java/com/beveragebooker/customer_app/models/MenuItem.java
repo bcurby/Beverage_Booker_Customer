@@ -30,12 +30,6 @@ public class MenuItem {
     private String itemHeated;
     private String itemComment;
 
-    public String getItemType() {
-        return itemType;
-    }
-
-    private String itemType;
-
 
     public MenuItem(int id, String name, String description, double price) {
         this.id = id;
