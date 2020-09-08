@@ -51,7 +51,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
 
             case R.id.continueButton:
-                startActivity(new Intent(this, PrimaryMenu.class));
+                Intent intent = new Intent(ProfileActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 break;
 
             case R.id.signOutButton:
