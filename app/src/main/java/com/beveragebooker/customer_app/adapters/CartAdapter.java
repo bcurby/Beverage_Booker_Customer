@@ -62,6 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.textViewFrappe.setText(cartItem.getItemFrappe());
         holder.textViewHeated.setText(cartItem.getItemHeated());
         holder.textViewComment.setText(cartItem.getItemComment());
+        holder.textViewSize.setText(cartItem.getItemSize());
 
         holder.deleteCartItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +85,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     class CartViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName, textViewPrice, textViewQuantity, textViewMilk, textViewSugar,
         textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
-        textViewFrappe, textViewHeated, textViewComment;
+        textViewFrappe, textViewHeated, textViewComment, textViewSize;
         Button deleteCartItem;
 
 
@@ -104,6 +105,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewHeated = itemView.findViewById(R.id.cartItemHeated);
             textViewComment = itemView.findViewById(R.id.cartItemComment);
             deleteCartItem = itemView.findViewById(R.id.deleteCartItem);
+            textViewSize = itemView.findViewById(R.id.cartItemSize);
 
 
         }

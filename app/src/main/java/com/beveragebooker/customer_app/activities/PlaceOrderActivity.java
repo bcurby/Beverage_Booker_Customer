@@ -18,8 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.adapters.CartAdapter;
 import com.beveragebooker.customer_app.api.RetrofitClient;
+import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.MenuItem;
+import com.beveragebooker.customer_app.models.Order;
 import com.beveragebooker.customer_app.models.User;
+import com.beveragebooker.customer_app.storage.SharedPrefManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -60,6 +63,10 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.*;
 
 
 public class PlaceOrderActivity extends AppCompatActivity {
+
+    public static String CART_ID = "com.beveragebooker.customer_app.CART_ID";
+
+    private int cartID;
 
     private String streetNumber, streetName;
     private int deliveryStatusInt;
@@ -164,8 +171,40 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 getApplicationContext(),
                 Objects.requireNonNull("pk_test_51HBYC3D60uGVgHNvX5hU4dzssEi3eaqSWgxCHvqVBzYFBc8eXshDn7AdKFjWTJz2d73NCQMOrhLlSrNR7yEIdFqc00fc9JtpVH") //Your publishable key
         );
+
+        getCartID();
+
         //call check out
         startCheckout();
+    }
+
+    private void getCartID() {
+
+        User user = SharedPrefManager.getInstance(this).getUser();
+
+        int userID = user.getId();
+        System.out.println("UserID: " + userID);
+
+        Call<Cart> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getCartDetails(userID);
+
+        call.enqueue(new Callback<Cart>() {
+            @Override
+            public void onResponse(Call<Cart> call, Response<Cart> response) {
+                if (response.code() == 200) {
+                    Cart currentCart = response.body();
+                    cartID = currentCart.getCartID();
+                    System.out.println("CartID: " + cartID);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cart> call, Throwable t) {
+
+            }
+        });
     }
 
     private void startCheckout() {
@@ -329,8 +368,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 //If payment is successful there will be details in log and UI
                 //Log.i("TAG", "onSuccess:Payment " + gson.toJson(paymentIntent));
                 //activity.displayAlert(
-                        //"Payment completed",
-                       // gson.toJson(paymentIntent)
+                //"Payment completed",
+                // gson.toJson(paymentIntent)
                 //);
 
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
@@ -365,9 +404,10 @@ public class PlaceOrderActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.code() == 201) {
-
+                    int orderID = response.message().indexOf(2);
+                    Log.d("GetOrder", String.valueOf(orderID));
                     Intent intent = new Intent(PlaceOrderActivity.this, OrderConfirmationActivity.class);
-
+                    intent.putExtra(CART_ID, cartID);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
@@ -430,9 +470,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
             orderTotal += itemTotal;
             System.out.println("Cart Total: " + orderTotal);
-            
+
         }
         return orderTotal;
     }
 }
-

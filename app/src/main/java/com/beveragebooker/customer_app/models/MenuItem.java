@@ -17,6 +17,8 @@ public class MenuItem {
     private String itemType;
     private int itemStock;
 
+
+    private String itemSize;
     private String itemMilk;
     private String itemSugar;
     private String itemDecaf;
@@ -76,6 +78,10 @@ public class MenuItem {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getItemSize() {
+        return itemSize;
     }
 
     public int getMilk() {

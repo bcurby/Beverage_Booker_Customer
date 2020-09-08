@@ -14,12 +14,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
+//import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://192.168.1.110/BeverageApi/public/";
-    //private static final String BASE_URL = "http://benncurby90373.ipage.com/BeverageApi/public/";
+    //private static final String BASE_URL = "http://192.168.1.110/BeverageApi/public/";
+    private static final String BASE_URL = "http://benncurby90373.ipage.com/BeverageApi/public/";
 
     private static final String AUTH = "Basic " + Base64.encodeToString(("benn:CoffeeisGood12!").getBytes(), Base64.NO_WRAP);
 
@@ -29,6 +29,8 @@ public class RetrofitClient {
 
     private RetrofitClient() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                //retry merged from notifications branch
+                .retryOnConnectionFailure(true)
                 .addInterceptor(
                         new Interceptor() {
                             @Override

@@ -1,7 +1,9 @@
 package com.beveragebooker.customer_app.api;
 
+import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.models.MenuItem;
+import com.beveragebooker.customer_app.models.Order;
 
 import java.util.List;
 
@@ -109,9 +111,10 @@ public interface Api {
     @FormUrlEncoded
     @POST("deletecartitem")
     Call<ResponseBody> deleteCartItem(
-            @Field("userID") int userID,
+            @Field("id") int id,
             @Field("itemTitle") String itemTitle,
             @Field("itemPrice") double itemPrice,
+            @Field("itemSize") String itemSize,
             @Field("itemMilk") String itemMilk,
             @Field("itemSugar") String itemSugar,
             @Field("itemDecaf") String itemDecaf,
@@ -121,6 +124,43 @@ public interface Api {
             @Field("itemWhippedCream") String itemWhippedCream,
             @Field("itemFrappe") String itemFrappe,
             @Field("itemHeated") String itemHeated,
-            @Field("itemComment") String itemComment
+            @Field("itemComment") String itemComment,
+            @Field("itemType") String itemType,
+            @Field("userID") int userID,
+            @Field("itemQuantity") int itemQuantity
+
+
+    );
+
+//    @FormUrlEncoded
+//    @POST("notificationtoken")
+//    Call<ResponseBody> addToken(
+//            @Field("token") String token,
+//            @Field("email") String email
+//    );
+
+    //Get status of the order from db
+    @GET("getorderstatus")
+    Call<Order> getOrderStatus(
+            @Query("userID") int userID,
+            @Query("cartID") int cartID
+    );
+
+    @FormUrlEncoded
+    @POST("notificationSent")
+    Call<ResponseBody> setStatus(
+            @Field("orderID") int orderID
+    );
+
+    //Get status of the order from db
+    @GET("getcartdetails")
+    Call<Cart> getCartDetails(
+            @Query("userID") int userID
+    );
+
+    //Get status of the order from db
+    @GET("getcartidfromusers")
+    Call<Order> getCartIDFromUsers(
+            @Query("userID") int userID
     );
 }

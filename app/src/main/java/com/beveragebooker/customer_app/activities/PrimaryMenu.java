@@ -16,6 +16,7 @@ public class PrimaryMenu extends AppCompatActivity {
 
     private Button menuLink;
     private Button foodMenuButton;
+    private Button viewOrderButton;
 
     private String itemType;
 
@@ -41,6 +42,14 @@ public class PrimaryMenu extends AppCompatActivity {
             }
         });
 
+        viewOrderButton = findViewById(R.id.viewOrderButton);
+        viewOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openViewOrder();
+            }
+        });
+
     }
 
     private void openBrowseFoodMenu() {
@@ -55,6 +64,11 @@ public class PrimaryMenu extends AppCompatActivity {
         Intent intent = new Intent(this, BrowseMenu.class );
         itemType = "drink";
         intent.putExtra(ITEM_TYPE_MENU, itemType);
+        startActivity(intent);
+    }
+
+    private void openViewOrder() {
+        Intent intent = new Intent(this, OrderConfirmationActivity.class );
         startActivity(intent);
     }
 
