@@ -29,21 +29,33 @@ import static org.hamcrest.core.AllOf.allOf;
          * This test runs tests the implementation of delete single item from cart
          */
         @Test
-        public void DeleteSingleCartItemIntegrationTest() {
+        public void DeleteSingleCartItemIntegrationTest() throws InterruptedException {
             // Primary Menu
-            onView(withId(R.id.editText2))
+            onView(withId(R.id.foodMenuButton))
                     .perform(click());
+            Thread.sleep(300);
 
             // Food Menu / Activity Browse Menu
             onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Sausage Roll"))))
                     .perform(click());
+
+            //AddToCartActivity
+            onView(withId(R.id.addToCartButton))
+                    .perform(click());
+            Thread.sleep(300);
+
             onView(withId(R.id.viewCart))
                     .perform(click());
 
-            // Cart Activity
+             //Cart Activity
             onView(withId(R.id.viewCart))
                     .check(doesNotExist());
             onView(allOf(ViewMatchers.withId(R.id.deleteCartItem), hasSibling(withText("Sausage Roll"))))
                     .perform(click());
+
+            //Cart Activity
+            onView(allOf(ViewMatchers.withId(R.id.deleteCartItem), hasSibling(withText("Sausage Roll"))))
+                    .check(doesNotExist());
+
         }
     }
