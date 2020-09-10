@@ -33,8 +33,6 @@ public class MenuItem {
         return itemType;
     }
 
-    private String itemType;
-
 
     public MenuItem(int id, String name, String description, double price) {
         this.id = id;
@@ -114,12 +112,6 @@ public class MenuItem {
     public int getItemStock() {
         return itemStock;
     }
-
-    //Getter for itemType
-    public String getItemType() {
-        return itemType;
-    }
-
 
     //Menu item options getters
 
