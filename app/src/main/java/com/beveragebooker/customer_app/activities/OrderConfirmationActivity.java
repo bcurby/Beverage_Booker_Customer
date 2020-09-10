@@ -31,6 +31,14 @@ import retrofit2.Response;
 public class OrderConfirmationActivity extends AppCompatActivity {
     //private static long START_TIME_IN_MILLIS = 20000;
 
+    public static final String SHARED_PREFS = "sharedprefs";
+    public static final String CART_ID = "cartID";
+    public static final String TIMER_STATUS = "timerStatus";
+
+
+
+
+
     private long startTimeInMillis;
 
     private TextView mOrderConfirmTextView;
@@ -43,6 +51,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     int cartID;
     int userID;
     int orderTime;
+    int timerStatus;
     //public static int orderStatus;
     ProgressBar orderProgressBar;
 
@@ -79,36 +88,68 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         orderProgressBar.setProgress(0);
         orderProgressBar.setMax(10000);*/
 
-
-        Intent intent = getIntent();
-        cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
-        //cartID = 252;
-        System.out.println("CartID Start: " + cartID);
-
-        User user = SharedPrefManager.getInstance(this).getUser();
-
-
         String title = "Order Ready";
         String body = user.getFirstName() + " your order is ready to enjoy";
         userID = user.getId();
         System.out.println("UserID: " + userID);
 
+        System.out.println("TimerStatus Start: " + timerStatus);
 
-        System.out.println("CartID Final: " + cartID);
 
-        if (cartID != 0 && cartID != 1) {
+        Intent intent = getIntent();
+        cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
+        //cartID = 252;
+
+        if (timerStatus == 0 && cartID > 1) {
 
             NotificationOutput.displayNotification(this, title, body, userID, cartID);
-
-            getOrderTime();
-
-            cartID = 1;
-
         }
 
         if (cartID == 0) {
-            mOrderConfirmTextView.setVisibility(View.INVISIBLE);
+            loadData();
         }
+
+        if (cartID == 1) {
+            mOrderConfirmTextView.setText("No orders");
+
+        } else if (cartID != 0 && cartID != 1) {
+            timerStatus = 1;
+            saveData(cartID, timerStatus);
+        }
+
+        System.out.println("CartID Start: " + cartID);
+
+        User user = SharedPrefManager.getInstance(this).getUser();
+
+
+
+
+
+        System.out.println("CartID Final: " + cartID);
+
+
+
+            //cartID = 1;
+
+        if (cartID > 1) {
+
+            getOrderTime();
+        }
+            //System.out.println("test orderTime" + orderTimeThis);
+
+            //mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
+                    //+ "\nYour order will be ready in approximately " + orderTimeThis + " minutes.");
+
+
+
+
+
+
+
+
+        //if (cartID == 0) {
+            //mOrderConfirmTextView.setVisibility(View.INVISIBLE);
+        //}
 
 
         /*
@@ -134,6 +175,28 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         });*/
     }
 
+    private void loadData() {
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
+        cartID = prefs.getInt(CART_ID, 0);
+        timerStatus = prefs.getInt(TIMER_STATUS, 0);
+
+        System.out.println("load cartID: " + cartID);
+        System.out.println("load timerStatus: " + timerStatus);
+
+    }
+
+
+    private void saveData(int cartID, int timerStatus) {
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putInt(CART_ID, cartID);
+        editor.putInt(TIMER_STATUS, timerStatus);
+
+        editor.apply();
+    }
+
     //Gets the estimated order time from the server and uses it to set the timer
     private void getOrderTime() {
 
@@ -143,6 +206,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 .getOrderStatus(userID, cartID);
 
         call.enqueue(new Callback<Order>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
                 if (response.code() == 200) {
@@ -153,11 +217,12 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                     mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
                             + "\nYour order will be ready in approximately " + orderTime + " minutes.");
 
+                    /* SETS TIMER
                     startTimeInMillis = orderTime * 1000 * 60;
                     System.out.println("StartTime: " + startTimeInMillis);
 
                     numberOfSeconds = (int) startTimeInMillis / 1000;
-                    factor = 10000 / numberOfSeconds;
+                    factor = 10000 / numberOfSeconds;*/
                 }
             }
 
@@ -168,15 +233,67 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         });
     }
 
+    public void updateOrder() {
+
+        updateTextView();
+
+        int finishCartID = 1;
+        int finishOrderStatus = 0;
+
+        System.out.println("Finish cartID: " + finishCartID);
+        System.out.println("Finish orderStatus: " + finishOrderStatus);
+
+        saveData(finishCartID, finishOrderStatus);
+
+
+    }
+
     public void updateTextView() {
         OrderConfirmationActivity.this.runOnUiThread(new Runnable() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void run() {
+
                 mOrderConfirmTextView.setText("Your order is ready for pick up, " + user.getFirstName() + ".");
+
+
+
+
+
             }
         });
 
     }
+
+    /*
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putInt("cartID", cartID);
+
+        editor.apply();
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+
+        cartID = prefs.getInt("cartID", cartID);
+
+        getOrderTime();
+
+        System.out.println("test" + orderTime);
+
+
+
+    }*/
 
     /* TIMER METHODS
     //Starts the timer

@@ -92,7 +92,7 @@ public class NotificationOutput {
 
         //context.clearTimer();
 
-        context.updateTextView();
+        context.updateOrder();
 
 
     }
