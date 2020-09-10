@@ -99,6 +99,12 @@ public interface Api {
             @Field("streetName") String streetName
     );
 
+    //Returns values for a single menu item
+    @GET("getmenuitem")
+    Call<List<MenuItem>> getMenuItem(
+            @Query("itemID") int itemID
+    );
+
     //Delete item from database
     @FormUrlEncoded
     @POST("deletecartitem")
