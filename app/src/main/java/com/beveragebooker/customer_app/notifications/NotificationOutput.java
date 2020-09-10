@@ -92,6 +92,8 @@ public class NotificationOutput {
 
         //context.clearTimer();
 
+        context.updateTextView();
+
 
     }
 

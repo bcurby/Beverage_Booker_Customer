@@ -42,6 +42,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
     int cartID;
     int userID;
+    int orderTime;
     //public static int orderStatus;
     ProgressBar orderProgressBar;
 
@@ -69,25 +70,22 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         mOrderConfirmTextView = findViewById(R.id.textViewOrderConfirm);
         mCountDownTextView = findViewById(R.id.textViewCountDown);
-        //mReturnToMainMenuButton = findViewById(R.id.returnToMainMenu);
         mStartPauseButton = findViewById(R.id.button_start_pause);
         mResetButton = findViewById(R.id.button_reset);
 
+        /*
+        //PROGRESS BAR
         orderProgressBar = findViewById(R.id.my_progress_bar);
-
         orderProgressBar.setProgress(0);
-        orderProgressBar.setMax(10000);
+        orderProgressBar.setMax(10000);*/
 
 
-        //Intent intent = getIntent();
-        //cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
-        cartID = 252;
+        Intent intent = getIntent();
+        cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
+        //cartID = 252;
         System.out.println("CartID Start: " + cartID);
 
         User user = SharedPrefManager.getInstance(this).getUser();
-
-        mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
-                + "\nYour order will be ready shortly.");
 
 
         String title = "Order Ready";
@@ -95,22 +93,16 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         userID = user.getId();
         System.out.println("UserID: " + userID);
 
-        mStartPauseButton.setVisibility(View.VISIBLE);
-        //mStartPauseButton.setText("Pause");
-
-        //cartID = getCartID(userID);
-
-
 
         System.out.println("CartID Final: " + cartID);
 
-        if (cartID != 0) {
-            //add the call for the completed order notification
-            //System.out.println("CartID Passed: " + cartID);
+        if (cartID != 0 && cartID != 1) {
 
             NotificationOutput.displayNotification(this, title, body, userID, cartID);
 
             getOrderTime();
+
+            cartID = 1;
 
         }
 
@@ -119,6 +111,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         }
 
 
+        /*
+        TIMER BUTTONS
         //Start timer button listener
         mStartPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +131,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 resetTimer();
             }
-        });
+        });*/
     }
 
     //Gets the estimated order time from the server and uses it to set the timer
@@ -153,17 +147,17 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             public void onResponse(Call<Order> call, Response<Order> response) {
                 if (response.code() == 200) {
                     Order thisOrder = response.body();
-                    int orderTime = thisOrder.getOrderTime();
+                    orderTime = thisOrder.getOrderTime();
                     System.out.println("OrderTime: " + orderTime);
+
+                    mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
+                            + "\nYour order will be ready in approximately " + orderTime + " minutes.");
+
                     startTimeInMillis = orderTime * 1000 * 60;
                     System.out.println("StartTime: " + startTimeInMillis);
 
                     numberOfSeconds = (int) startTimeInMillis / 1000;
                     factor = 10000 / numberOfSeconds;
-
-                    //resetTimer();
-                    //startTimer();
-
                 }
             }
 
@@ -174,28 +168,23 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         });
     }
 
+    public void updateTextView() {
+        OrderConfirmationActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mOrderConfirmTextView.setText("Your order is ready for pick up, " + user.getFirstName() + ".");
+            }
+        });
 
-    /*NOT SURE  YET
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (cartID != 0) {
-            System.out.println("onResume: " + cartID);
-            startTimer();
-        }
-    }*/
+    }
 
-
+    /* TIMER METHODS
     //Starts the timer
     private void startTimer() {
 
-        //int numberOfSeconds = 600;
-        //int factor = 100/numberOfSeconds;
-        //System.out.println("Factor: " + factor);
-
-        //mTimeLeftInMillis = START_TIME_IN_MILLIS;
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
-
+        mStartPauseButton.setVisibility(View.INVISIBLE);
+        mResetButton.setVisibility(View.VISIBLE);
 
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
@@ -203,47 +192,30 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 mTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
 
-
-
                 int secondsRemaining = (int) (millisUntilFinished / 1000);
                 progressPercentage = (numberOfSeconds - secondsRemaining) * factor;
                 orderProgressBar.setProgress(progressPercentage);
-                //System.out.println("Progress: " + progressPercentage);
-                //orderProgressBar.setProgress((int)i*100/(60000/1000));
-                //orderProgressBar.setProgress(i*percentage);
             }
 
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                //mStartPauseButton.setText("Start");
-                //mStartPauseButton.setVisibility(View.INVISIBLE);
                 mResetButton.setVisibility(View.VISIBLE);
-                updateButtons();
+                //updateButtons();
                 resetTimer();
                 orderProgressBar.setProgress(10000);
-
-
-                //if (orderStatus == 0) {
-                  //  updateTextView();
-                   // System.out.println("orderStatus Timer Finish: " + orderStatus);
-               // } else if (orderStatus == 1) {
-                  //  mOrderConfirmTextView.setText("Your order is close to ready, " + user.getFirstName() + ".");
-               // }
 
             }
         }.start();
 
         mTimerRunning = true;
-        updateButtons();
+        //updateButtons();
     }
 
     public void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        //mStartPauseButton.setText("Start");
-        //mResetButton.setVisibility(View.VISIBLE);
-        updateButtons();
+        //updateButtons();
     }
 
     private void setTimer() {
@@ -251,18 +223,14 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         updateCountDownText();
         orderProgressBar.setProgress(0);
         mTimerRunning = false;
+        mStartPauseButton.setVisibility(View.VISIBLE);
+        mStartPauseButton.setText("Start");
     }
 
     public void resetTimer() {
-
-        //mCountDownTimer.cancel();
-        //mTimerRunning = false;
-        //mTimeLeftInMillis = 0;
-        mTimeLeftInMillis = startTimeInMillis;
+        mTimeLeftInMillis = 0;
+        //mTimeLeftInMillis = startTimeInMillis;
         updateCountDownText();
-        updateButtons();
-        //mResetButton.setVisibility(View.INVISIBLE);
-        //mStartPauseButton.setVisibility(View.VISIBLE);
         orderProgressBar.setProgress(0);
     }
 
@@ -275,16 +243,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         updateTextView();
     }
 
-    private void updateTextView() {
-        OrderConfirmationActivity.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mOrderConfirmTextView.setText("Your order is ready for pick up, " + user.getFirstName() + ".");
-                //mOrderCompleted.setVisibility(View.VISIBLE);
-            }
-        });
-
-    }
 
     private void updateCountDownText() {
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
@@ -305,7 +263,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         //progress
         editor.putInt("progressPercentage", progressPercentage);
-        //editor.putInt("iValue", i);
 
         editor.putLong("millisLeft", mTimeLeftInMillis);
         editor.putBoolean("timerRunning", mTimerRunning);
@@ -325,11 +282,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         mTimeLeftInMillis = prefs.getLong("millisLeft", startTimeInMillis);
         mTimerRunning = prefs.getBoolean("timerRunning", false);
-        //System.out.println("Timer: " + mTimerRunning);
-
 
         updateCountDownText();
-        updateButtons();
+        //updateButtons();
 
 
         if (mTimerRunning) {
@@ -343,9 +298,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 mTimeLeftInMillis = 0;
                 mTimerRunning = false;
                 updateCountDownText();
-                updateButtons();
-                //updateTextView();
-                //orderProgressBar.setProgress(progressPercentage);
+                //updateButtons();
+
             } else startTimer();
         }
     }
@@ -367,5 +321,5 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                 mResetButton.setVisibility(View.INVISIBLE);
             }
         }
-    }
+    }*/
 }

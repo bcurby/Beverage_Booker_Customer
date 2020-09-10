@@ -25,6 +25,7 @@
         android:layout_below="@id/my_progress_bar"
         android:layout_centerHorizontal="true"
         android:text="00:00"
+        android:visibility="invisible"
         android:textColor="@android:color/black"
         android:textSize="30sp" />
 
@@ -35,6 +36,7 @@
         android:layout_below="@+id/textViewCountDown"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
+        android:visibility="invisible"
         android:text="start" />
 
     <Button
@@ -44,8 +46,7 @@
         android:layout_below="@+id/button_start_pause"
         android:layout_centerHorizontal="true"
         android:text="reset"
-        android:visibility="invisible"
-        tools:visibility="visible" />
+        android:visibility="invisible" />
 
     <ProgressBar
         android:id="@+id/my_progress_bar"
@@ -57,6 +58,7 @@
         android:layout_marginStart="109dp"
         android:layout_marginEnd="102dp"
         android:indeterminateOnly="false"
+        android:visibility="invisible"
         android:progressDrawable="@drawable/progress_circle" />
 
 </RelativeLayout>
