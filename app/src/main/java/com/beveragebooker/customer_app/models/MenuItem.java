@@ -14,10 +14,11 @@ public class MenuItem {
     private int frappe;
     private int heated;
 
-    private String itemSize;
     private String itemType;
     private int itemStock;
 
+
+    private String itemSize;
     private String itemMilk;
     private String itemSugar;
     private String itemDecaf;
@@ -28,10 +29,6 @@ public class MenuItem {
     private String itemFrappe;
     private String itemHeated;
     private String itemComment;
-
-    public String getItemType() {
-        return itemType;
-    }
 
 
     public MenuItem(int id, String name, String description, double price) {
@@ -83,6 +80,10 @@ public class MenuItem {
         return price;
     }
 
+    public String getItemSize() {
+        return itemSize;
+    }
+
     public int getMilk() {
         return milk;
     }
@@ -113,12 +114,13 @@ public class MenuItem {
         return itemStock;
     }
 
-    //Menu item options getters
-
-    public String getItemSize() {
-        return itemSize;
+    //Getter for itemType
+    public String getItemType() {
+        return itemType;
     }
 
+
+    //Menu item options getters
     public String getItemMilk() {
         return itemMilk;
     }
