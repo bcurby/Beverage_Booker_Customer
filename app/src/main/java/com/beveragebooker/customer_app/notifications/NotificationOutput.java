@@ -88,42 +88,8 @@ public class NotificationOutput {
         NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from((Context) context);
         mNotificationMgr.notify(0, mBuilder.build());
 
-        //changeStatus(orderID);
-
-        //context.clearTimer();
-
         context.updateOrder();
 
-
     }
-
-
-
-    private static void changeStatus(int orderID) {
-
-        Log.d("WHAT HAS HAPPENED", String.valueOf(orderID));
-
-        Call<ResponseBody> call = RetrofitClient
-                .getInstance().getApi()
-                .setStatus(orderID);
-
-        call.enqueue(new Callback<ResponseBody>() {
-
-
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                Log.d("Status", "HAS BEEN UPDATED");
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-    }
-
-
 }
 
