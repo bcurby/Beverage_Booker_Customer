@@ -53,7 +53,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         cartID = intent.getIntExtra(PlaceOrderActivity.CART_ID, 0);
 
-
         //Timer has just started for notification and cartID has been passed
         if (timerStatus == 0 && cartID > 0) {
 
