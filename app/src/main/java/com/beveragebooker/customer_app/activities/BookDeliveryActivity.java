@@ -6,19 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.models.User;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInstance;
 
@@ -30,7 +21,7 @@ public class BookDeliveryActivity extends AppCompatActivity {
 
     public static String CART_TOTAL_BOOK_DELIVERY = "com.beveragebooker.customer_app.CART_TOTAL_BOOK_DELIVERY";
 
-    private EditText editTextStreetNumber, editTextStreetName;
+    private EditText editTextUnitNumber, editTextStreetName;
 
     private String orderTotal;
 
@@ -44,32 +35,8 @@ public class BookDeliveryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         orderTotal = intent.getStringExtra(SelectOrderTypeActivity.CART_TOTAL_ORDER_TYPE);
 
-        editTextStreetNumber = findViewById(R.id.editTextStreetNumber);
+        editTextUnitNumber = findViewById(R.id.editTextUnit);
         editTextStreetName = findViewById(R.id.editTextStreetName);
-
-        //initialize places
-        Places.initialize(getApplicationContext(), "AIzaSyCyd9DNtP8fAnic_H5XwgCef7dmqj_7vB0");
-
-        //set edittext non focusable
-        editTextStreetNumber.setFocusable(false);
-        editTextStreetNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //initialise place field list
-                List<Place.Field> fieldList = Collections.singletonList(Place.Field.ADDRESS);
-
-                //create intent
-                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY,
-                        fieldList).build(BookDeliveryActivity.this);
-
-                //start activity result
-                startActivityForResult(intent, 100);
-
-            }
-        });
-
-
-
 
         ProceedToPaymentButton = findViewById(R.id.ProceedToPaymentButton);
         ProceedToPaymentButton.setOnClickListener(new View.OnClickListener() {
@@ -80,35 +47,22 @@ public class BookDeliveryActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK){
-            //when success
-            //initialize place
-            Place place = Autocomplete.getPlaceFromIntent(data);
-            //set address on EditText
-            editTextStreetNumber.setText(place.getAddress());
-
-        }
-    }
-
     private void createNewDelivery() {
         boolean checker = false;
 
         User loggedUser = getInstance(BookDeliveryActivity.this).getUser();
         int userID = loggedUser.getId();
-        String streetNumber = editTextStreetNumber.getText().toString().trim();
         String streetName = editTextStreetName.getText().toString().trim();
 
-        while (checker == false) {
+        while (!checker) {
 
-
-            if (streetNumber.isEmpty()) {
-                editTextStreetNumber.setError("Street number field must contain a street number");
-                return;
-            } else if (streetName.isEmpty()) {
+            if (streetName.isEmpty()) {
                 editTextStreetName.setError("Street name field must contain a street name");
+                return;
+            }
+            if(!streetName.matches("^[a-zA-Z0-9 ]+")){
+                editTextStreetName.setError("Street name field cant contain any symbols");
+
                 return;
             } else {
                 checker = true;
@@ -118,15 +72,14 @@ public class BookDeliveryActivity extends AppCompatActivity {
     }
 
     private void goToPayment() {
-        String streetNumber = editTextStreetNumber.getText().toString().trim();
+        String streetNumber = editTextUnitNumber.getText().toString().trim();
         String streetName = editTextStreetName.getText().toString().trim();
-        boolean deliveryStatus = true;
-
 
         Intent intent = new Intent(this, PlaceOrderActivity.class);
         intent.putExtra(STREET_NUMBER, streetNumber);
         intent.putExtra(STREET_NAME, streetName);
-        intent.putExtra(DELIVERY_STATUS, deliveryStatus);
+        //delivery status true
+        intent.putExtra(DELIVERY_STATUS, true);
 
         intent.putExtra(CART_TOTAL_BOOK_DELIVERY, orderTotal);
         startActivity(intent);
