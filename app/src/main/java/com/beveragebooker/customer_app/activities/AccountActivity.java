@@ -61,7 +61,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         mEmail.setText(user.getEmail());
         mPassword.setText("********");
         mPhoneNum.setText(user.getPhone());
-        mAccountTitle.setText("Hi" + user.getFirstName());
+        mAccountTitle.setText("Hi " + user.getFirstName());
 
 
 
