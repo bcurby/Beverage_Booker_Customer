@@ -96,12 +96,10 @@ public class BookDeliveryIntegrationTest {
         // OrderConfirmationActivity
         onView(withId(R.id.placeOrderButton))
                 .check(doesNotExist());
-        onView(withId(R.id.returnToMainMenu))
+        onView(withId(R.id.homeButton))
                 .perform(click());
 
         // PrimaryMenu
-        onView(withId(R.id.returnToMainMenu))
-                .check(doesNotExist());
         onView(withId(R.id.menuLink))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.editText2))

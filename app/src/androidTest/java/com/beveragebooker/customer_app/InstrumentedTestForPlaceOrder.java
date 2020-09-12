@@ -214,9 +214,9 @@ public class InstrumentedTestForPlaceOrder {
                 .perform(click());
         onView(withId(R.id.textViewOrderConfirm))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.returnToMainMenu))
+        onView(withId(R.id.homeButton))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.returnToMainMenu))
+        onView(withId(R.id.homeButton))
                 .perform(click());
         onView(withId(R.id.menuLink))
                 .check(matches(isDisplayed()));
