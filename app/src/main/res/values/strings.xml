@@ -6,4 +6,13 @@
     <string name="description">Description</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="userfirstname">UserFirstName</string>
+    <string name="userlastname">UserLastName</string>
+    <string name="accountpagetitle">accountPageTitle</string>
+    <string name="phonenumber">phoneNumber</string>
+    <string name="email">email</string>
+    <string name="edit">edit</string>
+    <string name="save">save</string>
+    <string name="password">********</string>
 </resources>

@@ -1,24 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.AccountActivity">
 
-    <fragment android:name="com.beveragebooker.customer_app.activities.Menubar"
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/menuBarInsert"
+        android:name="com.beveragebooker.customer_app.activities.Menubar"
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
-
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/accountTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+<!--    Account title with the users first name in it-->
     <TextView
         android:id="@+id/accountTitle"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="410dp"
+        android:layout_height="31dp"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="150dp"
-        android:text="Account Page"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="18dp"/>
+        android:layout_marginBottom="503dp"
+        android:gravity="center"
+        android:text="@string/accountpagetitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+<!--    android:textColor="@color/cardview_dark_background"-->
 
-</RelativeLayout>
+<!--    users first name-->
+    <TextView
+        android:id="@+id/userFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="317dp"
+        android:gravity="center"
+        android:text="@string/userfirstname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountTitle" />
+
+    <!--    Users last name-->
+
+    <!--    User email address-->
+    <TextView
+        android:id="@+id/userLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/userlastname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/userFirstName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountTitle" />
+
+    <TextView
+        android:id="@+id/userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userFirstName" />
+
+<!--    users password...needs to be blanked out or ******-->
+    <TextView
+        android:id="@+id/userPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userEmail" />
+
+<!--users phone number must have 10 digits no spaces-->
+    <TextView
+        android:id="@+id/userPhoneNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/phonenumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPassword" />
+
+<!--    button to allow editing-->
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="202dp"
+        android:text="@string/edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+
+<!--    button for saving those changes -->
+<!--    default to hidden-->
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/save"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toRightOf="@+id/editButton"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="266dp" />
+
+    <Button
+        android:id="@+id/deleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_marginStart="202dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum"
+        tools:layout_editor_absoluteX="204dp"
+        tools:layout_editor_absoluteY="261dp"
+        android:visibility="invisible" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
