@@ -60,7 +60,7 @@ public class BookDeliveryIntegrationTest {
         // BookDeliveryActivity
         onView(withId(R.id.DeliveryButton))
                 .check(doesNotExist());
-        onView(withId(R.id.editTextStreetNumber))
+        onView(withId(R.id.editTextUnit))
                 .perform(typeText("123"));
         onView(withId(R.id.editTextStreetName))
                 .perform(typeText("StreetName"), closeSoftKeyboard());

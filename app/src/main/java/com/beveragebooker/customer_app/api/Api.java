@@ -97,6 +97,8 @@ public interface Api {
     @POST("bookdelivery")
     Call<ResponseBody> bookDelivery(
             @Field("userID") int userID,
+            @Field("firstName") String firstName,
+            @Field("phone") String phone,
             @Field("streetUnit") String streetUnit,
             @Field("streetName") String streetName
     );

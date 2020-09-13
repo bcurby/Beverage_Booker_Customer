@@ -132,8 +132,17 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
         orderTotal = findViewById(R.id.orderTotal);
 
+        //Get userID
         User loggedUser = getInstance(PlaceOrderActivity.this).getUser();
         int userID = loggedUser.getId();
+
+        //Get firstName
+        String firstName = loggedUser.getFirstName();
+        System.out.println("Check First Name: " + firstName);
+
+        //Get mobile number
+        String phone = loggedUser.getPhone();
+        System.out.println("Check Mobile: " + phone);
 
         Call<List<MenuItem>> call = RetrofitClient
                 .getInstance()
@@ -423,15 +432,24 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
     //Creates a new delivery entry in the beverage database after payment is confirmed
     private void createNewDelivery() {
+
         User loggedUser = getInstance(PlaceOrderActivity.this).getUser();
         int userID = loggedUser.getId();
+
+        String firstName = loggedUser.getFirstName();
+        System.out.println("Check First Name: " + firstName);
+
+        String phone = loggedUser.getPhone();
+        System.out.println("Check Mobile: " + phone);
+
+
 
         Log.d("WHAT IS THIS", streetUnit + streetName);
 
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .bookDelivery(userID, streetUnit, streetName);
+                .bookDelivery(userID, firstName, phone, streetUnit, streetName);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
