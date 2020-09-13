@@ -23,6 +23,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
 import com.beveragebooker.customer_app.activities.BrowseMenu;
+import com.beveragebooker.customer_app.activities.PrimaryMenu;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -30,137 +31,210 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.core.AllOf.allOf;
 
-/**
- * Note the @FixMethodOrder is simply to make the tests run
- * alphabetically for neater testing thus all the tests have
- * letters in their names.
- */
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InstrumentedBookDeliveryTest {
 
-    @Rule public ActivityScenarioRule<BrowseMenu> ActivityScenarioRule
-            = new ActivityScenarioRule<>(BrowseMenu.class);
+    @Rule public ActivityScenarioRule<PrimaryMenu> ActivityScenarioRule
+            = new ActivityScenarioRule<>(PrimaryMenu.class);
 
     /**
-     * Verifies that when the checkoutButton is clicked the next page is the
-     * select order type activity and then when DeliveryButton is clicked
-     * the next page had AddressGroup (all the fields that the user will
-     * enter information into) and ProceedToPaymentButton (the button that
-     * lead to the payment page).
-     * The test also makes sure the DeliveryButton does not exist after it is
-     * clicked.
+     * Verifies that the fields for the delivery input page are displayed correctly, and that the
+     * 'Delivery' button on the Select Order Type page is displaying and functioning as intended.
+     * Starts by adding a 'Sausage Roll' to user cart.
+     * The test then movies through the activities, and checks the 'Delivery' button.
+     * Finally the test checks all the required fields an the 'Proceed to Payment' button are
+     * displaying.
      */
     @Test
-    public void BookDeliveryA_SelectDelivery() {
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
+    public void isFieldsForDeliverInputDisplayed() throws InterruptedException {
+
+        onView(withId(R.id.foodMenuButton))
                 .perform(click());
-        onView(withId(R.id.viewCart))
+        Thread.sleep(500);
+
+        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Sausage Roll"))))
                 .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.addToCartButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.cartButton))
+                .perform(click());
+        Thread.sleep(500);
+
         onView(withId(R.id.checkoutButton))
                 .perform(click());
+        Thread.sleep(500);
+
         onView(withId(R.id.PickUpButton))
                 .check(matches(isDisplayed()));
+
         onView(withId(R.id.DeliveryButton))
                 .check(matches(isDisplayed()));
+
         onView(withId(R.id.DeliveryButton))
                 .perform(click());
+        Thread.sleep(500);
+
         onView(withId(R.id.DeliveryButton))
                 .check(doesNotExist());
-        onView(withId(R.id.ProceedToPaymentButton))
-                .check(matches(isDisplayed()));
-    }
 
-    /**
-     * This test does the same as above however this will click pick up
-     * instead of delivery and make sure that payment activity is shown.
-     */
-    @Test
-    public void BookDeliveryB_SelectPickUp() {
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
-                .perform(click());
-        onView(withId(R.id.viewCart))
-                .perform(click());
-        onView(withId(R.id.checkoutButton))
-                .perform(click());
-        onView(withId(R.id.PickUpButton))
-                .perform(click());
-        onView(withId(R.id.PickUpButton))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardNumberLayout))
+        onView(withId(R.id.editTextUnit))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.creditCardCVVLayout))
-                .check(matches(isDisplayed()));
-        onView(withId(R.id.creditCardExpiryLayout))
-                .check(matches(isDisplayed()));
-        onView(withId(R.id.openPlaceOrderButton))
-                .check(matches(isDisplayed()));
-    }
 
-    /**
-     * Tests when all but street number a filled out that the program does not
-     * go to the next page - this is asserted by checking and making sure the
-     * components of payment activity are not showing.
-     */
-    @Test
-    public void BookDeliveryC_FillOutInformation_ErrorAtNumber() {
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
-                .perform(click());
-        onView(withId(R.id.viewCart))
-                .perform(click());
-        onView(withId(R.id.checkoutButton))
-                .perform(click());
-        onView(withId(R.id.DeliveryButton))
-                .perform(click());
-        //onView(withId(R.id.editTextStreetNumber))
-          //      .perform(typeText("")); //This is where the error is
         onView(withId(R.id.editTextStreetName))
-                .perform(typeText("StreetName"), closeSoftKeyboard());
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.textViewCityTown))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.textViewPostCode))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.textViewDisclaimer))
+                .check(matches(isDisplayed()));
+
         onView(withId(R.id.ProceedToPaymentButton))
-                .perform(click());
-       // onView(withId(R.id.editTextStreetNumber))
-          //      .check(matches(hasErrorText("Street number field must contain a street number")));
-        onView(withId(R.id.creditCardNumberLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardCVVLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardExpiryLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.openPlaceOrderButton))
-                .check(doesNotExist());
+                .check(matches(isDisplayed()));
+        Thread.sleep(500);
     }
 
+
     /**
-     * Does the same as above - but the error is at streetName now
+     * Checks that the address input page will accept an empty unit number field as intended
      */
     @Test
-    public void BookDeliveryD_FillOutInformation_ErrorAtName() {
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
+    public void isEmptyUnitNumberAccepted() throws InterruptedException {
+
+        onView(withId(R.id.cartButton))
                 .perform(click());
-        onView(withId(R.id.viewCart))
-                .perform(click());
+        Thread.sleep(500);
+
         onView(withId(R.id.checkoutButton))
                 .perform(click());
+        Thread.sleep(500);
+
         onView(withId(R.id.DeliveryButton))
                 .perform(click());
-       // onView(withId(R.id.editTextStreetNumber))
-           //     .perform(typeText("123"));
+        Thread.sleep(500);
+
         onView(withId(R.id.editTextStreetName))
-                .perform(typeText(""), closeSoftKeyboard()); //This is where the error is
+                .perform(typeText("17 Smith St"), closeSoftKeyboard());
+        Thread.sleep(500);
+
         onView(withId(R.id.ProceedToPaymentButton))
                 .perform(click());
+        Thread.sleep(500);
+    }
+
+
+    /**
+     * Checks that a valid unit number and street number/name are accepted.
+     */
+    @Test
+    public void isValidUnitNumberAndStreetNameAccepted() throws InterruptedException {
+
+        onView(withId(R.id.cartButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.checkoutButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.DeliveryButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.editTextUnit))
+                .perform(typeText("1"), closeSoftKeyboard());
+        Thread.sleep(500);
+
+        onView(withId(R.id.editTextStreetName))
+                .perform(typeText("17 Smith St"), closeSoftKeyboard());
+        Thread.sleep(500);
+
+        onView(withId(R.id.ProceedToPaymentButton))
+                .perform(click());
+        Thread.sleep(300);
+    }
+
+
+    /**
+     * Checks that an invalid street number/name containing symbols is not accepted and displays
+     * an error message.
+     */
+    @Test
+    public void isInValidSymbolsStreetNameAccepted() throws InterruptedException {
+
+        onView(withId(R.id.cartButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.checkoutButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.DeliveryButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.editTextUnit))
+                .perform(typeText("1"), closeSoftKeyboard());
+        Thread.sleep(500);
+
+        onView(withId(R.id.editTextStreetName))
+                .perform(typeText("?!#$"), closeSoftKeyboard());
+        Thread.sleep(500);
+
+        onView(withId(R.id.ProceedToPaymentButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.editTextStreetName))
+                .check(matches(hasErrorText("Street name field cant contain any symbols")));
+        Thread.sleep(1000);
+    }
+
+
+    /**
+     * Checks that an empty street number/name is not accepted and displays
+     * an error message.
+     */
+    @Test
+    public void isEmptyStreetNameAccepted() throws InterruptedException {
+
+        onView(withId(R.id.cartButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.checkoutButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.DeliveryButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        onView(withId(R.id.editTextUnit))
+                .perform(typeText("1"), closeSoftKeyboard());
+        Thread.sleep(500);
+
+        onView(withId(R.id.editTextStreetName))
+                .perform(typeText(""), closeSoftKeyboard());
+        Thread.sleep(500);
+
+        onView(withId(R.id.ProceedToPaymentButton))
+                .perform(click());
+        Thread.sleep(500);
+
         onView(withId(R.id.editTextStreetName))
                 .check(matches(hasErrorText("Street name field must contain a street name")));
-        onView(withId(R.id.creditCardNumberLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardCVVLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.creditCardExpiryLayout))
-                .check(doesNotExist());
-        onView(withId(R.id.openPlaceOrderButton))
-                .check(doesNotExist());
+        Thread.sleep(1000);
     }
-
 }
