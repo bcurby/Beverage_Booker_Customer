@@ -20,11 +20,9 @@ import com.beveragebooker.customer_app.adapters.CartAdapter;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.MenuItem;
-import com.beveragebooker.customer_app.models.Order;
 import com.beveragebooker.customer_app.models.User;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.stripe.android.ApiResultCallback;
 import com.stripe.android.PaymentIntentResult;
@@ -32,8 +30,6 @@ import com.stripe.android.Stripe;
 import com.stripe.android.model.ConfirmPaymentIntentParams;
 import com.stripe.android.model.PaymentIntent;
 import com.stripe.android.model.PaymentMethodCreateParams;
-import com.stripe.android.model.SourceTypeModel;
-import com.stripe.android.model.StripeIntent;
 import com.stripe.android.view.CardInputWidget;
 
 
@@ -68,7 +64,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
     private int cartID;
 
-    private String streetNumber, streetName;
+    private String streetUnit, streetName;
     private int deliveryStatusInt;
     private boolean deliveryStatus;
 
@@ -103,7 +99,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        streetNumber = intent.getStringExtra(BookDeliveryActivity.STREET_NUMBER);
+        streetUnit = intent.getStringExtra(BookDeliveryActivity.STREET_UNIT);
         streetName = intent.getStringExtra(BookDeliveryActivity.STREET_NAME);
 
         //Assigns delivery status int and order total variable
@@ -430,10 +426,12 @@ public class PlaceOrderActivity extends AppCompatActivity {
         User loggedUser = getInstance(PlaceOrderActivity.this).getUser();
         int userID = loggedUser.getId();
 
+        Log.d("WHAT IS THIS", streetUnit + streetName);
+
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .bookDelivery(userID, streetNumber, streetName);
+                .bookDelivery(userID, streetUnit, streetName);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

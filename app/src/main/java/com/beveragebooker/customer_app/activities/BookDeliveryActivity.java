@@ -15,7 +15,8 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInsta
 
 public class BookDeliveryActivity extends AppCompatActivity {
 
-    public static final String STREET_NUMBER = "com.beveragebooker.customer_app.STREET_NUMBER";
+    public static final String STREET_UNIT = "com.beveragebooker.customer_app" +
+            ".STREET_NUMBER";
     public static final String STREET_NAME = "com.beveragebooker.customer_app.STREET_NAME";
     public static final String DELIVERY_STATUS = "com.beveragebooker.customer_app.DELIVERY_STATUS";
 
@@ -71,12 +72,16 @@ public class BookDeliveryActivity extends AppCompatActivity {
         goToPayment();
     }
 
+    private void checkAddress(){
+
+    }
+
     private void goToPayment() {
-        String streetNumber = editTextUnitNumber.getText().toString().trim();
+        String streetUnit = editTextUnitNumber.getText().toString().trim();
         String streetName = editTextStreetName.getText().toString().trim();
 
         Intent intent = new Intent(this, PlaceOrderActivity.class);
-        intent.putExtra(STREET_NUMBER, streetNumber);
+        intent.putExtra(STREET_UNIT, streetUnit);
         intent.putExtra(STREET_NAME, streetName);
         //delivery status true
         intent.putExtra(DELIVERY_STATUS, true);
