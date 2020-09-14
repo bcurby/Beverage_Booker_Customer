@@ -15,13 +15,14 @@ import static com.beveragebooker.customer_app.storage.SharedPrefManager.getInsta
 
 public class BookDeliveryActivity extends AppCompatActivity {
 
-    public static final String STREET_NUMBER = "com.beveragebooker.customer_app.STREET_NUMBER";
+    public static final String STREET_UNIT = "com.beveragebooker.customer_app" +
+            ".STREET_NUMBER";
     public static final String STREET_NAME = "com.beveragebooker.customer_app.STREET_NAME";
     public static final String DELIVERY_STATUS = "com.beveragebooker.customer_app.DELIVERY_STATUS";
 
     public static String CART_TOTAL_BOOK_DELIVERY = "com.beveragebooker.customer_app.CART_TOTAL_BOOK_DELIVERY";
 
-    private EditText editTextStreetNumber, editTextStreetName;
+    private EditText editTextUnitNumber, editTextStreetName;
 
     private String orderTotal;
 
@@ -35,7 +36,7 @@ public class BookDeliveryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         orderTotal = intent.getStringExtra(SelectOrderTypeActivity.CART_TOTAL_ORDER_TYPE);
 
-        editTextStreetNumber = findViewById(R.id.editTextStreetNumber);
+        editTextUnitNumber = findViewById(R.id.editTextUnit);
         editTextStreetName = findViewById(R.id.editTextStreetName);
 
         ProceedToPaymentButton = findViewById(R.id.ProceedToPaymentButton);
@@ -52,17 +53,17 @@ public class BookDeliveryActivity extends AppCompatActivity {
 
         User loggedUser = getInstance(BookDeliveryActivity.this).getUser();
         int userID = loggedUser.getId();
-        String streetNumber = editTextStreetNumber.getText().toString().trim();
         String streetName = editTextStreetName.getText().toString().trim();
 
-        while (checker == false) {
+        while (!checker) {
 
-
-            if (streetNumber.isEmpty()) {
-                editTextStreetNumber.setError("Street number field must contain a street number");
-                return;
-            } else if (streetName.isEmpty()) {
+            if (streetName.isEmpty()) {
                 editTextStreetName.setError("Street name field must contain a street name");
+                return;
+            }
+            if(!streetName.matches("^[a-zA-Z0-9 ]+")){
+                editTextStreetName.setError("Street name field cant contain any symbols");
+
                 return;
             } else {
                 checker = true;
@@ -71,16 +72,19 @@ public class BookDeliveryActivity extends AppCompatActivity {
         goToPayment();
     }
 
-    private void goToPayment() {
-        String streetNumber = editTextStreetNumber.getText().toString().trim();
-        String streetName = editTextStreetName.getText().toString().trim();
-        boolean deliveryStatus = true;
+    private void checkAddress(){
 
+    }
+
+    private void goToPayment() {
+        String streetUnit = editTextUnitNumber.getText().toString().trim();
+        String streetName = editTextStreetName.getText().toString().trim();
 
         Intent intent = new Intent(this, PlaceOrderActivity.class);
-        intent.putExtra(STREET_NUMBER, streetNumber);
+        intent.putExtra(STREET_UNIT, streetUnit);
         intent.putExtra(STREET_NAME, streetName);
-        intent.putExtra(DELIVERY_STATUS, deliveryStatus);
+        //delivery status true
+        intent.putExtra(DELIVERY_STATUS, true);
 
         intent.putExtra(CART_TOTAL_BOOK_DELIVERY, orderTotal);
         startActivity(intent);
