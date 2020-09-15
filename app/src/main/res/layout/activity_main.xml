@@ -7,13 +7,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <TextView
+        android:id="@+id/beverageBookerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:src="@drawable/logo"
+        android:text="Beverage Booker"
+        android:textSize="35sp"
+        android:textStyle="bold"
         android:textAlignment="center"
+        android:textColor="@color/design_default_color_on_primary"
         app:layout_constraintBottom_toTopOf="@+id/loginText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +28,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="Log In"
+        android:textColor="@color/design_default_color_on_primary"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/beverageBookerView" />
 
 
     <TextView
@@ -100,9 +104,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Don't have an Account?"
+        android:text="Don't have an account?"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/design_default_color_primary_dark"
+        android:textColor="@color/stripe_3ds2_text_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textViewRegister"
         app:layout_constraintStart_toStartOf="parent"
@@ -128,6 +132,7 @@
         android:layout_marginBottom="172dp"
         android:background="@drawable/button"
         android:text="Log In"
+        android:textColor="@color/design_default_color_on_primary"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
