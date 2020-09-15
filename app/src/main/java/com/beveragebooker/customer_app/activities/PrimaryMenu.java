@@ -17,6 +17,7 @@ public class PrimaryMenu extends AppCompatActivity {
     private Button menuLink;
     private Button foodMenuButton;
     private Button viewOrderButton;
+    private Button viewHelpButton;
 
     private String itemType;
 
@@ -50,6 +51,19 @@ public class PrimaryMenu extends AppCompatActivity {
             }
         });
 
+        viewHelpButton = findViewById(R.id.viewHelpButton);
+        viewHelpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openHelp();
+            }
+        });
+
+    }
+
+    private void openHelp() {
+        Intent intent = new Intent(this, HelpActivity.class );
+        startActivity(intent);
     }
 
     private void openBrowseFoodMenu() {

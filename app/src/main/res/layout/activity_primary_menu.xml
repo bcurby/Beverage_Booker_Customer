@@ -35,6 +35,14 @@
         android:text="View Order"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:id="@+id/viewHelpButton"
+        android:layout_below="@+id/menuLink"
+        android:layout_width="285dp"
+        android:layout_height="wrap_content"
+        android:text="Help"
+        android:layout_centerHorizontal="true" />
+
     <EditText
         android:layout_below="@+id/menuBarInsert"
         android:id="@+id/editText2"
