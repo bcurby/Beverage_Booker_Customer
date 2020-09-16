@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         User user = SharedPrefManager.getInstance(this).getUser();
 
-        textView.setText("Welcome back " + user.getFirstName());
+        textView.setText("Welcome back, " + user.getFirstName() +"!");
 
         findViewById(R.id.continueButton).setOnClickListener(this);
         findViewById(R.id.signOutButton).setOnClickListener(this);
