@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorSignUpButton">#AE50CC</color>
+
+    <color name="browseMenuBackground">#FF3386E6</color>
 </resources>

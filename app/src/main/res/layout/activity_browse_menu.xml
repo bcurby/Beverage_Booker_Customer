@@ -15,12 +15,13 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
+        android:background="@drawable/background"
         android:padding="4dp"
         android:scrollbars="vertical"
         app:layoutManager="GridLayoutManager" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/viewCart"
         android:text="Cart"
         android:layout_width="wrap_content"
