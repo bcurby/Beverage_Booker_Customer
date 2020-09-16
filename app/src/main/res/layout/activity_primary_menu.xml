@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout7"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
-    <fragment android:name="com.beveragebooker.customer_app.activities.Menubar"
+    <fragment
         android:id="@+id/menuBarInsert"
+        android:name="com.beveragebooker.customer_app.activities.Menubar"
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/drinkMenuButton"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="Drink"
+        android:textAllCaps="false"
+        android:textColor="@color/design_default_color_on_primary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.428" />
 
     <Button
         android:id="@+id/foodMenuButton"
-        android:layout_below="@id/editText2"
-        android:layout_width="285dp"
+        android:layout_width="150sp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
         android:text="Food"
-        android:layout_centerHorizontal="true" />
+        android:textAllCaps="false"
+        android:textColor="@color/design_default_color_on_primary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.319" />
 
     <Button
-        android:id="@+id/menuLink"
-        android:layout_below="@id/foodMenuButton"
-        android:layout_width="285dp"
-        android:layout_height="wrap_content"
-        android:text="Drink"
-        android:layout_centerHorizontal="true" />
-
-    <Button
+        android:visibility="gone"
         android:id="@+id/viewOrderButton"
-        android:layout_below="@+id/menuLink"
-        android:layout_width="285dp"
-        android:layout_height="wrap_content"
-        android:text="View Order"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/viewHelpButton"
-        android:layout_below="@+id/menuLink"
-        android:layout_width="285dp"
-        android:layout_height="wrap_content"
-        android:text="Help"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_below="@+id/menuBarInsert"
-        android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Main Menu page"
-        android:layout_centerHorizontal="true" />
+        android:text="View Order"
+        tools:ignore="MissingConstraints" />
 
-</RelativeLayout>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/viewHelpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Help"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

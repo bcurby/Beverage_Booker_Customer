@@ -14,8 +14,8 @@ public class PrimaryMenu extends AppCompatActivity {
 
     public static final String ITEM_TYPE_MENU = "com.beveragebooker.customer_app.ITEM_TYPE_MENU";
 
-    private Button menuLink;
     private Button foodMenuButton;
+    private Button drinkMenuButton;
     private Button viewOrderButton;
     private Button viewHelpButton;
 
@@ -35,11 +35,11 @@ public class PrimaryMenu extends AppCompatActivity {
             }
         });
 
-        menuLink = findViewById(R.id.menuLink);
-        menuLink.setOnClickListener(new View.OnClickListener() {
+        drinkMenuButton = findViewById(R.id.drinkMenuButton);
+        drinkMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openBrowseMenu();
+                openBrowseDrinkMenu();
             }
         });
 
@@ -74,7 +74,7 @@ public class PrimaryMenu extends AppCompatActivity {
     }
 
     //open to the next activity on button click
-    public void openBrowseMenu(){
+    public void openBrowseDrinkMenu(){
         Intent intent = new Intent(this, BrowseMenu.class );
         itemType = "drink";
         intent.putExtra(ITEM_TYPE_MENU, itemType);
