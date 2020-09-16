@@ -12,10 +12,10 @@
         android:layout_width="320dp"
         android:layout_height="75dp"
         android:hint="Please comment any other requests here"
-        android:textColorHint="@color/colorPrimary"
         android:maxLength="45"
+        android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="0dp" />
@@ -31,22 +31,22 @@
         app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextComment"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.100000024"
         tools:ignore="MissingConstraints" />
 
     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
         android:id="@+id/qtyButton"
         android:layout_width="130dp"
         android:layout_height="43dp"
+        app:backgroundDrawable="@drawable/background"
         app:finalNumber="20"
         app:initialNumber="1"
-        app:backgroundDrawable="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
         android:id="@+id/stockLevelAddToCart"
