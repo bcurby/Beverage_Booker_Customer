@@ -85,7 +85,7 @@
         android:background="@drawable/button"
         android:text="Log In"
         android:textAllCaps="false"
-        android:textColor="@color/design_default_color_on_primary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
