@@ -132,13 +132,6 @@ public interface Api {
 
     );
 
-//    @FormUrlEncoded
-//    @POST("notificationtoken")
-//    Call<ResponseBody> addToken(
-//            @Field("token") String token,
-//            @Field("email") String email
-//    );
-
     //Get status of the order from db
     @GET("getorderstatus")
     Call<Order> getOrderStatus(
@@ -163,4 +156,22 @@ public interface Api {
     Call<Order> getCartIDFromUsers(
             @Query("userID") int userID
     );
+
+    //Book Delivery
+    @FormUrlEncoded
+    @POST("saveprofile")
+    Call<ResponseBody> saveProfile(
+            @Field("userID") int userID,
+            @Field("firstName") String mFirstName,
+            @Field("lastName") String mLastName,
+            @Field("email") String mEmail,
+            @Field("phoneNum") String mPhoneNum
+    );
+
+    @FormUrlEncoded
+    @POST("deleteuser")
+    Call<ResponseBody> deleteUser(
+            @Field("userID") int userID
+    );
+
 }

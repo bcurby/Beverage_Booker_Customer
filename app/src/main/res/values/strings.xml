@@ -14,5 +14,7 @@
     <string name="email">email</string>
     <string name="edit">edit</string>
     <string name="save">save</string>
-    <string name="password">********</string>
+    <string name="delete">Delete</string>
+    <string name="user_last_name">user last name</string>
+    <string name="password">password</string>
 </resources>
