@@ -5,24 +5,8 @@
     android:id="@+id/relativeLayout10"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background_silhouette"
     tools:context=".activities.SelectOrderTypeActivity">
-
-    <Button
-        android:id="@+id/PickUpButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button"
-        android:text="Pick Up"
-        android:textAllCaps="false"
-        android:textColor="@color/design_default_color_on_primary"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.375" />
 
     <Button
         android:id="@+id/DeliveryButton"
@@ -32,12 +16,29 @@
         android:background="@drawable/button"
         android:text="Delivery"
         android:textAllCaps="false"
-        android:textColor="@color/design_default_color_on_primary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PickUpButton"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.05" />
+
+    <Button
+        android:id="@+id/PickUpButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="Pick Up"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.441" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
