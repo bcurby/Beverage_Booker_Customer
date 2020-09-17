@@ -4,8 +4,11 @@
     <color name="colorPrimaryDark">#3E2723</color>
     <color name="colorAccent">#EB8C38</color>
     <color name="colorSignUpButton">#AE50CC</color>
+    <color name="colorAccentDark">#E65100</color>
 
-    <color name="colorWhite" >#FFFFFF</color>w
+
+    <color name="colorWhite" >#FFFFFF</color>
+    <color name="colorBlack" >#000000</color>
 
     <color name="browseMenuBackground">#3C3F41</color>
 </resources>

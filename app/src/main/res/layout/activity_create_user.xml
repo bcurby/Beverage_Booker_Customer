@@ -5,32 +5,21 @@
     android:id="@+id/relativeLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background_brown">
 
 
     <TextView
         android:id="@+id/textViewCreateAccountTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:text="@string/create_account"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-        android:textColor="@color/design_default_color_on_primary"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCreateAccountTitle" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -38,25 +27,16 @@
         android:layout_height="38dp"
         android:background="@drawable/input_field"
         android:drawablePadding="5dp"
-        android:hint="Email Address"
+        android:hint="@string/email_address"
         android:inputType="textEmailAddress"
-        android:textColorHint="@color/design_default_color_primary"
+        android:textColorHint="@color/colorAccentDark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.17000002" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="158dp" />
+        app:layout_constraintVertical_bias="0.17000002"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -64,26 +44,16 @@
         android:layout_height="38dp"
         android:background="@drawable/input_field"
         android:drawablePadding="5dp"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
-        android:textColorHint="@color/design_default_color_primary"
+        android:textColorHint="@color/colorAccentDark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        app:layout_constraintVertical_bias="0.066" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="First Name"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/editTextFirstName"
-        app:layout_constraintEnd_toEndOf="@+id/textView7"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintVertical_bias="0.066"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextFirstName"
@@ -91,27 +61,16 @@
         android:layout_height="38dp"
         android:background="@drawable/input_field"
         android:drawablePadding="5dp"
-        android:hint="First Name"
+        android:hint="@string/first_name"
         android:inputType="textPersonName"
-        android:textColorHint="@color/design_default_color_primary"
+        android:textColorHint="@color/colorAccentDark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintVertical_bias="0.075" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:text="Last Name"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/editTextLastName"
-        app:layout_constraintStart_toStartOf="@+id/editTextFirstName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
+        app:layout_constraintVertical_bias="0.075"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextLastName"
@@ -119,28 +78,16 @@
         android:layout_height="38dp"
         android:background="@drawable/input_field"
         android:drawablePadding="5dp"
-        android:hint="Last Name"
+        android:hint="@string/last_name"
         android:inputType="textPersonName"
-        android:textColorHint="@color/design_default_color_primary"
+        android:textColorHint="@color/colorAccentDark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextFirstName"
-        app:layout_constraintVertical_bias="0.083" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:text="Mobile Number"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/editTextPhone"
-        app:layout_constraintStart_toStartOf="@+id/editTextLastName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
-
+        app:layout_constraintVertical_bias="0.083"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextPhone"
@@ -148,30 +95,32 @@
         android:layout_height="38dp"
         android:background="@drawable/input_field"
         android:drawablePadding="5dp"
-        android:hint="Mobile Number"
-        android:inputType="number"
-        android:textColorHint="@color/design_default_color_primary"
+        android:hint="@string/mobile_number"
+        android:inputType="phone"
+        android:textColorHint="@color/colorAccentDark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextLastName"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintVertical_bias="0.102"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/buttonSignUp"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:background="@drawable/button"
-        android:text="Sign Up"
+        android:text="@string/sign_up"
         android:textAllCaps="false"
-        android:textColor="@color/design_default_color_on_primary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.233"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone"
-        app:layout_constraintVertical_bias="0.163" />
+        app:layout_constraintVertical_bias="0.173" />
 
     <TextView
         android:id="@+id/textViewAccountQuestionSignUpPage"
@@ -179,10 +128,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:lineSpacingExtra="7dp"
-        android:text="Already have an account?"
+        android:text="@string/already_have_an_account"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/stripe_3ds2_text_color"
+        android:textColor="@color/colorBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -194,10 +143,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:lineSpacingExtra="7dp"
-        android:text="Log in here"
+        android:text="@string/log_in_here"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/design_default_color_primary_dark"
+        android:textColor="@color/colorAccentDark"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
