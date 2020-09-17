@@ -165,6 +165,7 @@ public interface Api {
             @Field("firstName") String mFirstName,
             @Field("lastName") String mLastName,
             @Field("email") String mEmail,
+            @Field("password") String mPassword,
             @Field("phoneNum") String mPhoneNum
     );
 

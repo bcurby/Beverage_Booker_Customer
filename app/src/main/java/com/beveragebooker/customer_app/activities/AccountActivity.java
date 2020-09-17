@@ -4,21 +4,26 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.User;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
+import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -53,8 +58,7 @@ public class AccountActivity extends AppCompatActivity {
 
         // click listener for delete account
         mDeleteButton.setOnClickListener(v -> {
-
-        popupConfirmDeleteAccount();
+            deleteAccount();
 
         });
         // click listener for save button
@@ -65,7 +69,6 @@ public class AccountActivity extends AppCompatActivity {
 
         // click listener for edit button
         mEditButton.setOnClickListener(v -> {
-
             editAccount();
 
         });
@@ -86,33 +89,173 @@ public class AccountActivity extends AppCompatActivity {
     // method to call api for saving changed
     private void saveChanges() {
 
+        String email = mEmail.getText().toString().trim();
+        String password = mPassword.getText().toString().trim();
+        String firstName = mFirstName.getText().toString().trim();
+        String lastName = mLastName.getText().toString().trim();
+        String phoneNum = mPhoneNum.getText().toString().trim();
 
 
+        if (email.isEmpty()) {
+            mEmail.setError("Email is required");
+            mEmail.requestFocus();
+            return;
+        }
 
-        String firstName = String.valueOf(mFirstName.getText());
-        String lastName = String.valueOf(mLastName.getText());
-        String email = String.valueOf(mEmail.getText());
-        String phoneNum = String.valueOf(mPhoneNum.getText());
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mEmail.setError("Enter a valid email");
+            mEmail.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            mPassword.setError("Password required");
+            mPassword.requestFocus();
+            return;
+        }
+
+        if (password.length() < 6) {
+            mPassword.setError("Password should be at least 6 characters long");
+            mPassword.requestFocus();
+            return;
+        }
+
+        if (firstName.isEmpty()) {
+            mFirstName.setError("First Name required");
+            mFirstName.requestFocus();
+            return;
+        }
+
+        if (lastName.isEmpty()) {
+            mLastName.setError("Last Name required");
+            mLastName.requestFocus();
+            return;
+        }
+
+        if (phoneNum.isEmpty()) {
+            mPhoneNum.setError("Mobile Number required");
+            mPhoneNum.requestFocus();
+            return;
+        }
+
+        if (phoneNum.length() != 10) {
+            mPhoneNum.setError("Mobile Number must be 10 digits");
+            mPhoneNum.requestFocus();
+            return;
+        }
 
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .saveProfile(userID, firstName, lastName, email, phoneNum);
+                .saveProfile(userID, firstName, lastName, email, password, phoneNum);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+
+                if(response.code() == 201 ){
+                    Toast.makeText(AccountActivity
+                                    .this, "SAVED",
+                            Toast.LENGTH_LONG).show();
+
+                }else if (response.code()== 404){
+                        Toast.makeText(AccountActivity
+                                        .this, "Account not found",
+                                Toast.LENGTH_LONG).show();
+
+                }else if (response.code() == 422){
+                        Toast.makeText(AccountActivity
+                                        .this, "An error has occured"+ "\n" +"No " +
+                                        "changes were saved",
+                                Toast.LENGTH_LONG).show();
+                }
+
+                Log.d("WHAT IS THIS:  ", String.valueOf(response.code()));
+            }
+
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(AccountActivity.this, t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //change buttons visibility and usability
+        mDeleteButton.setVisibility(View.VISIBLE);
+        mDeleteButton.setEnabled(true);
+        mSaveButton.setVisibility(View.GONE);
+        mSaveButton.setEnabled(false);
+        mEditButton.setVisibility(View.VISIBLE);
+        mEditButton.setEnabled(true);
+
+        //set edit text fields as locked
+        mFirstName.setEnabled(false);
+        mLastName.setEnabled(false);
+        mEmail.setEnabled(false);
+        mPassword.setEnabled(false);
+        mPhoneNum.setEnabled(false);
+        mAccountTitle.setEnabled(false);
+
     }
 
     // method to call api for deleting users account
     private void deleteAccount(){
-        //todo -  remove the user and open orders
-        Call<ResponseBody> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .deleteUser(userID);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you want to delete your account?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<ResponseBody> call = RetrofitClient
+                                        .getInstance()
+                                        .getApi()
+                                        .deleteUser(userID);
+
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call,
+                                                   Response<ResponseBody> response) {
+
+                                if(response.code() == 201){
+
+                                    Toast.makeText(AccountActivity
+                                                    .this, "Account has been deleted",
+                                            Toast.LENGTH_LONG).show();
+                                    SharedPrefManager.getInstance(AccountActivity.this).clear();
+                                    startActivity(new Intent(AccountActivity.this, MainActivity.class));
+
+                                } else if (response.code() == 402 || response.code() == 422) {
+
+                                    Toast.makeText(AccountActivity
+                                                    .this, "Account can not be " +
+                                                    "deleted an error occured",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            }
+                        });
+
+                    }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.show();
     }
 
     // method to enable editText and remove the delete button
     private void editAccount(){
 
+        //change buttons visibility and usability
         mDeleteButton.setVisibility(View.GONE);
         mDeleteButton.setEnabled(false);
         mSaveButton.setVisibility(View.VISIBLE);
@@ -120,31 +263,14 @@ public class AccountActivity extends AppCompatActivity {
         mEditButton.setVisibility(View.GONE);
         mEditButton.setEnabled(false);
 
-
+        //set edit text fields as editable
+        mFirstName.setEnabled(true);
+        mLastName.setEnabled(true);
+        mEmail.setEnabled(true);
+        mPassword.setEnabled(true);
+        mPhoneNum.setEnabled(true);
+        mAccountTitle.setEnabled(true);
     }
-
-
-
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-    private void popupConfirmDeleteAccount() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmation");
-        builder.setMessage("Are you sure you want to delete your account?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-    }
-
-
 }
 
 
