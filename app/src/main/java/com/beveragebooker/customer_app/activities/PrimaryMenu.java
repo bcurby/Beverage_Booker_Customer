@@ -43,7 +43,7 @@ public class PrimaryMenu extends AppCompatActivity {
             }
         });
 
-        viewOrderButton = findViewById(R.id.viewOrderButton);
+        /*viewOrderButton = findViewById(R.id.viewOrderButton);
         viewOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class PrimaryMenu extends AppCompatActivity {
             public void onClick(View v) {
                 openHelp();
             }
-        });
+        });*/
 
     }
 
