@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment android:name="com.beveragebooker.customer_app.activities.Menubar"
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/menuBarInsert"
+        android:name="com.beveragebooker.customer_app.activities.Menubar"
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/menuBarInsert"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
+        android:layout_below="@id/menuBarInsert"
+        android:background="@drawable/background_brown"
         android:padding="4dp"
         android:scrollbars="vertical"
         app:layoutManager="GridLayoutManager" />
-
-    <Button
-        android:visibility="gone"
-        android:id="@+id/viewCart"
-        android:text="Cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recyclerView"
-        android:layout_marginTop="-60dp"
-        android:layout_marginStart="300dp" />
 
 </RelativeLayout>

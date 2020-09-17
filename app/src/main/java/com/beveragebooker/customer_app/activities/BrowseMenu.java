@@ -78,17 +78,6 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        //View Cart Button
-        viewCart = findViewById(R.id.viewCart);
-        viewCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCart();
-            }
-
-        });
-
-
         mMenuItems = new ArrayList<>();
 
         mRecyclerAdapter = new RecyclerAdapter(mMenuItems);
