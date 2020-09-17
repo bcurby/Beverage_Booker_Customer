@@ -15,4 +15,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="log_in_here">Log in here</string>
+    <string name="drink">Drink</string>
+    <string name="food">Food</string>
+    <string name="continue_to_menu">Continue to Menu</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

@@ -5,10 +5,10 @@
     android:id="@+id/relativeLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_brown"
+    android:background="@drawable/background_silhouette"
     tools:context=".activities.ProfileActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/menuBarInsert"
         android:name="com.beveragebooker.customer_app.activities.Menubar"
         android:layout_width="match_parent"
@@ -19,15 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo_primary"
-        app:layout_constraintBottom_toTopOf="@+id/textViewWelcome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menuBarInsert" />
 
     <TextView
         android:id="@+id/textViewWelcome"
@@ -48,7 +39,7 @@
         android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:background="@drawable/button"
-        android:text="Continue to Menu"
+        android:text="@string/continue_to_menu"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
@@ -58,17 +49,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.603" />
-
-    <Button
-        android:id="@+id/signOutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Out"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,50 +5,48 @@
     android:id="@+id/relativeLayout7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background_silhouette">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/menuBarInsert"
         android:name="com.beveragebooker.customer_app.activities.Menubar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/drinkMenuButton"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
+        android:layout_width="162dp"
+        android:layout_height="69dp"
         android:background="@drawable/button"
-        android:text="Drink"
+        android:text="@string/drink"
         android:textAllCaps="false"
-        android:textColor="@color/design_default_color_on_primary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
+        app:layout_constraintTop_toBottomOf="@+id/foodMenuButton"
+        app:layout_constraintVertical_bias="0.068" />
 
     <Button
         android:id="@+id/foodMenuButton"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
+        android:layout_width="162dp"
+        android:layout_height="69dp"
         android:background="@drawable/button"
-        android:text="Food"
+        android:text="@string/food"
         android:textAllCaps="false"
-        android:textColor="@color/design_default_color_on_primary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.319" />
+        app:layout_constraintVertical_bias="0.465" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
