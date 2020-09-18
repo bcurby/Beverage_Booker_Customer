@@ -5,12 +5,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
-        android:layout_marginTop="15sp"
+        android:layout_marginLeft="34sp"
+        android:layout_marginTop="28sp"
+        android:textAlignment="viewStart"
         android:text=" Please select sugar:"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -18,25 +19,32 @@
         android:id="@+id/sugarRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="34sp"
         android:checkedButton="@id/sugar">
 
         <RadioButton
             android:id="@+id/sugar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="Sugar" />
 
         <RadioButton
             android:id="@+id/sweetener"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="Sweetner" />
 
         <RadioButton
             android:id="@+id/noSugar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="No Sugar/Sweetner" />
 
     </RadioGroup>

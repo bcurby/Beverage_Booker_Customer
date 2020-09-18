@@ -5,12 +5,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
-        android:layout_marginTop="15sp"
+        android:layout_marginLeft="34sp"
+        android:layout_marginTop="28sp"
+        android:textAlignment="textStart"
         android:text=" Would you like decaf?"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         android:textSize="18sp"/>
 
@@ -18,7 +19,9 @@
         android:id="@+id/decafCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
+        android:layout_marginLeft="34sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         android:text="Decaf" />
 
 </LinearLayout>
