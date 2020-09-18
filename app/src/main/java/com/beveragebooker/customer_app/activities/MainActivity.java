@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(response.code() == 202) {
 
                     //Proceed with Login
+                    assert loginResponse != null;
                     SharedPrefManager.getInstance(MainActivity.this)
                             .saveUser(loginResponse.getUser());
 

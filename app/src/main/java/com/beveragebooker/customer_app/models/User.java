@@ -3,14 +3,14 @@ package com.beveragebooker.customer_app.models;
 public class User {
 
     private int id;
-    private String email, firstName, LastName, phone;
+    private String email, firstName, lastName, phone;
 
 
     public User(int id, String email, String firstName, String lastName, String phone) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
-        LastName = lastName;
+        this.lastName = lastName;
         this.phone = phone;
     }
 
@@ -27,7 +27,7 @@ public class User {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public String getPhone() {

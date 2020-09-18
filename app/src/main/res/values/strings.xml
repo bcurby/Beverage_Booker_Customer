@@ -30,4 +30,12 @@
     <string name="comment">Comment</string>
     <string name="qty">Qty:</string>
     <string name="delete">Delete</string>
+    <string name="userfirstname">UserFirstName</string>
+    <string name="userlastname">UserLastName</string>
+    <string name="accountpagetitle">accountPageTitle</string>
+    <string name="phonenumber">phoneNumber</string>
+    <string name="email">email</string>
+    <string name="edit">edit</string>
+    <string name="save">save</string>
+    <string name="user_last_name">user last name</string>
 </resources>
