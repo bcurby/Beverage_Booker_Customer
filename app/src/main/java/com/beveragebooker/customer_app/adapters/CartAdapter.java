@@ -49,10 +49,66 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder holder, final int position) {
         MenuItem cartItem = cartItemList.get(position);
 
+        String currentItemMilk = cartItem.getItemMilk();
+        String currentItemSugar = cartItem.getItemSugar();
+        String currentItemDecaf = cartItem.getItemDecaf();
+        String currentItemVanilla = cartItem.getItemVanilla();
+        String currentItemCaramel = cartItem.getItemCaramel();
+        String currentItemChocolate = cartItem.getItemChocolate();
+        String currentItemWhippedCream = cartItem.getItemWhippedCream();
+        String currentItemFrappe = cartItem.getItemFrappe();
+        String currentItemHeated = cartItem.getItemHeated();
+
         holder.textViewName.setText(cartItem.getName());
         holder.textViewPrice.setText("$" + currency.format(cartItem.getPrice()));
         holder.textViewQuantity.setText(String.valueOf(cartItem.getQuantity()));
-        holder.textViewMilk.setText(cartItem.getItemMilk());
+
+        if (!currentItemMilk.equals("-")) {
+            holder.textViewMilk.setVisibility(TextView.VISIBLE);
+            holder.textViewMilk.setText(cartItem.getItemMilk());
+        }
+
+        if (!currentItemSugar.equals("-")) {
+            holder.textViewSugar.setVisibility(TextView.VISIBLE);
+            holder.textViewSugar.setText(cartItem.getItemSugar());
+        }
+
+        if (!currentItemDecaf.equals("-")) {
+            holder.textViewDecaf.setVisibility(TextView.VISIBLE);
+            holder.textViewDecaf.setText(cartItem.getItemDecaf());
+        }
+
+        if (!currentItemVanilla.equals("-")) {
+            holder.textViewVanilla.setVisibility(TextView.VISIBLE);
+            holder.textViewVanilla.setText(cartItem.getItemVanilla());
+        }
+
+        if (!currentItemCaramel.equals("-")) {
+            holder.textViewCaramel.setVisibility(TextView.VISIBLE);
+            holder.textViewCaramel.setText(cartItem.getItemCaramel());
+        }
+
+        if (!currentItemChocolate.equals("-")) {
+            holder.textViewChocolate.setVisibility(TextView.VISIBLE);
+            holder.textViewChocolate.setText(cartItem.getItemChocolate());
+        }
+
+        if (!currentItemWhippedCream.equals("-")) {
+            holder.textViewWhippedCream.setVisibility(TextView.VISIBLE);
+            holder.textViewWhippedCream.setText(cartItem.getItemWhippedCream());
+        }
+
+        if (!currentItemFrappe.equals("-")) {
+            holder.textViewFrappe.setVisibility(TextView.VISIBLE);
+            holder.textViewFrappe.setText(cartItem.getItemFrappe());
+        }
+
+        if (!currentItemHeated.equals("-")) {
+            holder.textViewHeated.setVisibility(TextView.VISIBLE);
+            holder.textViewHeated.setText(cartItem.getItemHeated());
+        }
+
+
         holder.textViewSugar.setText(cartItem.getItemSugar());
         holder.textViewDecaf.setText(cartItem.getItemDecaf());
         holder.textViewVanilla.setText(cartItem.getItemVanilla());

@@ -97,7 +97,7 @@ public class AddToCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_cart);
 
-        linearLayout = findViewById(R.id.linearLayout);
+        linearLayout = findViewById(R.id.linearLayoutAddToCart);
         stockLevel = findViewById(R.id.stockLevelAddToCart);
 
         mSingleMenuItem = new ArrayList<>();
