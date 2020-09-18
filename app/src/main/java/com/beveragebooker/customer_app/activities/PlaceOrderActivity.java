@@ -122,14 +122,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
         //Recyclerview
         cartItemList = new ArrayList<>();
 
-        mRecyclerView = findViewById(R.id.placeOrderRecyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        mCartAdapter = new CartAdapter(cartItemList);
-
-        mRecyclerView.setAdapter(mCartAdapter);
-
         orderTotal = findViewById(R.id.orderTotal);
 
         //Get userID
@@ -158,7 +150,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     for (int i = 0; i < response.body().size(); i++) {
                         cartItemList.add(response.body().get(i));
                     }
-                    mCartAdapter.notifyDataSetChanged();
                 }
                 //Display the total of the items in the order
                 orderTotal.setText("Order Total: $" + currency.format(getOrderTotal()));
