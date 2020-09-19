@@ -36,13 +36,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextComment" />
 
+        <TextView
+            android:id="@+id/textViewNeedHelpAddToCart"
+            android:layout_width="94dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/need_help"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorAccentDark"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/qtyButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutAddToCart"
+            app:layout_constraintVertical_bias="0.461" />
+
         <Button
             android:id="@+id/addToCartButton"
             android:layout_width="135sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="55dp"
             android:background="@drawable/button"
             android:text="Add to Cart"
             android:textAllCaps="false"
@@ -60,15 +76,15 @@
             android:layout_width="135dp"
             android:layout_height="43dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="30dp"
             app:backGroundColor="@color/colorAccent"
             app:finalNumber="20"
             app:initialNumber="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/addToCartButton"
+            app:layout_constraintBottom_toTopOf="@+id/stockLevelAddToCart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutAddToCart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNeedHelpAddToCart"
             app:textColor="@color/colorPrimaryDark">
 
         </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>

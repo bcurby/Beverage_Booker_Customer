@@ -133,7 +133,6 @@
         android:id="@+id/deleteAccount"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:background="@drawable/button"
         android:drawableStart="@drawable/ic_baseline_delete_forever_24"
         android:paddingLeft="13dp"
@@ -145,8 +144,8 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toEndOf="@+id/editButton"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editButton"
         app:layout_constraintVertical_bias="0.0"
         tools:visibility="invisible" />
@@ -155,7 +154,6 @@
         android:id="@+id/editButton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
         android:background="@drawable/button"
         android:drawableStart="@drawable/ic_edit"
         android:paddingLeft="20dp"
@@ -165,9 +163,10 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userPhoneNum"
-        app:layout_constraintVertical_bias="0.072"
+        app:layout_constraintVertical_bias="0.07"
         tools:visibility="invisible" />
 
     <Button
@@ -181,15 +180,30 @@
         android:paddingRight="18dp"
         android:text="@string/save"
         android:textAllCaps="false"
-        android:textSize="17sp"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userPhoneNum"
         app:layout_constraintVertical_bias="0.07" />
+
+    <TextView
+        android:id="@+id/textViewNeedHelpAccount"
+        android:layout_width="94dp"
+        android:layout_height="26dp"
+        android:text="@string/need_help"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorAccentDark"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.679" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

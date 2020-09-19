@@ -93,6 +93,7 @@
         android:id="@+id/editTextPhone"
         android:layout_width="289dp"
         android:layout_height="38dp"
+        android:autofillHints=""
         android:background="@drawable/input_field"
         android:drawablePadding="5dp"
         android:hint="@string/mobile_number"
@@ -103,8 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextLastName"
-        app:layout_constraintVertical_bias="0.102"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.102" />
 
     <Button
         android:id="@+id/buttonSignUp"
@@ -120,7 +120,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone"
-        app:layout_constraintVertical_bias="0.173" />
+        app:layout_constraintVertical_bias="0.403" />
 
     <TextView
         android:id="@+id/textViewAccountQuestionSignUpPage"
@@ -152,5 +152,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textViewAccountQuestionSignUpPage"
         app:layout_constraintTop_toTopOf="@+id/textViewAccountQuestionSignUpPage" />
+
+    <TextView
+        android:id="@+id/textViewNeedHelpCreateAccount"
+        android:layout_width="94dp"
+        android:layout_height="26dp"
+        android:text="@string/need_help"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorAccentDark"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhone"
+        app:layout_constraintVertical_bias="0.185" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

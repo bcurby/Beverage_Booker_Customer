@@ -38,4 +38,14 @@
     <string name="edit">Edit</string>
     <string name="save">Save</string>
     <string name="user_last_name">user last name</string>
+    <string name="log_in">Log In</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="register_here">Register here</string>
+    <string name="need_help">Need help?</string>
+    <string name="unit">Unit</string>
+    <string name="street_address">Street Address</string>
+    <string name="city_bathurst">City: Bathurst</string>
+    <string name="post_code_2795">Post Code: 2795</string>
+    <string name="proceed_to_payment">Proceed to payment</string>
+    <string name="the_cafe_only_delivers_to_the_city_of_bathurst_2795">The cafe only delivers to the city of Bathurst 2795</string>
 </resources>
