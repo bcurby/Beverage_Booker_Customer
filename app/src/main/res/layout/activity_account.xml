@@ -89,22 +89,12 @@
         app:layout_constraintTop_toBottomOf="@+id/userFirstName" />
 
 <!--    users password...needs to be blanked out or ******-->
-
-
-
-
-
-
-
-    <!--  button for deleting account-->
-
     <Button
         android:id="@+id/userPassword"
         android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:enabled="false"
         android:gravity="center"
         android:text="@string/change_password"
         android:textColor="#000000"
@@ -156,7 +146,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/editButton"
         app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
-
+    <!--  button for deleting account-->
     <Button
         android:id="@+id/deleteAccount"
         android:layout_width="wrap_content"

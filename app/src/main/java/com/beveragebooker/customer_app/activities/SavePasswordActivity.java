@@ -32,7 +32,10 @@ public class SavePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_password);
 
-
+        mSave = findViewById(R.id.save);
+        mPassword1 = findViewById(R.id.password1);
+        mPassword2 = findViewById(R.id.password2);
+Log.d("USER ID", String.valueOf(userID));
         // click listener for save button
         mSave.setOnClickListener(v -> {
 
@@ -43,12 +46,15 @@ public class SavePasswordActivity extends AppCompatActivity {
 
     private void saveNewPassword(){
 
-        if (mPassword1.equals(mPassword2)){
+        String p1 = String.valueOf(mPassword1.getText());
+        String p2 = String.valueOf(mPassword2.getText());
+
+        if (p1.equals(p2)){
 
             Call<ResponseBody> call = RetrofitClient
                     .getInstance()
                     .getApi()
-                    .savePassword(userID, mPassword1);
+                    .savePassword(userID, p1);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call,
@@ -59,21 +65,14 @@ public class SavePasswordActivity extends AppCompatActivity {
                                         .this, "SAVED",
                                 Toast.LENGTH_LONG).show();
 
-                        SharedPrefManager.getInstance(SavePasswordActivity.this).clear();
-                        startActivity(new Intent(SavePasswordActivity.this, AccountActivity.class));
+                        startActivity(new Intent(SavePasswordActivity.this,
+                                AccountActivity.class));
 
-                    }else if (response.code()== 404){
+                    }else if (response.code()== 402){
                         Toast.makeText(SavePasswordActivity
                                         .this, "User not found",
                                 Toast.LENGTH_LONG).show();
-
-                    }else if (response.code() == 422){
-                        Toast.makeText(SavePasswordActivity
-                                        .this, "An error has occured"+ "\n" +"No " +
-                                        "changes were saved",
-                                Toast.LENGTH_LONG).show();
                     }
-
                     Log.d("WHAT IS THIS:  ", String.valueOf(response.code()));
                 }
 
@@ -86,6 +85,26 @@ public class SavePasswordActivity extends AppCompatActivity {
             });
 
 
+        }else if(!p1.equals(p2)){
+
+            mPassword1.setError("Passwords do not match");
+            mPassword1.requestFocus();
+
+
+        }
+        else if(p1 == null || p2 == null){
+
+            if(p1 == null){
+                mPassword1.setError("Passwords required");
+                mPassword1.requestFocus();
+
+            }
+
+            if(p2 == null){
+                mPassword2.setError("Passwords required");
+                mPassword2.requestFocus();
+
+            }
         }
 
 

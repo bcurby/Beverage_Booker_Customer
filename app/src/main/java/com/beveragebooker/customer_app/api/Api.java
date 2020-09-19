@@ -182,6 +182,6 @@ public interface Api {
     @POST("savepassword")
     Call<ResponseBody> savePassword(
             @Field("userID")  int userID,
-            @Field("password")EditText mPassword1
+            @Field("password")String mPassword1
     );
 }
