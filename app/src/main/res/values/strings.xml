@@ -17,4 +17,9 @@
     <string name="delete">Delete</string>
     <string name="user_last_name">user last name</string>
     <string name="password">password</string>
+    <string name="enter_new_password">enter new password</string>
+    <string name="change_password">Change Password</string>
+    <string name="re_enter_new_password">re-enter new password</string>
+    <string name="saveNew">SAVE</string>
+
 </resources>

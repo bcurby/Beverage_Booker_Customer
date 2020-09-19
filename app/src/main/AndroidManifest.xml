@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.beveragebooker.customer_app">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <meta-data
-        android:name="com.google.firebase.messaging.default_notification_channel_id"
-        android:value="fcm_default_channel"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.SavePasswordActivity"></activity>
         <activity android:name=".activities.AddToCartActivity" />
         <activity android:name=".activities.AccountActivity" />
         <activity android:name=".activities.OrderConfirmationActivity" />
@@ -34,7 +30,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
+
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id"
+        android:value="fcm_default_channel" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

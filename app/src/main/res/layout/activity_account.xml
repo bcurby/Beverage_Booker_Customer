@@ -89,64 +89,70 @@
         app:layout_constraintTop_toBottomOf="@+id/userFirstName" />
 
 <!--    users password...needs to be blanked out or ******-->
-    <EditText
+
+
+
+
+
+
+
+    <!--  button for deleting account-->
+
+    <Button
         android:id="@+id/userPassword"
-        android:layout_width="117dp"
-        android:layout_height="26dp"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:autofillHints="password"
-        android:background="@null"
         android:enabled="false"
-        android:gravity="center|end"
-        android:hint="@string/password"
-        android:inputType="text|textPassword"
+        android:gravity="center"
+        android:text="@string/change_password"
         android:textColor="#000000"
+        android:textSize="12sp"
         app:drawableStartCompat="@drawable/ic_lock"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
 
- <!--users phone number must have 10 digits no spaces-->
+    <!--users phone number must have 10 digits no spaces-->
     <EditText
         android:id="@+id/userPhoneNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:autofillHints="phone number"
+        android:background="@null"
         android:hint="@string/phonenumber"
         android:inputType="number|phone"
         app:drawableStartCompat="@drawable/ic_phone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userPassword"
-        android:autofillHints="phone number"
-        android:background="@null"/>
+        app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
-<!--    button to allow editing-->
-<!--    button for saving those changes -->
-<!--    default to hidden-->
-
-    <!--  button for deleting account-->
+    <!--    button to allow editing-->
     <Button
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="196dp"
+        android:layout_marginStart="208dp"
         android:layout_marginTop="24dp"
         android:drawableStart="@drawable/ic_edit"
         android:text="@string/edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
 
+    <!--    button for saving those changes -->
+    <!--    default to hidden-->
+
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+        android:layout_width="89dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
         android:drawableStart="@drawable/ic_save"
+        android:enabled="false"
         android:text="@string/save"
         android:visibility="invisible"
-        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/editButton"
         app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
