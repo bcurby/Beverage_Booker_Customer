@@ -1,5 +1,7 @@
 package com.beveragebooker.customer_app.api;
 
+import android.widget.EditText;
+
 import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.models.MenuItem;
@@ -159,7 +161,7 @@ public interface Api {
             @Query("userID") int userID
     );
 
-    //Book Delivery
+    //Save profile after edit
     @FormUrlEncoded
     @POST("saveprofile")
     Call<ResponseBody> saveProfile(
@@ -167,14 +169,21 @@ public interface Api {
             @Field("firstName") String mFirstName,
             @Field("lastName") String mLastName,
             @Field("email") String mEmail,
-            @Field("password") String mPassword,
             @Field("phoneNum") String mPhoneNum
     );
 
+    //delete the user
     @FormUrlEncoded
     @POST("deleteuser")
     Call<ResponseBody> deleteUser(
             @Field("userID") int userID
     );
 
+    //Save new password
+    @FormUrlEncoded
+    @POST("savepassword")
+    Call<ResponseBody> savePassword(
+            @Field("userID")  int userID,
+            @Field("password")String mPassword1
+    );
 }

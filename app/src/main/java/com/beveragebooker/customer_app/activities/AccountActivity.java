@@ -12,7 +12,6 @@ import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.User;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,10 +29,9 @@ public class AccountActivity extends AppCompatActivity {
     private EditText mFirstName;
     private EditText mLastName;
     private EditText mEmail;
-    private EditText mPassword;
     private EditText mPhoneNum;
     private TextView mAccountTitle;
-    private Button mEditButton, mSaveButton, mDeleteButton;
+    private Button mEditButton, mSaveButton, mDeleteButton, mUserPassword;
 
     User user = SharedPrefManager.getInstance(this).getUser();
     int userID = user.getId();
@@ -46,12 +44,12 @@ public class AccountActivity extends AppCompatActivity {
         mFirstName = findViewById(R.id.userFirstName);
         mLastName = findViewById(R.id.userLastName);
         mEmail = findViewById(R.id.userEmail);
-        mPassword = findViewById(R.id.userPassword);
         mPhoneNum = findViewById(R.id.userPhoneNum);
         mAccountTitle = findViewById(R.id.accountTitle);
         mDeleteButton = findViewById(R.id.deleteAccount);
         mSaveButton = findViewById(R.id.saveButton);
         mEditButton = findViewById(R.id.editButton);
+        mUserPassword = findViewById(R.id.userPassword);
 
         // call method for filling in the textview boxes
         setTextView();
@@ -73,6 +71,12 @@ public class AccountActivity extends AppCompatActivity {
 
         });
 
+        mUserPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(AccountActivity.this, SavePasswordActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+
     }
 
     // method for setting the edittext values which are by default disabled
@@ -81,7 +85,6 @@ public class AccountActivity extends AppCompatActivity {
         mFirstName.setText("   " + user.getFirstName());
         mLastName.setText("   " + user.getLastName());
         mEmail.setText("   " + user.getEmail());
-        mPassword.setText("*************");
         mPhoneNum.setText("   " +user.getPhone());
         mAccountTitle.setText("Hi " + user.getFirstName());
     }
@@ -90,7 +93,6 @@ public class AccountActivity extends AppCompatActivity {
     private void saveChanges() {
 
         String email = mEmail.getText().toString().trim();
-        String password = mPassword.getText().toString().trim();
         String firstName = mFirstName.getText().toString().trim();
         String lastName = mLastName.getText().toString().trim();
         String phoneNum = mPhoneNum.getText().toString().trim();
@@ -105,18 +107,6 @@ public class AccountActivity extends AppCompatActivity {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             mEmail.setError("Enter a valid email");
             mEmail.requestFocus();
-            return;
-        }
-
-        if (password.isEmpty()) {
-            mPassword.setError("Password required");
-            mPassword.requestFocus();
-            return;
-        }
-
-        if (password.length() < 6) {
-            mPassword.setError("Password should be at least 6 characters long");
-            mPassword.requestFocus();
             return;
         }
 
@@ -147,7 +137,7 @@ public class AccountActivity extends AppCompatActivity {
         Call<ResponseBody> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .saveProfile(userID, firstName, lastName, email, password, phoneNum);
+                .saveProfile(userID, firstName, lastName, email, phoneNum);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call,
@@ -193,7 +183,6 @@ public class AccountActivity extends AppCompatActivity {
         mFirstName.setEnabled(false);
         mLastName.setEnabled(false);
         mEmail.setEnabled(false);
-        mPassword.setEnabled(false);
         mPhoneNum.setEnabled(false);
         mAccountTitle.setEnabled(false);
 
@@ -231,7 +220,7 @@ public class AccountActivity extends AppCompatActivity {
 
                                     Toast.makeText(AccountActivity
                                                     .this, "Account can not be " +
-                                                    "deleted an error occured",
+                                                    "deleted an error occurred",
                                             Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -244,10 +233,7 @@ public class AccountActivity extends AppCompatActivity {
 
                     }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
         });
         builder.show();
     }
@@ -267,7 +253,6 @@ public class AccountActivity extends AppCompatActivity {
         mFirstName.setEnabled(true);
         mLastName.setEnabled(true);
         mEmail.setEnabled(true);
-        mPassword.setEnabled(true);
         mPhoneNum.setEnabled(true);
         mAccountTitle.setEnabled(true);
     }

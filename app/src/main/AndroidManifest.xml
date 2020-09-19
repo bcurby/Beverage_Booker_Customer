@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".activities.HelpActivity"></activity>
+        <activity android:name=".activities.SavePasswordActivity" />
         <activity android:name=".activities.AddToCartActivity" />
         <activity android:name=".activities.AccountActivity" />
         <activity android:name=".activities.OrderConfirmationActivity" />
@@ -47,5 +48,11 @@
             </intent-filter>
         </service>
     </application>
+
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id"
+        android:value="fcm_default_channel" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
