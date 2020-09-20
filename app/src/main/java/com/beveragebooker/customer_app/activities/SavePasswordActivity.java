@@ -47,6 +47,22 @@ Log.d("USER ID", String.valueOf(userID));
         String p1 = String.valueOf(mPassword1.getText());
         String p2 = String.valueOf(mPassword2.getText());
 
+        if (p1.isEmpty()) {
+            mPassword1.setError("Password required");
+            mPassword1.requestFocus();
+        }
+
+        if (p2.isEmpty()) {
+            mPassword2.setError("Password required");
+            mPassword2.requestFocus();
+        }
+
+        if(!p1.isEmpty() && !p2.isEmpty() && !p1.equals(p2)){
+
+            mPassword1.setError("Passwords do not match");
+            mPassword1.requestFocus();
+        }
+
         if (p1.equals(p2)){
 
             Call<ResponseBody> call = RetrofitClient
@@ -74,16 +90,13 @@ Log.d("USER ID", String.valueOf(userID));
                     Log.d("WHAT IS THIS:  ", String.valueOf(response.code()));
                 }
 
+
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Toast.makeText(SavePasswordActivity.this, t.getMessage(),
                             Toast.LENGTH_LONG).show();
                 }
             });
-        }else {
-
-            mPassword1.setError("Passwords do not match");
-            mPassword1.requestFocus();
         }
     }
 }
