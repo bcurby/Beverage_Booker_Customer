@@ -4,46 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".activities.AccountActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/menuBarInsert"
-        android:name="com.beveragebooker.customer_app.activities.Menubar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/accountTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <!--    Account title with the users first name in it-->
-    <TextView
-        android:id="@+id/accountTitle"
-        android:layout_width="413dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="503dp"
+    <Button
+        android:id="@+id/userPassword"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="@string/accountpagetitle"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:text="@string/change_password"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_lock"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="@null"/>
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
 
-    <!--    users first name-->
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="24dp"
+        android:drawableStart="@drawable/ic_edit"
+        android:text="@string/edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="89dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
+        android:drawableStart="@drawable/ic_save"
+        android:enabled="false"
+        android:text="@string/save"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/editButton"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+
+    <Button
+        android:id="@+id/deleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:drawableStart="@drawable/ic_baseline_delete_forever_24"
+        android:text="@string/delete"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/editButton"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+
     <EditText
         android:id="@+id/userFirstName"
         android:layout_width="159dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:background="@null"
         android:enabled="false"
+        android:background="@null"
         android:hint="@string/userfirstname"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
@@ -52,7 +74,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/accountTitle" />
 
-    <!--    Users last name-->
     <EditText
         android:id="@+id/userLastName"
         android:layout_width="140dp"
@@ -70,7 +91,6 @@
         app:layout_constraintStart_toEndOf="@+id/userFirstName"
         app:layout_constraintTop_toBottomOf="@+id/accountTitle" />
 
-<!--    User email address-->
     <EditText
         android:id="@+id/userEmail"
         android:layout_width="wrap_content"
@@ -88,22 +108,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userFirstName" />
 
-<!--    users password...needs to be blanked out or ******-->
-    <Button
-        android:id="@+id/userPassword"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="@string/change_password"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        app:drawableStartCompat="@drawable/ic_lock"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
-
-    <!--users phone number must have 10 digits no spaces-->
     <EditText
         android:id="@+id/userPhoneNum"
         android:layout_width="wrap_content"
@@ -118,46 +122,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
-    <!--    button to allow editing-->
-    <Button
-        android:id="@+id/editButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="208dp"
-        android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/ic_edit"
-        android:text="@string/edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
-
-    <!--    button for saving those changes -->
-    <!--    default to hidden-->
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="89dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
-        android:drawableStart="@drawable/ic_save"
-        android:enabled="false"
-        android:text="@string/save"
-        android:visibility="invisible"
+    <TextView
+        android:id="@+id/accountTitle"
+        android:layout_width="413dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="503dp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="@string/accountpagetitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/editButton"
-        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
-    <!--  button for deleting account-->
-    <Button
-        android:id="@+id/deleteAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/ic_baseline_delete_forever_24"
-        android:text="@string/delete"
-        android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/editButton"
-        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/menuBarInsert"
+        android:name="com.beveragebooker.customer_app.activities.Menubar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/accountTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

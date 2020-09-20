@@ -26,7 +26,6 @@ public class SavePasswordActivity extends AppCompatActivity {
     User user = SharedPrefManager.getInstance(this).getUser();
     int userID = user.getId();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,6 @@ Log.d("USER ID", String.valueOf(userID));
         mSave.setOnClickListener(v -> {
 
             saveNewPassword();
-
         });
     }
 
@@ -76,40 +74,16 @@ Log.d("USER ID", String.valueOf(userID));
                     Log.d("WHAT IS THIS:  ", String.valueOf(response.code()));
                 }
 
-
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Toast.makeText(SavePasswordActivity.this, t.getMessage(),
                             Toast.LENGTH_LONG).show();
                 }
             });
-
-
-        }else if(!p1.equals(p2)){
+        }else {
 
             mPassword1.setError("Passwords do not match");
             mPassword1.requestFocus();
-
-
         }
-        else if(p1 == null || p2 == null){
-
-            if(p1 == null){
-                mPassword1.setError("Passwords required");
-                mPassword1.requestFocus();
-
-            }
-
-            if(p2 == null){
-                mPassword2.setError("Passwords required");
-                mPassword2.requestFocus();
-
-            }
-        }
-
-
     }
-
-
-
 }
