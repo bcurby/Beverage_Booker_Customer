@@ -349,9 +349,11 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 System.out.println(deliveryStatus);
                 //Payment completed successfully
                 //Create Delivery in Database and Place Order
+                System.out.println("Payment Call back Check");
 
                 if (deliveryStatus == true) {
                     System.out.println(deliveryStatus);
+                    System.out.println("Delivery Check");
                     createNewDelivery();
                     placeOrder();
                 } else {
