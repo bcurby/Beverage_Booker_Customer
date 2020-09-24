@@ -6,9 +6,11 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.beveragebooker.customer_app.R;
 
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -22,6 +24,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InstrumentedLoginTest {
 
     @Rule
@@ -38,7 +41,7 @@ public class InstrumentedLoginTest {
      * Verifies that all the input fields of the Main Activity are displaying correctly
      */
     @Test
-    public void loginTest_CheckFields() {
+    public void a_IsLoginFieldsDisplayed() {
 
         onView(withId(R.id.editTextEmailLogin))
                 .check(matches(isDisplayed()));
@@ -58,7 +61,7 @@ public class InstrumentedLoginTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void loginTest_EmptyEmail() {
+    public void b_IsUserLoggedInWithEmptyEmail() {
 
         onView(withId(R.id.editTextEmailLogin))
                 .perform(typeText(""));
@@ -78,7 +81,7 @@ public class InstrumentedLoginTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void loginTest_EmptyPassword() {
+    public void c_IsUserLoggedInWithEmptyPassword() {
 
         onView(withId(R.id.editTextEmailLogin))
                 .perform(typeText("janedoe@gmail.com"));
@@ -98,7 +101,7 @@ public class InstrumentedLoginTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void loginTest_IncorrectEmailFormat() {
+    public void d_IsUserLoggedInWithInvalidEmailFormat() {
 
         onView(withId(R.id.editTextEmailLogin))
                 .perform(typeText("janedoe.com"));
@@ -117,7 +120,7 @@ public class InstrumentedLoginTest {
      * Verifies that when a user fills all fields correctly the login is successful.
      */
     @Test
-    public void loginTest_SuccessfulLogin() {
+    public void e_IsUserLoggedInWithValidData() {
 
         onView(withId(R.id.editTextEmailLogin))
                 .perform(typeText("janedoe@gmail.com"));
