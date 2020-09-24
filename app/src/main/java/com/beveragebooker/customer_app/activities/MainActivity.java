@@ -43,10 +43,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(CHANNEL_DESC);
             NotificationManager manager = getSystemService(NotificationManager.class);
+            assert manager != null;
             manager.createNotificationChannel(channel);
         }
-
-
 
         setContentView(R.layout.activity_main);
 
@@ -111,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(response.code() == 202) {
 
                     //Proceed with Login
+                    assert loginResponse != null;
                     SharedPrefManager.getInstance(MainActivity.this)
                             .saveUser(loginResponse.getUser());
 

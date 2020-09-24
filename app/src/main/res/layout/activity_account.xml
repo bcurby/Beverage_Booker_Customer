@@ -1,24 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".activities.AccountActivity">
 
-    <fragment android:name="com.beveragebooker.customer_app.activities.Menubar"
-        android:id="@+id/menuBarInsert"
-        android:layout_width="match_parent"
-        android:layout_height="48dp" />
+    <Button
+        android:id="@+id/userPassword"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/change_password"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_lock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="24dp"
+        android:drawableStart="@drawable/ic_edit"
+        android:text="@string/edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="89dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
+        android:drawableStart="@drawable/ic_save"
+        android:enabled="false"
+        android:text="@string/save"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/editButton"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+
+    <Button
+        android:id="@+id/deleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:drawableStart="@drawable/ic_baseline_delete_forever_24"
+        android:text="@string/delete"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/editButton"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+
+    <EditText
+        android:id="@+id/userFirstName"
+        android:layout_width="159dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:enabled="false"
+        android:background="@null"
+        android:hint="@string/userfirstname"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        app:drawableStartCompat="@drawable/ic_account_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountTitle" />
+
+    <EditText
+        android:id="@+id/userLastName"
+        android:layout_width="140dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="24dp"
+        android:autofillHints=" last name"
+        android:background="@null"
+        android:enabled="false"
+        android:hint="@string/user_last_name"
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintLeft_toRightOf="@+id/userFirstName"
+        app:layout_constraintStart_toEndOf="@+id/userFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/accountTitle" />
+
+    <EditText
+        android:id="@+id/userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:autofillHints="email address"
+        android:background="@null"
+        android:enabled="false"
+        android:hint="@string/email"
+        android:importantForAutofill="no"
+        android:inputType="textWebEmailAddress|text"
+        android:textColor="#000000"
+        app:drawableStartCompat="@drawable/ic_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userFirstName" />
+
+    <EditText
+        android:id="@+id/userPhoneNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:autofillHints="phone number"
+        android:background="@null"
+        android:hint="@string/phonenumber"
+        android:inputType="number|phone"
+        app:drawableStartCompat="@drawable/ic_phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
     <TextView
         android:id="@+id/accountTitle"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="413dp"
+        android:layout_height="30dp"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="150dp"
-        android:text="Account Page"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="18dp"/>
+        android:layout_marginBottom="503dp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="@string/accountpagetitle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-</RelativeLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/menuBarInsert"
+        android:name="com.beveragebooker.customer_app.activities.Menubar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/accountTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.beveragebooker.customer_app.api;
 
+import android.widget.EditText;
+
 import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.LoginResponse;
 import com.beveragebooker.customer_app.models.MenuItem;
@@ -134,13 +136,6 @@ public interface Api {
 
     );
 
-//    @FormUrlEncoded
-//    @POST("notificationtoken")
-//    Call<ResponseBody> addToken(
-//            @Field("token") String token,
-//            @Field("email") String email
-//    );
-
     //Get status of the order from db
     @GET("getorderstatus")
     Call<Order> getOrderStatus(
@@ -164,5 +159,31 @@ public interface Api {
     @GET("getcartidfromusers")
     Call<Order> getCartIDFromUsers(
             @Query("userID") int userID
+    );
+
+    //Save profile after edit
+    @FormUrlEncoded
+    @POST("saveprofile")
+    Call<ResponseBody> saveProfile(
+            @Field("userID") int userID,
+            @Field("firstName") String mFirstName,
+            @Field("lastName") String mLastName,
+            @Field("email") String mEmail,
+            @Field("phoneNum") String mPhoneNum
+    );
+
+    //delete the user
+    @FormUrlEncoded
+    @POST("deleteuser")
+    Call<ResponseBody> deleteUser(
+            @Field("userID") int userID
+    );
+
+    //Save new password
+    @FormUrlEncoded
+    @POST("savepassword")
+    Call<ResponseBody> savePassword(
+            @Field("userID")  int userID,
+            @Field("password")String mPassword1
     );
 }
