@@ -61,7 +61,7 @@ public class InstrumentedTestForFillCart {
     @Test
     public void isItemAddedToCart() {
 
-        ViewInteraction appCompatButton3 = onView(
+        /*ViewInteraction appCompatButton3 = onView(
                 allOf(withId(R.id.menuLink), withText("Drink"),
                         childAtPosition(
                                 childAtPosition(
@@ -69,7 +69,7 @@ public class InstrumentedTestForFillCart {
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatButton3.perform(click());
+        appCompatButton3.perform(click());*/
 
         onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Long Black"))))
                 .perform(click());
@@ -84,7 +84,7 @@ public class InstrumentedTestForFillCart {
                         isDisplayed()));
         appCompatEditText4.perform(replaceText("thanks"), closeSoftKeyboard());
 
-        ViewInteraction appCompatCheckBox = onView(
+        /*ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.decafCheck), withText("Decaf"),
                         childAtPosition(
                                 childAtPosition(
@@ -92,7 +92,7 @@ public class InstrumentedTestForFillCart {
                                         2),
                                 1),
                         isDisplayed()));
-        appCompatCheckBox.perform(click());
+        appCompatCheckBox.perform(click());*/
 
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.mediumSize), withText("Medium"),

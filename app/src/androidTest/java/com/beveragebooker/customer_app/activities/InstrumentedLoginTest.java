@@ -40,9 +40,6 @@ public class InstrumentedLoginTest {
     @Test
     public void loginTest_CheckFields() {
 
-        onView(withId(R.id.loginText))
-                .check(matches(isDisplayed()));
-
         onView(withId(R.id.editTextEmailLogin))
                 .check(matches(isDisplayed()));
 

@@ -44,12 +44,11 @@ import static org.hamcrest.core.AllOf.allOf;
                     .perform(click());
             Thread.sleep(300);
 
-            onView(withId(R.id.viewCart))
+            onView(withId(R.id.cartButton))
                     .perform(click());
 
              //Cart Activity
-            onView(withId(R.id.viewCart))
-                    .check(doesNotExist());
+
             onView(allOf(ViewMatchers.withId(R.id.deleteCartItem), hasSibling(withText("Sausage Roll"))))
                     .perform(click());
 

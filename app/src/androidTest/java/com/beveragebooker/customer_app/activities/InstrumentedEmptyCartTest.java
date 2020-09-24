@@ -54,8 +54,8 @@ public class InstrumentedEmptyCartTest {
         onView(withId(R.id.homeButton))
                 .perform(click());
 
-        onView(withId(R.id.menuLink))
-                .perform(click());
+        //onView(withId(R.id.menuLink))
+              //  .perform(click());
 
         onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Long Black"))))
                 .perform(click());
@@ -70,7 +70,7 @@ public class InstrumentedEmptyCartTest {
                         isDisplayed()));
         appCompatEditText4.perform(replaceText("thanks"), closeSoftKeyboard());
 
-        ViewInteraction appCompatCheckBox = onView(
+        /*ViewInteraction appCompatCheckBox = onView(
                 Matchers.allOf(withId(R.id.decafCheck), withText("Decaf"),
                         childAtPosition(
                                 childAtPosition(
@@ -78,7 +78,7 @@ public class InstrumentedEmptyCartTest {
                                         2),
                                 1),
                         isDisplayed()));
-        appCompatCheckBox.perform(click());
+        appCompatCheckBox.perform(click());*/
 
         ViewInteraction appCompatRadioButton = onView(
                 Matchers.allOf(withId(R.id.mediumSize), withText("Medium"),

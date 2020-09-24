@@ -35,8 +35,6 @@ public class InstrumentedTestForSignOut {
     @Test
     public void SignOutOfProfileActivity() {
         // Login
-        onView(withId(R.id.loginText))
-                .check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextEmailLogin))
                 .check(matches(isDisplayed()));
@@ -67,8 +65,6 @@ public class InstrumentedTestForSignOut {
                 .perform(click());
 
         // Checking we are back on Login Screen
-        onView(withId(R.id.loginText))
-                .check(matches(isDisplayed()));
 
     }
 
@@ -81,8 +77,6 @@ public class InstrumentedTestForSignOut {
     @Test
     public void SignOutOfMenuBar() {
         // Login
-        onView(withId(R.id.loginText))
-                .check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextEmailLogin))
                 .check(matches(isDisplayed()));
@@ -123,8 +117,6 @@ public class InstrumentedTestForSignOut {
                 .perform(click());
 
         // Cart Button
-        onView(withId(R.id.editText2))
-                .check(matches(isDisplayed()));
 
         onView(withId(R.id.cartButton))
                 .check(matches(isDisplayed()));
@@ -136,14 +128,7 @@ public class InstrumentedTestForSignOut {
         onView(withId(R.id.cartRecyclerView))
                 .check(matches(isDisplayed()));
 
-        onView(withId(R.id.signOutMenuButton))
-                .check(matches(isDisplayed()));
-
-        onView(withId(R.id.signOutMenuButton))
-                .perform(click());
 
         // Checking we are back on Login Screen
-        onView(withId(R.id.loginText))
-                .check(matches(isDisplayed()));
     }
 }

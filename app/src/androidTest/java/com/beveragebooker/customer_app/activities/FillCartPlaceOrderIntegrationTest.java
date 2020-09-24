@@ -50,7 +50,7 @@ public class FillCartPlaceOrderIntegrationTest {
     @Test
     public void isItemAddedToCartandCheckoutSuccessful() {
 
-        ViewInteraction appCompatButton3 = onView(
+        /*ViewInteraction appCompatButton3 = onView(
                 allOf(withId(R.id.menuLink), withText("Drink"),
                         childAtPosition(
                                 childAtPosition(
@@ -58,7 +58,7 @@ public class FillCartPlaceOrderIntegrationTest {
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatButton3.perform(click());
+        appCompatButton3.perform(click());*/
 
         ViewInteraction appCompatButton4 = onView(
                 allOf(withId(R.id.addToCart), withText("Add To Cart"),
@@ -92,7 +92,7 @@ public class FillCartPlaceOrderIntegrationTest {
                         isDisplayed()));
         appCompatRadioButton2.perform(click());
 
-        ViewInteraction appCompatCheckBox = onView(
+        /*ViewInteraction appCompatCheckBox = onView(
                 allOf(withId(R.id.decafCheck), withText("Decaf"),
                         childAtPosition(
                                 childAtPosition(
@@ -100,7 +100,7 @@ public class FillCartPlaceOrderIntegrationTest {
                                         2),
                                 1),
                         isDisplayed()));
-        appCompatCheckBox.perform(click());
+        appCompatCheckBox.perform(click());*/
 
         ViewInteraction appCompatButton5 = onView(
                 allOf(withId(R.id.add_btn), withText("+"),

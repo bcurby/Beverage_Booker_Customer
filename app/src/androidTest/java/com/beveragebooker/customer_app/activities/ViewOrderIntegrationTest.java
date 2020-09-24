@@ -66,7 +66,7 @@ public class ViewOrderIntegrationTest {
         onView(withId(R.id.continueButton))
                 .perform(click());
 
-        onView(withId(R.id.viewOrderButton))
+        onView(withId(R.id.orderButton))
                 .perform(click());
 
         onView(withId(R.id.textViewOrderConfirm))
@@ -75,7 +75,7 @@ public class ViewOrderIntegrationTest {
         onView(withId(R.id.homeButton))
                 .perform(click());
 
-        onView(withId(R.id.viewOrderButton))
+        onView(withId(R.id.orderButton))
                 .perform(click());
 
         onView(withId(R.id.textViewOrderConfirm))

@@ -44,12 +44,11 @@ public class EmptyCartIntegrationTest {
         // BrowseMenu
         onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
                 .perform(click());
-        onView(withId(R.id.viewCart))
+        onView(withId(R.id.cartButton))
                 .perform(click());
 
         // CartActivity
-        onView(withId(R.id.viewCart))
-                .check(doesNotExist());
+
         onView(allOf(withId(R.id.cartItemName), hasSibling(withText("banana"))))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.emptyCartButton))
@@ -58,11 +57,11 @@ public class EmptyCartIntegrationTest {
         // BrowseMenu
         onView(withId(R.id.emptyCartButton))
                 .check(doesNotExist());
-        onView(withId(R.id.viewCart))
+        onView(withId(R.id.cartButton))
                 .perform(click());
 
         // CartActivity
-        onView(withId(R.id.viewCart))
+        onView(withId(R.id.cartButton))
                 .check(doesNotExist());
         onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
                 .check(doesNotExist());
@@ -71,11 +70,11 @@ public class EmptyCartIntegrationTest {
         // BrowseMenu
         onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
                 .perform(click());
-        onView(withId(R.id.viewCart))
+        onView(withId(R.id.cartButton))
                 .perform(click());
 
         // CartActivity
-        onView(withId(R.id.viewCart))
+        onView(withId(R.id.cartButton))
                 .check(doesNotExist());
         onView(allOf(withId(R.id.cartItemName), hasSibling(withText("banana"))))
                 .check(matches(isDisplayed()));

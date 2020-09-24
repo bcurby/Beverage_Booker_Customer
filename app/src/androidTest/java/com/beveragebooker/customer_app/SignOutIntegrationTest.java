@@ -33,8 +33,6 @@ public class SignOutIntegrationTest {
     @Test
     public void SignOut() {
         // Login
-            onView(withId(R.id.loginText))
-                    .check(matches(isDisplayed()));
 
             onView(withId(R.id.editTextEmailLogin))
                     .perform(typeText("jaketest@gmail.com"), closeSoftKeyboard());
@@ -53,8 +51,6 @@ public class SignOutIntegrationTest {
                     .perform(click());
 
         // Login
-            onView(withId(R.id.loginText))
-                    .check(matches(isDisplayed()));
 
             onView(withId(R.id.editTextEmailLogin))
                     .perform(typeText("jaketest@gmail.com"), closeSoftKeyboard());
@@ -80,8 +76,6 @@ public class SignOutIntegrationTest {
                     .perform(click());
 
         // Cart Button
-            onView(withId(R.id.editText2))
-                    .check(matches(isDisplayed()));
 
             onView(withId(R.id.cartButton))
                     .perform(click());
@@ -90,11 +84,7 @@ public class SignOutIntegrationTest {
             onView(withId(R.id.cartRecyclerView))
                     .check(matches(isDisplayed()));
 
-            onView(withId(R.id.signOutMenuButton))
-                    .perform(click());
 
         // Checking we are back on Login Screen
-        onView(withId(R.id.loginText))
-                .check(matches(isDisplayed()));
     }
 }

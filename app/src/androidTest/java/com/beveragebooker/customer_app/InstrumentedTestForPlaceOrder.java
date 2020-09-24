@@ -22,14 +22,16 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class InstrumentedTestForPlaceOrder {
 
-    @Rule public ActivityScenarioRule<CartActivity> ActivityScenarioRule
+    @Rule
+    public ActivityScenarioRule<CartActivity> ActivityScenarioRule
             = new ActivityScenarioRule<>(CartActivity.class);
 
     /**
      * Verifies that when checkoutButton is clicked everything on the next page is displayed showing that
      * the application works as intended.
      */
-    @Test
+
+    /*@Test
     public void GoToCheckOut() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
@@ -63,7 +65,7 @@ public class InstrumentedTestForPlaceOrder {
      * Verifies that when openPlaceOrderButton is clicked and there is an error at
      * card number where there is a number missing it displays an error instead of continuing.
      */
-    @Test
+    /*@Test
     public void PaymentInformation_ErrorAtCardNumber_TooLittleNumbers() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
@@ -93,7 +95,7 @@ public class InstrumentedTestForPlaceOrder {
      * Verifies that when openPlaceOrderButton is clicked and there is an error at
      * CVV where there is a number missing it displays an error instead of continuing.
      */
-    @Test
+    /*@Test
     public void PaymentInformation_ErrorAtCVV_TooLittleNumbers() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
@@ -123,7 +125,7 @@ public class InstrumentedTestForPlaceOrder {
      * Verifies that when openPlaceOrderButton is clicked and there is an error at
      * Month where an incorrect month is entered it errors instead of continuing.
      */
-    @Test
+    /*@Test
     public void PaymentInformation_ErrorAtMonth_OutOfBounds() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
@@ -153,7 +155,7 @@ public class InstrumentedTestForPlaceOrder {
      * Verifies that when openPlaceOrderButton is clicked and there is an error at
      * year where an out of date year is provided it errors instead of continuing.
      */
-    public void PaymentInformation_ErrorAtYear_OutOfBounds() {
+    /*public void PaymentInformation_ErrorAtYear_OutOfBounds() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
         onView(withId(R.id.PickUpButton))
@@ -182,7 +184,7 @@ public class InstrumentedTestForPlaceOrder {
      * This is pretty much simulating an entire order apart from adding the item to cart.
      * The happy day scenario.
      */
-    @Test
+    /*@Test
     public void zPaymentInformation_PlaceOrder_OrderConfirmation_MainMenu() {
         onView(withId(R.id.checkoutButton))
                 .perform(click());
@@ -222,5 +224,5 @@ public class InstrumentedTestForPlaceOrder {
                 .check(matches(isDisplayed()));
         onView(withId(R.id.editText2))
                 .check(matches(isDisplayed()));
-    }
+    }*/
 }
