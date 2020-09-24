@@ -89,22 +89,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userFirstName" />
 
-
-<!--    users password...needs to be blanked out or ******-->
-    <Button
-        android:id="@+id/userPassword"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="@string/change_password"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        app:drawableStartCompat="@drawable/ic_lock"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
-
     <!--users phone number must have 10 digits no spaces-->
     <EditText
         android:id="@+id/userPhoneNum"
@@ -116,15 +100,62 @@
         android:inputType="number|phone"
         app:drawableStartCompat="@drawable/ic_phone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userPassword" />
         app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
+    <!--    users password...needs to be blanked out or ******-->
+
     <!--    button to allow editing-->
+
+    <!--    button for saving those changes -->
+    <!--    default to hidden-->
+
+    <Button
+        android:id="@+id/userPassword"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/change_password"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
+        app:drawableStartCompat="@drawable/ic_lock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum"
+        app:layout_constraintVertical_bias="0.008" />
+
+    <Button
+        android:id="@+id/deleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="76dp"
+        android:background="@drawable/button"
+        android:drawableStart="@drawable/ic_baseline_delete_forever_24"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!--  button for deleting account-->
+
     <Button
         android:id="@+id/editButton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="208dp"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/button"
         android:drawableStart="@drawable/ic_edit"
@@ -135,21 +166,18 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userPhoneNum"
-        app:layout_constraintVertical_bias="0.07"
-        tools:visibility="invisible" />
-
-    <!--    button for saving those changes -->
-    <!--    default to hidden-->
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/saveButton"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="28dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_marginEnd="76dp"
         android:background="@drawable/button"
         android:drawableStart="@drawable/ic_save"
         android:enabled="false"
@@ -160,21 +188,11 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="17sp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/editButton"
-        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
-    <!--  button for deleting account-->
-    <Button
-        android:id="@+id/deleteAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/ic_baseline_delete_forever_24"
-        android:text="@string/delete"
-        android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/editButton"
-        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum" />
+        app:layout_constraintTop_toBottomOf="@+id/userPhoneNum"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewNeedHelpAccount"
@@ -186,9 +204,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.679" />
+        app:layout_constraintTop_toBottomOf="@+id/userPassword"
+        app:layout_constraintVertical_bias="0.22" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
