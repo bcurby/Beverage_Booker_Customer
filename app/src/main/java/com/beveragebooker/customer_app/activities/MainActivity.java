@@ -43,10 +43,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(CHANNEL_DESC);
             NotificationManager manager = getSystemService(NotificationManager.class);
+            assert manager != null;
             manager.createNotificationChannel(channel);
         }
-
-
 
         setContentView(R.layout.activity_main);
 

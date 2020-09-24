@@ -26,7 +26,6 @@ public class SavePasswordActivity extends AppCompatActivity {
     User user = SharedPrefManager.getInstance(this).getUser();
     int userID = user.getId();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,6 @@ Log.d("USER ID", String.valueOf(userID));
         mSave.setOnClickListener(v -> {
 
             saveNewPassword();
-
         });
     }
 
@@ -48,6 +46,22 @@ Log.d("USER ID", String.valueOf(userID));
 
         String p1 = String.valueOf(mPassword1.getText());
         String p2 = String.valueOf(mPassword2.getText());
+
+        if (p1.isEmpty()) {
+            mPassword1.setError("Password required");
+            mPassword1.requestFocus();
+        }
+
+        if (p2.isEmpty()) {
+            mPassword2.setError("Password required");
+            mPassword2.requestFocus();
+        }
+
+        if(!p1.isEmpty() && !p2.isEmpty() && !p1.equals(p2)){
+
+            mPassword1.setError("Passwords do not match");
+            mPassword1.requestFocus();
+        }
 
         if (p1.equals(p2)){
 
@@ -83,33 +97,6 @@ Log.d("USER ID", String.valueOf(userID));
                             Toast.LENGTH_LONG).show();
                 }
             });
-
-
-        }else if(!p1.equals(p2)){
-
-            mPassword1.setError("Passwords do not match");
-            mPassword1.requestFocus();
-
-
         }
-        else if(p1 == null || p2 == null){
-
-            if(p1 == null){
-                mPassword1.setError("Passwords required");
-                mPassword1.requestFocus();
-
-            }
-
-            if(p2 == null){
-                mPassword2.setError("Passwords required");
-                mPassword2.requestFocus();
-
-            }
-        }
-
-
     }
-
-
-
 }

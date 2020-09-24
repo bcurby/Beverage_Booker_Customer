@@ -147,6 +147,8 @@ public class AccountActivity extends AppCompatActivity {
                     Toast.makeText(AccountActivity
                                     .this, "SAVED",
                             Toast.LENGTH_LONG).show();
+                    User newUser = getNewUser(firstName, lastName, email, phoneNum );
+                    SharedPrefManager.getInstance(AccountActivity.this).saveUser(newUser);
 
                 }else if (response.code()== 404){
                         Toast.makeText(AccountActivity
@@ -251,11 +253,22 @@ public class AccountActivity extends AppCompatActivity {
 
         //set edit text fields as editable
         mFirstName.setEnabled(true);
+        mFirstName.setBackgroundResource(0);
         mLastName.setEnabled(true);
         mEmail.setEnabled(true);
         mPhoneNum.setEnabled(true);
         mAccountTitle.setEnabled(true);
     }
+
+    public User getNewUser(String firstName, String lastName, String email,
+                           String phoneNum){
+
+
+        return new User(
+                userID, email, firstName, lastName, phoneNum);
+    }
+
+
 }
 
 
