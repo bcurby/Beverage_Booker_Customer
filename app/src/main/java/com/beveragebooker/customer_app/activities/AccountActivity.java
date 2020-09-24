@@ -86,7 +86,6 @@ public class AccountActivity extends AppCompatActivity {
         mLastName.setText("   " + user.getLastName());
         mEmail.setText("   " + user.getEmail());
         mPhoneNum.setText("   " +user.getPhone());
-        mAccountTitle.setText("Hi " + user.getFirstName());
     }
 
     // method to call api for saving changed
