@@ -9,6 +9,7 @@ import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -20,15 +21,18 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.AllOf;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
@@ -44,80 +48,65 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InstrumentedTestForFillCart {
 
     @Rule
-    public ActivityTestRule<PrimaryMenu> mActivityTestRule = new ActivityTestRule<>(PrimaryMenu.class);
+    public ActivityScenarioRule<PrimaryMenu> mActivityTestRule = new ActivityScenarioRule<>(PrimaryMenu.class);
 
     /**
      * Instrumented test that clicks the Drinks Menu button and then adds a 'Long Black' to Cart with:
      * size = medium
      * sugar = default (yes)
      * decaf = checked
-     * quantity = 2
+     * quantity = 1
      * comment = thanks
      **/
 
     @Test
-    public void isItemAddedToCart() {
+    public void a_IsItemAddedToCart() throws InterruptedException {
 
-        /*ViewInteraction appCompatButton3 = onView(
-                allOf(withId(R.id.menuLink), withText("Drink"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatButton3.perform(click());*/
+        onView(withId(R.id.drinkMenuButton))
+                .perform(click());
+        Thread.sleep(500);
 
+        //Select 'Long Black' from drink menu
+        Thread.sleep(1000);
         onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Long Black"))))
                 .perform(click());
 
-        ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.editTextComment),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText4.perform(replaceText("thanks"), closeSoftKeyboard());
+        //Select medium size drink
+        Thread.sleep(500);
+        onView(withId(R.id.mediumSize))
+                .perform(click());
+        Thread.sleep(500);
 
-        /*ViewInteraction appCompatCheckBox = onView(
-                allOf(withId(R.id.decafCheck), withText("Decaf"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.linearLayout),
-                                        2),
-                                1),
-                        isDisplayed()));
-        appCompatCheckBox.perform(click());*/
+        //Select decaf
+        Thread.sleep(500);
+        onView(withId(R.id.decafCheck))
+                .perform(click());
+        Thread.sleep(500);
 
-        ViewInteraction appCompatRadioButton = onView(
-                allOf(withId(R.id.mediumSize), withText("Medium"),
-                        childAtPosition(
-                                allOf(withId(R.id.sizeRadioGroup),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
-                                1),
-                        isDisplayed()));
-        appCompatRadioButton.perform(click());
+        //Add comment
+        onView(withId(R.id.editTextComment))
+                .perform(typeText("thanks"), closeSoftKeyboard());
+        Thread.sleep(500);
 
-        ViewInteraction appCompatButton5 = onView(
-                allOf(withId(R.id.add_btn), withText("+"),
-                        childAtPosition(
-                                allOf(withId(R.id.layout),
-                                        childAtPosition(
-                                                withId(R.id.qtyButton),
-                                                0)),
-                                2),
-                        isDisplayed()));
-        appCompatButton5.perform(click());
-
+        //Add to cart
         onView(withId(R.id.addToCartButton))
                 .perform(click());
+        Thread.sleep(500);
+
+        //Go to cart
+        Thread.sleep(1000);
+        onView(withId(R.id.cartButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        //Check item is in cart
+        Thread.sleep(2000);
+        onView(AllOf.allOf(withId(R.id.cartItemName), hasSibling(withText("Long Black"))))
+                .check(matches(isDisplayed()));
 
     }
 
@@ -127,17 +116,21 @@ public class InstrumentedTestForFillCart {
      * confirming the button is disabled
      */
     @Test
-    public void isSoldOutItemNotAddedToCart() {
+    public void b_IsSoldOutItemAddedToCart() throws InterruptedException {
 
+        Thread.sleep(800);
         onView(withId(R.id.homeButton))
                 .perform(click());
 
+        Thread.sleep(800);
         onView(withId(R.id.foodMenuButton))
                 .perform(click());
 
+        Thread.sleep(1000);
         onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Blueberry Muffin"))))
                 .perform(click());
 
+        Thread.sleep(800);
         onView(withId(R.id.addToCartButton))
                 .check(doesNotExist());
     }
@@ -147,20 +140,25 @@ public class InstrumentedTestForFillCart {
      * text.
      */
     @Test
-    public void isSoldOutTextDisplayed() {
+    public void c_IsSoldOutTextDisplayed() throws InterruptedException {
 
+        Thread.sleep(800);
         onView(withId(R.id.homeButton))
                 .perform(click());
 
+        Thread.sleep(800);
         onView(withId(R.id.foodMenuButton))
                 .perform(click());
 
+        Thread.sleep(1000);
         onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Blueberry Muffin"))))
                 .check(matches(isDisplayed()));
 
+        Thread.sleep(1000);
         onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Blueberry Muffin"))))
                 .perform(click());
 
+        Thread.sleep(1000);
         onView(AllOf.allOf(ViewMatchers.withId(R.id.soldOutStatus), hasSibling(withText("Blueberry Muffin"))))
                 .check(isVisible());
     }
