@@ -7,6 +7,7 @@ import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -41,7 +42,7 @@ import static org.hamcrest.Matchers.is;
 public class ViewOrderIntegrationTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityScenarioRule<MainActivity> mActivityTestRule = new ActivityScenarioRule<>(MainActivity.class);
 
     /**
      * The integration test for View Order logs a user in and proceeds to the View Order confirmation screen.
@@ -52,32 +53,40 @@ public class ViewOrderIntegrationTest {
      **/
 
     @Test
-    public void viewOrderIntegrationTest() {
+    public void isViewOrderSuccessful() throws InterruptedException {
 
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"));
+                .perform(typeText("janedoe@gmail.com"));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
                 .perform(typeText("123456"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonLogin))
                 .perform(click());
 
+        Thread.sleep(1000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
+        Thread.sleep(1000);
         onView(withId(R.id.orderButton))
                 .perform(click());
 
+        Thread.sleep(1000);
         onView(withId(R.id.textViewOrderConfirm))
                 .check(matches(isDisplayed()));
 
+        Thread.sleep(500);
         onView(withId(R.id.homeButton))
                 .perform(click());
 
+        Thread.sleep(1000);
         onView(withId(R.id.orderButton))
                 .perform(click());
 
+        Thread.sleep(1000);
         onView(withId(R.id.textViewOrderConfirm))
                 .check(matches(isDisplayed()));
     }
