@@ -54,7 +54,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -101,7 +101,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -149,7 +149,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -196,7 +196,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -244,7 +244,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -291,7 +291,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -338,7 +338,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
