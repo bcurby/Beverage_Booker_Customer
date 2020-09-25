@@ -41,79 +41,62 @@ import static org.hamcrest.core.AllOf.allOf;
 @RunWith(AndroidJUnit4.class)
 public class InstrumentedEmptyCartTest {
     @Rule
-    public ActivityScenarioRule<BrowseMenu> mActivityScenarioRule
-            = new ActivityScenarioRule<>(BrowseMenu.class);
+    public ActivityScenarioRule<PrimaryMenu> mActivityScenarioRule = new ActivityScenarioRule<>(PrimaryMenu.class);
 
     /**
      * Adds a 'Long Black' to cart, then moves to the cart screen and clicks the 'Empty Cart' button.
      * Then verifies that the menu item is no longer displayed in the cart.
      */
     @Test
-    public void isCartEmptiedSuccessfully() {
+    public void isCartEmptiedSuccessfully() throws InterruptedException {
 
-        onView(withId(R.id.homeButton))
+        onView(withId(R.id.drinkMenuButton))
                 .perform(click());
+        Thread.sleep(500);
 
-        //onView(withId(R.id.menuLink))
-              //  .perform(click());
-
+        //Select 'Long Black' from drink menu
+        Thread.sleep(1000);
         onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Long Black"))))
                 .perform(click());
 
-        ViewInteraction appCompatEditText4 = onView(
-                Matchers.allOf(withId(R.id.editTextComment),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText4.perform(replaceText("thanks"), closeSoftKeyboard());
+        //Select medium size drink
+        Thread.sleep(500);
+        onView(withId(R.id.mediumSize))
+                .perform(click());
+        Thread.sleep(500);
 
-        /*ViewInteraction appCompatCheckBox = onView(
-                Matchers.allOf(withId(R.id.decafCheck), withText("Decaf"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.linearLayout),
-                                        2),
-                                1),
-                        isDisplayed()));
-        appCompatCheckBox.perform(click());*/
+        //Select decaf
+        Thread.sleep(500);
+        onView(withId(R.id.decafCheck))
+                .perform(click());
+        Thread.sleep(500);
 
-        ViewInteraction appCompatRadioButton = onView(
-                Matchers.allOf(withId(R.id.mediumSize), withText("Medium"),
-                        childAtPosition(
-                                Matchers.allOf(withId(R.id.sizeRadioGroup),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
-                                1),
-                        isDisplayed()));
-        appCompatRadioButton.perform(click());
+        //Add comment
+        onView(withId(R.id.editTextComment))
+                .perform(typeText("thanks"), closeSoftKeyboard());
+        Thread.sleep(500);
 
-        ViewInteraction appCompatButton5 = onView(
-                Matchers.allOf(withId(R.id.add_btn), withText("+"),
-                        childAtPosition(
-                                Matchers.allOf(withId(R.id.layout),
-                                        childAtPosition(
-                                                withId(R.id.qtyButton),
-                                                0)),
-                                2),
-                        isDisplayed()));
-        appCompatButton5.perform(click());
-
+        //Add to cart
         onView(withId(R.id.addToCartButton))
                 .perform(click());
+        Thread.sleep(500);
 
+        //Go to cart
+        Thread.sleep(1000);
         onView(withId(R.id.cartButton))
                 .perform(click());
+        Thread.sleep(500);
 
-        onView(allOf(withId(R.id.cartItemName), hasSibling(withText("Long Black"))))
+        //Check item is in cart
+        Thread.sleep(2000);
+        onView(AllOf.allOf(withId(R.id.cartItemName), hasSibling(withText("Long Black"))))
                 .check(matches(isDisplayed()));
 
+        Thread.sleep(500);
         onView(withId(R.id.emptyCartButton))
                 .perform(click());
 
+        Thread.sleep(1500);
         onView(allOf(withId(R.id.cartItemName), hasSibling(withText("Long Black"))))
                 .check(doesNotExist());
     }
