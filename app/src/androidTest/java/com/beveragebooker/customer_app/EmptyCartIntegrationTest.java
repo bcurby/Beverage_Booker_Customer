@@ -6,7 +6,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import com.beveragebooker.customer_app.activities.BrowseMenu;
+import com.beveragebooker.customer_app.activities.PrimaryMenu;
 
+import org.hamcrest.core.AllOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,55 +30,79 @@ import static org.hamcrest.core.AllOf.allOf;
 @RunWith(AndroidJUnit4.class)
 public class EmptyCartIntegrationTest {
 
-    @Rule public ActivityScenarioRule<BrowseMenu> ActivityScenarioRule
-            = new ActivityScenarioRule<>(BrowseMenu.class);
+    @Rule public ActivityScenarioRule<PrimaryMenu> ActivityScenarioRule
+            = new ActivityScenarioRule<>(PrimaryMenu.class);
 
     /**
      * This test checks the functionality of EmptyCart use case and its
      * interaction with applicable use cases (BrowseMenu and CartActivity).
      * Checks that once a button to change screen is clicked that button no
      * longer exists. Checks that when emptyCartButton is clicked the
-     * banana is no longer there - the tests to make sure banana can be
+     * sausage roll is no longer there - then tests to make sure sausage roll can be
      * added to cart as easily as it was initially.
      */
     @Test
-    public void EmptyCartIntegrationTest() {
-        // BrowseMenu
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
+    public void isFillCartEmptyCartSuccessful() throws InterruptedException {
+
+        //Primary Menu
+        onView(withId(R.id.foodMenuButton))
                 .perform(click());
+        Thread.sleep(500);
+
+        // BrowseMenu
+        Thread.sleep(1000);
+        onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Sausage Roll"))))
+                .perform(click());
+
+        //Add to cart
+        onView(withId(R.id.addToCartButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        Thread.sleep(1000);
         onView(withId(R.id.cartButton))
                 .perform(click());
 
         // CartActivity
-
-        onView(allOf(withId(R.id.cartItemName), hasSibling(withText("banana"))))
+        Thread.sleep(1000);
+        onView(allOf(withId(R.id.cartItemName), hasSibling(withText("Sausage Roll"))))
                 .check(matches(isDisplayed()));
+
         onView(withId(R.id.emptyCartButton))
                 .perform(click());
 
-        // BrowseMenu
-        onView(withId(R.id.emptyCartButton))
+        // CartActivity
+        Thread.sleep(1000);
+        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Sausage Roll"))))
                 .check(doesNotExist());
+
+        onView(withId(R.id.homeButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        // BrowseMenu
+        Thread.sleep(500);
+        onView(withId(R.id.foodMenuButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        // BrowseMenu
+        Thread.sleep(1000);
+        onView(AllOf.allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Sausage Roll"))))
+                .perform(click());
+
+        //Add to cart
+        onView(withId(R.id.addToCartButton))
+                .perform(click());
+        Thread.sleep(500);
+
+        Thread.sleep(1000);
         onView(withId(R.id.cartButton))
                 .perform(click());
 
         // CartActivity
-        onView(withId(R.id.cartButton))
-                .check(doesNotExist());
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
-                .check(doesNotExist());
-        pressBack();
-
-        // BrowseMenu
-        onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("banana"))))
-                .perform(click());
-        onView(withId(R.id.cartButton))
-                .perform(click());
-
-        // CartActivity
-        onView(withId(R.id.cartButton))
-                .check(doesNotExist());
-        onView(allOf(withId(R.id.cartItemName), hasSibling(withText("banana"))))
+        Thread.sleep(1000);
+        onView(allOf(withId(R.id.cartItemName), hasSibling(withText("Sausage Roll"))))
                 .check(matches(isDisplayed()));
     }
 }

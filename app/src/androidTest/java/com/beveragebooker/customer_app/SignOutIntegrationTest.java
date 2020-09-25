@@ -31,7 +31,7 @@ public class SignOutIntegrationTest {
      * on the Profile Activity Page.
      */
     @Test
-    public void isSignOutSuccessful() throws InterruptedException {
+    public void isLoginSignOutSuccessful() throws InterruptedException {
 
         // Login
         Thread.sleep(500);
