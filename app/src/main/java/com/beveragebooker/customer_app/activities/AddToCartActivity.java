@@ -2,8 +2,10 @@ package com.beveragebooker.customer_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -62,7 +64,7 @@ public class AddToCartActivity extends AppCompatActivity {
     EditText comment;
 
     ElegantNumberButton qtyButton;
-    TextView stockLevel;
+    TextView stockLevel, needHelpAddToCart;
 
     int userID;
     int itemID;
@@ -237,6 +239,18 @@ public class AddToCartActivity extends AppCompatActivity {
                 String stringItemQuantity = qtyButton.getNumber();
                 itemQuantity = Integer.parseInt(stringItemQuantity);
                 System.out.println("Qty: " + itemQuantity);
+            }
+        });
+
+        needHelpAddToCart = findViewById(R.id.textViewNeedHelpAddToCart);
+        needHelpAddToCart.setOnClickListener(v -> {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=95"));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://youtu.be/DI7c75-eGwQ?t=95"));
+            try {
+                AddToCartActivity.this.startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                AddToCartActivity.this.startActivity(webIntent);
             }
         });
     }

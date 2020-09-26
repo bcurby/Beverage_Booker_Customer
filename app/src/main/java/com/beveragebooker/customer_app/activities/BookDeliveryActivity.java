@@ -1,10 +1,13 @@
 package com.beveragebooker.customer_app.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +31,8 @@ public class BookDeliveryActivity extends AppCompatActivity {
 
     private Button ProceedToPaymentButton;
 
+    TextView nedHelpBookDelivery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,18 @@ public class BookDeliveryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createNewDelivery();
+            }
+        });
+
+        nedHelpBookDelivery = findViewById(R.id.textViewNeedHelpBookDelivery);
+        nedHelpBookDelivery.setOnClickListener(v -> {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=202"));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://youtu.be/DI7c75-eGwQ?t=202"));
+            try {
+                BookDeliveryActivity.this.startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                BookDeliveryActivity.this.startActivity(webIntent);
             }
         });
     }

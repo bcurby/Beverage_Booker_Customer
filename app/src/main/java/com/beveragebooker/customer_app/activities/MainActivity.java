@@ -2,13 +2,16 @@ package com.beveragebooker.customer_app.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beveragebooker.customer_app.models.LoginResponse;
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextPassword;
     private static final String TAG = "MainActivity";
 
+    private TextView needHelpLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NotificationManager manager = getSystemService(NotificationManager.class);
             assert manager != null;
             manager.createNotificationChannel(channel);
+
+            needHelpLogin = findViewById(R.id.textViewNeedHelp);
+            needHelpLogin.setOnClickListener(v -> {
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
+                try {
+                    MainActivity.this.startActivity(appIntent);
+                } catch (ActivityNotFoundException ex) {
+                    MainActivity.this.startActivity(webIntent);
+                }
+            });
         }
 
         setContentView(R.layout.activity_main);

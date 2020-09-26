@@ -13,8 +13,10 @@ import com.beveragebooker.customer_app.models.User;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -30,7 +32,7 @@ public class AccountActivity extends AppCompatActivity {
     private EditText mLastName;
     private EditText mEmail;
     private EditText mPhoneNum;
-    private TextView mAccountTitle;
+    private TextView mAccountTitle, needHelpAccount;
     private Button mEditButton, mSaveButton, mDeleteButton, mUserPassword;
 
     User user = SharedPrefManager.getInstance(this).getUser();
@@ -50,6 +52,8 @@ public class AccountActivity extends AppCompatActivity {
         mSaveButton = findViewById(R.id.saveButton);
         mEditButton = findViewById(R.id.editButton);
         mUserPassword = findViewById(R.id.userPassword);
+
+        needHelpAccount = findViewById(R.id.textViewNeedHelpAccount);
 
         // call method for filling in the textview boxes
         setTextView();
@@ -75,6 +79,17 @@ public class AccountActivity extends AppCompatActivity {
             Intent intent = new Intent(AccountActivity.this, SavePasswordActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+        });
+
+        needHelpAccount.setOnClickListener(v -> {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=260"));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://youtu.be/DI7c75-eGwQ?t=260"));
+            try {
+                AccountActivity.this.startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                AccountActivity.this.startActivity(webIntent);
+            }
         });
 
     }
