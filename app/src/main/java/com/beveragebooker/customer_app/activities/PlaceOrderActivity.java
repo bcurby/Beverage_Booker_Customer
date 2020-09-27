@@ -1,6 +1,8 @@
 package com.beveragebooker.customer_app.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -73,7 +75,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
     private List<MenuItem> cartItemList;
 
-    private TextView orderTotal;
+    private TextView orderTotal, needHelpPlaceOrder;
     private String orderTotalCreditCard;
     private double doubleOrderTotal;
 
@@ -118,6 +120,18 @@ public class PlaceOrderActivity extends AppCompatActivity {
         }
 
         placeOrderButton = findViewById(R.id.placeOrderButton);
+
+        needHelpPlaceOrder = findViewById(R.id.textViewNeedHelpPlaceOrder);
+        needHelpPlaceOrder.setOnClickListener(v -> {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=154"));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://youtu.be/DI7c75-eGwQ?t=154"));
+            try {
+                PlaceOrderActivity.this.startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                PlaceOrderActivity.this.startActivity(webIntent);
+            }
+        });
 
         //Recyclerview
         cartItemList = new ArrayList<>();
