@@ -50,28 +50,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NotificationManager manager = getSystemService(NotificationManager.class);
             assert manager != null;
             manager.createNotificationChannel(channel);
-
-            needHelpLogin = findViewById(R.id.textViewNeedHelp);
-            needHelpLogin.setOnClickListener(v -> {
-                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
-                Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
-                try {
-                    MainActivity.this.startActivity(appIntent);
-                } catch (ActivityNotFoundException ex) {
-                    MainActivity.this.startActivity(webIntent);
-                }
-            });
         }
 
         setContentView(R.layout.activity_main);
 
         editTextEmail = findViewById(R.id.editTextEmailLogin);
         editTextPassword = findViewById(R.id.editTextPasswordLogin);
+        needHelpLogin = findViewById(R.id.textViewNeedHelp);
 
         findViewById(R.id.buttonLogin).setOnClickListener(this);
         findViewById(R.id.textViewRegister).setOnClickListener(this);
 
+        needHelpLogin.setOnClickListener(v -> {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
+            try {
+                MainActivity.this.startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                MainActivity.this.startActivity(webIntent);
+            }
+        });
     }
 
     //Check to see whether user is already logged in
