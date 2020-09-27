@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,34 +44,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(CHANNEL_DESC);
             NotificationManager manager = getSystemService(NotificationManager.class);
             assert manager != null;
             manager.createNotificationChannel(channel);
+
+            setContentView(R.layout.activity_main);
+
+            editTextEmail = findViewById(R.id.editTextEmailLogin);
+            editTextPassword = findViewById(R.id.editTextPasswordLogin);
+            needHelpLogin = findViewById(R.id.textViewNeedHelp);
+
+            findViewById(R.id.buttonLogin).setOnClickListener(this);
+            findViewById(R.id.textViewRegister).setOnClickListener(this);
+
+            needHelpLogin.setOnClickListener(v -> {
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
+                try {
+                    MainActivity.this.startActivity(appIntent);
+                } catch (ActivityNotFoundException ex) {
+                    MainActivity.this.startActivity(webIntent);
+                }
+            });
         }
 
-        setContentView(R.layout.activity_main);
-
-        editTextEmail = findViewById(R.id.editTextEmailLogin);
-        editTextPassword = findViewById(R.id.editTextPasswordLogin);
-        needHelpLogin = findViewById(R.id.textViewNeedHelp);
-
-        findViewById(R.id.buttonLogin).setOnClickListener(this);
-        findViewById(R.id.textViewRegister).setOnClickListener(this);
-
-        needHelpLogin.setOnClickListener(v -> {
-            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://youtu.be/DI7c75-eGwQ?t=63"));
-            try {
-                MainActivity.this.startActivity(appIntent);
-            } catch (ActivityNotFoundException ex) {
-                MainActivity.this.startActivity(webIntent);
-            }
-        });
     }
 
     //Check to see whether user is already logged in
@@ -122,8 +124,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
-                
-                if(response.code() == 202) {
+
+                if (response.code() == 202) {
 
                     //Proceed with Login
                     assert loginResponse != null;
@@ -134,14 +136,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
-                } else if (response.code() ==200) {
+                } else if (response.code() == 200) {
                     Toast.makeText(MainActivity.this, "User does not exist",
                             Toast.LENGTH_LONG).show();
 
                 } else if (response.code() == 401) {
                     Toast.makeText(MainActivity.this, "Invalid login credentials",
                             Toast.LENGTH_LONG).show();
-                  }
+                }
             }
 
 

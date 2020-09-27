@@ -13,6 +13,24 @@
         android:layout_height="110dp" >
 
         <TextView
+            android:id="@+id/itemStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:text="@string/stock"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/soldOutStatus"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.783"
+            android:visibility="invisible"/>
+
+        <TextView
             android:id="@+id/itemName"
             android:layout_width="174dp"
             android:layout_height="53dp"
