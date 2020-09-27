@@ -44,7 +44,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         mOrderConfirmTextView = findViewById(R.id.textViewOrderConfirm);
 
         String title = "Order Ready";
-        String body = user.getFirstName() + " your order is ready to enjoy";
+        String body = user.getFirstName() + ", your order is ready to enjoy. " +
+                "If you selected delivery it will be with you in approximately 10 minutes.";
         userID = user.getId();
         System.out.println("UserID: " + userID);
 

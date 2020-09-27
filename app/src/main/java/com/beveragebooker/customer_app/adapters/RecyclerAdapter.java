@@ -95,6 +95,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             holder.mAddToCart.setText("SOLD OUT");
             holder.mSoldOut.setVisibility(TextView.VISIBLE);
         }
+
+        if (itemStock >= 6 && itemType.equals("food")) {
+            holder.mAddToCart.setEnabled(true);
+            //holder.mAddToCart.setText("SOLD OUT");
+            holder.mSoldOut.setVisibility(TextView.INVISIBLE);
+        }
+
+
     }
 
     @Override

@@ -78,9 +78,10 @@ public class NotificationOutput {
                         .setSmallIcon(R.drawable.ic_notifications)
 
                         .setContentTitle(title)
-                        .setContentText(body)
                         .setAutoCancel(true)
                         .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
+                        .setContentText(body)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         System.out.println("OrderID 2: " + orderID);
