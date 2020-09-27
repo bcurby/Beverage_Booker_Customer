@@ -353,7 +353,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 if (deliveryStatus == true) {
                     System.out.println(deliveryStatus);
                     createNewDelivery();
-                    placeOrder();
+
                 } else {
                     placeOrder();
                 }
@@ -446,6 +446,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 201) {
+                    placeOrder();
                     Toast.makeText(PlaceOrderActivity.this, "Delivery Submitted", Toast.LENGTH_LONG).show();
                 }else if (response.code() == 402) {
                     Toast.makeText(PlaceOrderActivity.this, "Delivery Failed", Toast.LENGTH_LONG).show();
