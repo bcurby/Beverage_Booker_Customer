@@ -70,5 +70,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011" />
 
+    <TextView
+        android:id="@+id/textViewNeedHelpPlaceOrder"
+        android:layout_width="94dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/need_help"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorAccentDark"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeOrderButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
