@@ -54,7 +54,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -91,7 +91,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.userFirstName))
                 .check(matches(hasErrorText("First Name required")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -101,7 +101,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -139,7 +139,7 @@ public class ViewAccountIntegrationTest {
                 .check(matches(withText("Sergio")));
         Thread.sleep(500);
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -149,7 +149,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -186,7 +186,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.userLastName))
                 .check(matches(hasErrorText("Last Name required")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -196,7 +196,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -234,7 +234,7 @@ public class ViewAccountIntegrationTest {
                 .check(matches(withText("Reguilon")));
         Thread.sleep(500);
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -244,7 +244,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -281,7 +281,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.userEmail))
                 .check(matches(hasErrorText("Email is required")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -291,7 +291,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -328,7 +328,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.userEmail))
                 .check(matches(hasErrorText("Enter a valid email")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -338,7 +338,7 @@ public class ViewAccountIntegrationTest {
 
         //Login
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("benn@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
         Thread.sleep(500);
 
         onView(withId(R.id.editTextPasswordLogin))
@@ -376,7 +376,7 @@ public class ViewAccountIntegrationTest {
                 .check(matches(withText("sergio@gmail.com")));
         Thread.sleep(500);
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -424,7 +424,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.userPhoneNum))
                 .check(matches(hasErrorText("Mobile Number required")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -471,7 +471,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.userPhoneNum))
                 .check(matches(hasErrorText("Mobile Number must be 10 digits")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -519,7 +519,7 @@ public class ViewAccountIntegrationTest {
                 .check(matches(withText("0400230230")));
         Thread.sleep(500);
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -578,7 +578,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.password1))
                 .check(matches(hasErrorText("Password required")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
 
@@ -654,7 +654,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.password2))
                 .check(matches(hasErrorText("Password required")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
 
@@ -730,7 +730,7 @@ public class ViewAccountIntegrationTest {
         onView(withId(R.id.password1))
                 .check(matches(hasErrorText("Passwords do not match")));
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
 
@@ -811,7 +811,7 @@ public class ViewAccountIntegrationTest {
                 .perform(click());
         Thread.sleep(500);
 
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
         Thread.sleep(500);
 
@@ -832,7 +832,7 @@ public class ViewAccountIntegrationTest {
                 .check(matches(isDisplayed()));
 
         Thread.sleep(500);
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
 
     }

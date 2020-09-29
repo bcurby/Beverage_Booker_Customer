@@ -1,55 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
+    android:background="@drawable/background_light_no_logo"
     tools:context=".activities.AddToCartActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/editTextComment"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/editTextComment"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:hint="Please comment any other requests here"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        android:maxLength="45"
-        tools:ignore="MissingConstraints" />
-    
-    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-        android:id="@+id/qtyButton"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:initialNumber="1"
-        app:finalNumber="20"/>
+        android:layout_height="500dp">
 
-    <TextView
-        android:id="@+id/stockLevelAddToCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/qtyButton"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        tools:ignore="MissingConstraints" />
+        <EditText
+            android:id="@+id/editTextComment"
+            android:layout_width="match_parent"
+            android:layout_height="79dp"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:hint="Please comment any other requests here"
+            android:maxLength="45"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/addToCartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add to Cart"
-        app:layout_constraintTop_toBottomOf="@+id/stockLevelAddToCart"
-        tools:ignore="MissingConstraints" />
+        <LinearLayout
+            android:id="@+id/linearLayoutAddToCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextComment" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewNeedHelpAddToCart"
+            android:layout_width="94dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/need_help"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorAccentDark"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/qtyButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutAddToCart"
+            app:layout_constraintVertical_bias="0.461" />
+
+        <Button
+            android:id="@+id/addToCartButton"
+            android:layout_width="135sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="55dp"
+            android:background="@drawable/button"
+            android:text="Add to Cart"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/editTextComment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stockLevelAddToCart" />
+
+        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+            android:id="@+id/qtyButton"
+            android:layout_width="135dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="30dp"
+            app:backGroundColor="@color/colorAccent"
+            app:finalNumber="20"
+            app:initialNumber="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/stockLevelAddToCart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNeedHelpAddToCart"
+            app:textColor="@color/colorPrimaryDark">
+
+        </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+
+        <TextView
+            android:id="@+id/stockLevelAddToCart"
+            android:layout_width="135dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qtyButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
 

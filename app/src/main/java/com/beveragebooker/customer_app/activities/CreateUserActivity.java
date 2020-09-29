@@ -2,11 +2,14 @@ package com.beveragebooker.customer_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beveragebooker.customer_app.R;
@@ -25,6 +28,8 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
     private EditText editTextEmail, editTextPassword, editTextFirstName, editTextLastName,
         editTextPhone;
 
+    private TextView needHelpCreateAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,18 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
 
         findViewById(R.id.buttonSignUp).setOnClickListener(this);
         findViewById(R.id.textViewLogin).setOnClickListener(this);
+
+        needHelpCreateAccount = findViewById(R.id.textViewNeedHelpCreateAccount);
+        needHelpCreateAccount.setOnClickListener(v -> {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DI7c75-eGwQ&feature=youtu.be"));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.youtube.com/watch?v=DI7c75-eGwQ&feature=youtu.be"));
+            try {
+                CreateUserActivity.this.startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                CreateUserActivity.this.startActivity(webIntent);
+            }
+        });
     }
 
 

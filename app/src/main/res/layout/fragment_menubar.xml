@@ -1,60 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout12"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.Menubar">
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimary" />
+        android:layout_height="100dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <LinearLayout
         android:id="@+id/homeButton"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginHorizontal="6dp"
-        android:background="@color/colorSignUpButton"
-        android:text="Home"
-        android:textColor="@color/cardview_dark_background" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/accountButton"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view">
 
-    <Button
+        <ImageView
+            android:id="@+id/imageViewHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/menu_home_foreground" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/accountButton"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginHorizontal="110dp"
-        android:background="@color/colorSignUpButton"
-        android:text="Account"
-        android:textColor="@color/cardview_dark_background" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/cartButton"
+        app:layout_constraintStart_toEndOf="@+id/homeButton"
+        app:layout_constraintTop_toTopOf="@+id/view">
 
-    <Button
+        <ImageView
+            android:id="@+id/imageViewAccount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/menu_account_foreground" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/cartButton"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="110dp"
-        android:background="@color/colorSignUpButton"
-        android:text="Cart"
-        android:textColor="@color/cardview_dark_background" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/orderButton"
+        app:layout_constraintStart_toEndOf="@+id/accountButton"
+        app:layout_constraintTop_toTopOf="@+id/view">
 
-    <Button
-        android:id="@+id/signOutMenuButton"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="6dp"
-        android:background="@color/colorSignUpButton"
-        android:text="Sign Out"
-        android:textColor="@color/cardview_dark_background" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/imageViewCart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/menu_cart_foreground" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/orderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/helpButton"
+        app:layout_constraintStart_toEndOf="@+id/cartButton"
+        app:layout_constraintTop_toTopOf="@+id/view">
+
+        <ImageView
+            android:id="@+id/imageViewOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/menu_order_foreground" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/helpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/signOutButton"
+        app:layout_constraintStart_toEndOf="@+id/orderButton"
+        app:layout_constraintTop_toTopOf="@+id/view">
+
+        <ImageView
+            android:id="@+id/imageViewHelp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/menu_help_foreground" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/signOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/helpButton"
+        app:layout_constraintTop_toTopOf="@+id/view">
+
+        <ImageView
+            android:id="@+id/imageViewSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/menu_sign_out_foreground" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

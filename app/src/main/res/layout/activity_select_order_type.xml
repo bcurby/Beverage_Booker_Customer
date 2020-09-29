@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout10"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_brown"
     tools:context=".activities.SelectOrderTypeActivity">
 
     <Button
-        android:id="@+id/PickUpButton"
-        android:layout_width="150dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="400dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Pick Up" />
+        android:id="@+id/DeliveryButton"
+        android:layout_width="162dp"
+        android:layout_height="69dp"
+        android:background="@drawable/button"
+        android:text="Delivery"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.525" />
 
     <Button
-        android:id="@+id/DeliveryButton"
-        android:layout_width="150dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="325dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Delivery" />
-</RelativeLayout>
+        android:id="@+id/PickUpButton"
+        android:layout_width="162dp"
+        android:layout_height="69dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button"
+        android:text="Pick Up"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/DeliveryButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

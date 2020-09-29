@@ -14,9 +14,10 @@ public class PrimaryMenu extends AppCompatActivity {
 
     public static final String ITEM_TYPE_MENU = "com.beveragebooker.customer_app.ITEM_TYPE_MENU";
 
-    private Button menuLink;
     private Button foodMenuButton;
+    private Button drinkMenuButton;
     private Button viewOrderButton;
+    private Button viewHelpButton;
 
     private String itemType;
 
@@ -34,15 +35,15 @@ public class PrimaryMenu extends AppCompatActivity {
             }
         });
 
-        menuLink = findViewById(R.id.menuLink);
-        menuLink.setOnClickListener(new View.OnClickListener() {
+        drinkMenuButton = findViewById(R.id.drinkMenuButton);
+        drinkMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openBrowseMenu();
+                openBrowseDrinkMenu();
             }
         });
 
-        viewOrderButton = findViewById(R.id.viewOrderButton);
+        /*viewOrderButton = findViewById(R.id.viewOrderButton);
         viewOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +51,19 @@ public class PrimaryMenu extends AppCompatActivity {
             }
         });
 
+        viewHelpButton = findViewById(R.id.viewHelpButton);
+        viewHelpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openHelp();
+            }
+        });*/
+
+    }
+
+    private void openHelp() {
+        Intent intent = new Intent(this, HelpActivity.class );
+        startActivity(intent);
     }
 
     private void openBrowseFoodMenu() {
@@ -60,7 +74,7 @@ public class PrimaryMenu extends AppCompatActivity {
     }
 
     //open to the next activity on button click
-    public void openBrowseMenu(){
+    public void openBrowseDrinkMenu(){
         Intent intent = new Intent(this, BrowseMenu.class );
         itemType = "drink";
         intent.putExtra(ITEM_TYPE_MENU, itemType);

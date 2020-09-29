@@ -6,9 +6,11 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.beveragebooker.customer_app.R;
 
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -21,6 +23,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InstrumentedCreateUserTest {
 
     @Rule
@@ -31,31 +34,39 @@ public class InstrumentedCreateUserTest {
      * Verifies that all the input fields of the Create User Activity are displaying correctly
      */
     @Test
-    public void createUserTest_checkFields() {
+    public void a_IsCreateUserFieldsDisplayed() throws InterruptedException {
 
-        onView(withId(R.id.linearLayout))
+        onView(withId(R.id.relativeLayout5))
                 .check(matches(isDisplayed()));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextEmail))
                 .check(matches(isDisplayed()));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .check(matches(isDisplayed()));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .check(matches(isDisplayed()));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .check(matches(isDisplayed()));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .check(matches(isDisplayed()));
+        Thread.sleep(500);
 
         onView(withId(R.id.textViewLogin))
                 .check(matches(isDisplayed()));
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .check(matches(isDisplayed()));
+        Thread.sleep(500);
     }
 
     /**
@@ -63,28 +74,35 @@ public class InstrumentedCreateUserTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void createUserTest_EmptyEmail() {
+    public void b_IsUserCreatedWithEmailEmpty() throws InterruptedException {
 
         onView(withId(R.id.editTextEmail))
                 .perform(typeText(""));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .perform(typeText("123456"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .perform(typeText("Jane"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .perform(typeText("Doe"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .perform(typeText("0402555444"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .perform(click());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextEmail))
                 .check(matches(hasErrorText("Email is required")));
+        Thread.sleep(500);
     }
 
     /**
@@ -92,28 +110,35 @@ public class InstrumentedCreateUserTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void createUserTest_EmptyPassword() {
+    public void c_IsUserCreatedWithPasswordEmpty() throws InterruptedException {
 
         onView(withId(R.id.editTextEmail))
                 .perform(typeText("janedoe@gmail.com"));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .perform(typeText(""), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .perform(typeText("Jane"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .perform(typeText("Doe"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .perform(typeText("0402555444"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .perform(click());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .check(matches(hasErrorText("Password required")));
+        Thread.sleep(500);
     }
 
     /**
@@ -121,28 +146,35 @@ public class InstrumentedCreateUserTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void createUserTest_EmptyFirstName() {
+    public void d_IsUserCreatedWithFirstNameEmpty() throws InterruptedException {
 
         onView(withId(R.id.editTextEmail))
                 .perform(typeText("janedoe@gmail.com"));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .perform(typeText("123456"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .perform(typeText(""), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .perform(typeText("Doe"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .perform(typeText("0402555444"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .perform(click());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .check(matches(hasErrorText("First Name required")));
+        Thread.sleep(500);
     }
 
     /**
@@ -150,28 +182,35 @@ public class InstrumentedCreateUserTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void createUserTest_EmptyLastName() {
+    public void e_IsUserCreatedWithLastNameEmpty() throws InterruptedException {
 
         onView(withId(R.id.editTextEmail))
                 .perform(typeText("janedoe@gmail.com"));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .perform(typeText("123456"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .perform(typeText("Jane"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .perform(typeText(""), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .perform(typeText("0402555444"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .perform(click());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .check(matches(hasErrorText("Last Name required")));
+        Thread.sleep(500);
     }
 
     /**
@@ -179,28 +218,35 @@ public class InstrumentedCreateUserTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void createUserTest_EmptyPhone() {
+    public void f_IsUserCreatedWithPhoneEmpty() throws InterruptedException {
 
         onView(withId(R.id.editTextEmail))
                 .perform(typeText("janedoe@gmail.com"));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .perform(typeText("123456"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .perform(typeText("Jane"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .perform(typeText("Doe"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .perform(typeText(""), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .perform(click());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
-                .check(matches(hasErrorText("Phone Number required")));
+                .check(matches(hasErrorText("Mobile Number required")));
+        Thread.sleep(500);
     }
 
     /**
@@ -208,28 +254,35 @@ public class InstrumentedCreateUserTest {
      * unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void createUserTest_IncorrectEmailFormat() {
+    public void g_IsUserCreatedWithEmailIncorrectFormat() throws InterruptedException {
 
         onView(withId(R.id.editTextEmail))
                 .perform(typeText("janedoe.com"));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .perform(typeText("123456"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .perform(typeText("Jane"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .perform(typeText("Doe"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .perform(typeText("0402555444"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .perform(click());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextEmail))
                 .check(matches(hasErrorText("Enter a valid email")));
+        Thread.sleep(500);
     }
 
     /**
@@ -237,53 +290,66 @@ public class InstrumentedCreateUserTest {
      * is unsuccessful and the correct error message is displayed.
      */
     @Test
-    public void createUserTest_PasswordUnderRequiredLength() {
+    public void h_IsUserCreatedWithPasswordNotRequiredLength() throws InterruptedException {
 
         onView(withId(R.id.editTextEmail))
                 .perform(typeText("janedoe@gmail.com"));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .perform(typeText("12345"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .perform(typeText("Jane"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .perform(typeText("Doe"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .perform(typeText("0402555444"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .perform(click());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .check(matches(hasErrorText("Password should be at least 6 characters long")));
+        Thread.sleep(500);
     }
 
     /**
      * Verifies that when a user fills all fields correctly the sign up is successful.
      */
     @Test
-    public void createUserTest_SuccessfulAccountCreation() {
+    public void i_IsUserCreatedWithValidData() throws InterruptedException {
 
         onView(withId(R.id.editTextEmail))
                 .perform(typeText("janedoe@gmail.com"));
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPassword))
                 .perform(typeText("123456"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextFirstName))
                 .perform(typeText("Jane"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextLastName))
                 .perform(typeText("Doe"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.editTextPhone))
                 .perform(typeText("0402555444"), closeSoftKeyboard());
+        Thread.sleep(500);
 
         onView(withId(R.id.buttonSignUp))
                 .perform(click());
+        Thread.sleep(500);
     }
 }
 

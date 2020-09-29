@@ -4,76 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_brown"
     tools:context=".activities.BookDeliveryActivity">
 
 
     <EditText
         android:id="@+id/editTextUnit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="79dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/input_field"
+        android:hint="@string/unit"
         android:inputType="number"
-        android:hint="Unit"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:textAlignment="center"
+        android:textColorHint="@color/colorAccentDark"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/editTextStreetName" />
+
+    <TextView
+        android:id="@+id/textViewPostCode"
+        android:layout_width="139dp"
+        android:layout_height="27dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginStart="12dp"
+        android:text="@string/post_code_2795"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewDisclaimer" />
 
     <EditText
         android:id="@+id/editTextStreetName"
-        android:layout_width="305dp"
-        android:layout_height="wrap_content"
+        android:layout_width="254dp"
+        android:layout_height="46dp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="24dp"
-        android:hint="Street Address"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/input_field"
+        android:hint="@string/street_address"
         android:inputType="text"
-        app:layout_constraintStart_toEndOf="@+id/editTextUnit"
+        android:textColorHint="@color/colorAccentDark"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewCityTown"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="City: Bathurst"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPostCode" />
-
-    <TextView
-        android:id="@+id/textViewPostCode"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Post Code: 2795"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUnit" />
-
-    <TextView
-        android:id="@+id/textViewDisclaimer"
-        android:layout_width="203dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_width="115dp"
+        android:layout_height="47dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:text="The cafe only delivers to the city of Bathurst 2795"
-        app:layout_constraintStart_toEndOf="@+id/textViewPostCode"
-        app:layout_constraintTop_toBottomOf="@+id/editTextStreetName" />
+        android:text="@string/city_bathurst"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ProceedToPaymentButton" />
 
     <Button
         android:id="@+id/ProceedToPaymentButton"
-        android:layout_width="180dp"
+        android:layout_width="193dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:paddingStart="10dp"
-        android:text="Proceed to payment"
-        app:layout_constraintStart_toEndOf="@+id/textViewCityTown"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/button"
+        android:text="@string/proceed_to_payment"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDisclaimer" />
+
+    <TextView
+        android:id="@+id/textViewDisclaimer"
+        android:layout_width="161dp"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/the_cafe_only_delivers_to_the_city_of_bathurst_2795"
+        android:textColor="@color/design_default_color_on_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStreetName" />
+
+    <TextView
+        android:id="@+id/textViewNeedHelpBookDelivery"
+        android:layout_width="94dp"
+        android:layout_height="26dp"
+        android:text="@string/need_help"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorAccentDark"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProceedToPaymentButton"
+        app:layout_constraintVertical_bias="0.046" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

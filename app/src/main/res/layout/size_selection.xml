@@ -5,32 +5,46 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please select size:" />
+        android:layout_marginLeft="34sp"
+        android:layout_marginTop="28sp"
+        android:textAlignment="textStart"
+        android:text=" Please select size:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <RadioGroup
         android:id="@+id/sizeRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="34sp"
         android:checkedButton="@id/smallSize">
 
         <RadioButton
             android:id="@+id/smallSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="Small" />
 
         <RadioButton
             android:id="@+id/mediumSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="Medium" />
 
         <RadioButton
             android:id="@+id/largeSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="Large" />
 
     </RadioGroup>

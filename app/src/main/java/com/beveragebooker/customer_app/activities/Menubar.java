@@ -11,11 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 
 public class Menubar extends Fragment {
+
+    private LinearLayout homeButton;
+    private LinearLayout accountButton;
+    private LinearLayout cartButton;
+    private LinearLayout orderButton;
+    private LinearLayout helpButton;
+    private LinearLayout signOutButton;
 
 
     public Menubar(){
@@ -31,21 +40,24 @@ public class Menubar extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        Button homeButton = (Button) view.findViewById(R.id.homeButton);
+
+         homeButton = view.findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 Intent intent = new Intent(Menubar.super.getActivity(), PrimaryMenu.class);
                 startActivity(intent);
             }
         });
-        Button accountButton = (Button) view.findViewById(R.id.accountButton);
+
+        accountButton = view.findViewById(R.id.accountButton);
         accountButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 Intent intent = new Intent(Menubar.super.getActivity(), AccountActivity.class);
                 startActivity(intent);
             }
         });
-        Button cartButton = (Button) view.findViewById(R.id.cartButton);
+
+        cartButton = view.findViewById(R.id.cartButton);
         cartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 Intent intent = new Intent(Menubar.super.getActivity(), CartActivity.class);
@@ -53,8 +65,24 @@ public class Menubar extends Fragment {
             }
         });
 
-        Button signOutMenuButton = (Button) view.findViewById(R.id.signOutMenuButton);
-        signOutMenuButton.setOnClickListener(new View.OnClickListener() {
+        orderButton = view.findViewById(R.id.orderButton);
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view){
+                Intent intent = new Intent(Menubar.super.getActivity(), OrderConfirmationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        helpButton = view.findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view){
+                Intent intent = new Intent(Menubar.super.getActivity(), HelpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        signOutButton = view.findViewById(R.id.signOutButton);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 SharedPrefManager.getInstance(Menubar.super.getActivity()).clear();
                 startActivity(new Intent(Menubar.super.getActivity(), MainActivity.class));

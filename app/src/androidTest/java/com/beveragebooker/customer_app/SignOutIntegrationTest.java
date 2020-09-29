@@ -31,70 +31,86 @@ public class SignOutIntegrationTest {
      * on the Profile Activity Page.
      */
     @Test
-    public void SignOut() {
+    public void isLoginSignOutSuccessful() throws InterruptedException {
+
         // Login
-            onView(withId(R.id.loginText))
-                    .check(matches(isDisplayed()));
+        Thread.sleep(500);
+        onView(withId(R.id.editTextEmailLogin))
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
 
-            onView(withId(R.id.editTextEmailLogin))
-                    .perform(typeText("jaketest@gmail.com"), closeSoftKeyboard());
+        Thread.sleep(500);
+        onView(withId(R.id.editTextPasswordLogin))
+                .perform(typeText("123456"), closeSoftKeyboard());
 
-            onView(withId(R.id.editTextPasswordLogin))
-                    .perform(typeText("test123"), closeSoftKeyboard());
-
-            onView(withId(R.id.buttonLogin))
-                    .perform(click());
+        Thread.sleep(500);
+        onView(withId(R.id.buttonLogin))
+                .perform(click());
 
         // Profile Activity Sign Out
-            onView(withId(R.id.textViewWelcome))
-                    .check(matches(isDisplayed()));
+        Thread.sleep(1000);
+        onView(withId(R.id.textViewWelcome))
+                .check(matches(isDisplayed()));
 
-            onView(withId(R.id.signOutButton))
-                    .perform(click());
-
-        // Login
-            onView(withId(R.id.loginText))
-                    .check(matches(isDisplayed()));
-
-            onView(withId(R.id.editTextEmailLogin))
-                    .perform(typeText("jaketest@gmail.com"), closeSoftKeyboard());
-
-            onView(withId(R.id.editTextPasswordLogin))
-                    .perform(typeText("test123"), closeSoftKeyboard());
-
-            onView(withId(R.id.buttonLogin))
-                    .perform(click());
-
-        // Account Button
-            onView(withId(R.id.textViewWelcome))
-                    .check(matches(isDisplayed()));
-
-            onView(withId(R.id.accountButton))
-                    .perform(click());
-
-        // Home Button
-            onView(withId(R.id.accountTitle))
-                    .check(matches(isDisplayed()));
-
-            onView(withId(R.id.homeButton))
-                    .perform(click());
-
-        // Cart Button
-            onView(withId(R.id.editText2))
-                    .check(matches(isDisplayed()));
-
-            onView(withId(R.id.cartButton))
-                    .perform(click());
-
-        // Sign Out Button
-            onView(withId(R.id.cartRecyclerView))
-                    .check(matches(isDisplayed()));
-
-            onView(withId(R.id.signOutMenuButton))
-                    .perform(click());
+        Thread.sleep(500);
+        onView(withId(R.id.signOutButton))
+                .perform(click());
 
         // Checking we are back on Login Screen
-        onView(withId(R.id.loginText))
+        Thread.sleep(1000);
+        onView(withId(R.id.buttonLogin))
+                .check(matches(isDisplayed()));
+
+        // Login
+        Thread.sleep(500);
+        onView(withId(R.id.editTextEmailLogin))
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
+
+        Thread.sleep(500);
+        onView(withId(R.id.editTextPasswordLogin))
+                .perform(typeText("123456"), closeSoftKeyboard());
+
+        Thread.sleep(500);
+        onView(withId(R.id.buttonLogin))
+                .perform(click());
+
+        // Account Button
+        Thread.sleep(1000);
+        onView(withId(R.id.textViewWelcome))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.accountButton))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.accountButton))
+                .perform(click());
+
+        // Home Button
+        Thread.sleep(1000);
+        onView(withId(R.id.homeButton))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.homeButton))
+                .perform(click());
+
+        // Cart Button
+        Thread.sleep(1000);
+        onView(withId(R.id.cartButton))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.cartButton))
+                .perform(click());
+
+        // Sign Out Button
+        Thread.sleep(1000);
+        onView(withId(R.id.signOutButton))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.signOutButton))
+                .perform(click());
+        
+        // Checking we are back on Login Screen
+        Thread.sleep(1000);
+        onView(withId(R.id.buttonLogin))
                 .check(matches(isDisplayed()));
     }
 }

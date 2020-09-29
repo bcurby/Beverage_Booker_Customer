@@ -34,9 +34,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mItemID;
         TextView mItemName;
-        TextView mShortDesc;
         TextView mPrice;
         TextView mSoldOut;
 
@@ -47,9 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
-            mItemID = itemView.findViewById(R.id.itemID);
             mItemName = itemView.findViewById(R.id.itemName);
-            mShortDesc = itemView.findViewById(R.id.itemDesc);
             mPrice = itemView.findViewById(R.id.itemPrice);
             mAddToCart = itemView.findViewById(R.id.addToCart);
             mSoldOut = itemView.findViewById(R.id.soldOutStatus);
@@ -91,9 +87,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         System.out.println("ItemStock: " + itemStock);
         System.out.println("DisplayedStock: " + displayedStock);
 
-        holder.mItemID.setText(String.valueOf(currentItem.getId()));
         holder.mItemName.setText(currentItem.getName());
-        holder.mShortDesc.setText(currentItem.getDescription());
         holder.mPrice.setText("$" + currency.format(currentItem.getPrice()));
 
         if (itemStock <= 5 && itemType.equals("food")) {
@@ -101,6 +95,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             holder.mAddToCart.setText("SOLD OUT");
             holder.mSoldOut.setVisibility(TextView.VISIBLE);
         }
+
+        if (itemStock >= 6 && itemType.equals("food")) {
+            holder.mAddToCart.setEnabled(true);
+            //holder.mAddToCart.setText("SOLD OUT");
+            holder.mSoldOut.setVisibility(TextView.INVISIBLE);
+        }
+
+
     }
 
     @Override

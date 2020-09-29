@@ -40,7 +40,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View cartView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_cart_item, null);
+        View cartView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_cart_item, parent, false);
         CartViewHolder cartViewHolder = new CartViewHolder(cartView);
         return cartViewHolder;
     }
@@ -49,10 +49,81 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder holder, final int position) {
         MenuItem cartItem = cartItemList.get(position);
 
+
+        String currentItemSize = cartItem.getItemSize();
+        String currentItemMilk = cartItem.getItemMilk();
+        String currentItemSugar = cartItem.getItemSugar();
+        String currentItemDecaf = cartItem.getItemDecaf();
+        String currentItemVanilla = cartItem.getItemVanilla();
+        String currentItemCaramel = cartItem.getItemCaramel();
+        String currentItemChocolate = cartItem.getItemChocolate();
+        String currentItemWhippedCream = cartItem.getItemWhippedCream();
+        String currentItemFrappe = cartItem.getItemFrappe();
+        String currentItemHeated = cartItem.getItemHeated();
+        String currentItemComment = cartItem.getItemComment();
+
         holder.textViewName.setText(cartItem.getName());
         holder.textViewPrice.setText("$" + currency.format(cartItem.getPrice()));
         holder.textViewQuantity.setText(String.valueOf(cartItem.getQuantity()));
-        holder.textViewMilk.setText(cartItem.getItemMilk());
+
+        if (!currentItemSize.equals("-")) {
+            holder.textViewSizeTitle.setVisibility(TextView.VISIBLE);
+            holder.textViewSize.setVisibility(TextView.VISIBLE);
+            holder.textViewSize.setText(cartItem.getItemSize());
+        }
+
+        if (!currentItemMilk.equals("-")) {
+            holder.textViewMilk.setVisibility(TextView.VISIBLE);
+            holder.textViewMilk.setText(cartItem.getItemMilk());
+        }
+
+        if (!currentItemSugar.equals("-")) {
+            holder.textViewSugar.setVisibility(TextView.VISIBLE);
+            holder.textViewSugar.setText(cartItem.getItemSugar());
+        }
+
+        if (!currentItemDecaf.equals("-")) {
+            holder.textViewDecaf.setVisibility(TextView.VISIBLE);
+            holder.textViewDecaf.setText(cartItem.getItemDecaf());
+        }
+
+        if (!currentItemVanilla.equals("-")) {
+            holder.textViewVanilla.setVisibility(TextView.VISIBLE);
+            holder.textViewVanilla.setText(cartItem.getItemVanilla());
+        }
+
+        if (!currentItemCaramel.equals("-")) {
+            holder.textViewCaramel.setVisibility(TextView.VISIBLE);
+            holder.textViewCaramel.setText(cartItem.getItemCaramel());
+        }
+
+        if (!currentItemChocolate.equals("-")) {
+            holder.textViewChocolate.setVisibility(TextView.VISIBLE);
+            holder.textViewChocolate.setText(cartItem.getItemChocolate());
+        }
+
+        if (!currentItemWhippedCream.equals("-")) {
+            holder.textViewWhippedCream.setVisibility(TextView.VISIBLE);
+            holder.textViewWhippedCream.setText(cartItem.getItemWhippedCream());
+        }
+
+        if (!currentItemFrappe.equals("-")) {
+            holder.textViewFrappe.setVisibility(TextView.VISIBLE);
+            holder.textViewFrappe.setText(cartItem.getItemFrappe());
+        }
+
+        if (!currentItemHeated.equals("-")) {
+            holder.textViewHeated.setVisibility(TextView.VISIBLE);
+            holder.textViewHeated.setText(cartItem.getItemHeated());
+        }
+
+        if (!currentItemComment.equals("-")) {
+            holder.textViewCommentTitle.setVisibility(TextView.VISIBLE);
+            holder.textViewComment.setVisibility(TextView.VISIBLE);
+            holder.textViewComment.setText(cartItem.getItemComment());
+        }
+
+        /*
         holder.textViewSugar.setText(cartItem.getItemSugar());
         holder.textViewDecaf.setText(cartItem.getItemDecaf());
         holder.textViewVanilla.setText(cartItem.getItemVanilla());
@@ -62,7 +133,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.textViewFrappe.setText(cartItem.getItemFrappe());
         holder.textViewHeated.setText(cartItem.getItemHeated());
         holder.textViewComment.setText(cartItem.getItemComment());
-        holder.textViewSize.setText(cartItem.getItemSize());
+        holder.textViewSize.setText(cartItem.getItemSize());*/
 
         holder.deleteCartItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +156,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     class CartViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName, textViewPrice, textViewQuantity, textViewMilk, textViewSugar,
         textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
-        textViewFrappe, textViewHeated, textViewComment, textViewSize;
+        textViewFrappe, textViewHeated, textViewCommentTitle, textViewComment, textViewSizeTitle, textViewSize;
         Button deleteCartItem;
 
 
@@ -103,8 +174,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewWhippedCream = itemView.findViewById(R.id.cartItemWhippedCream);
             textViewFrappe = itemView.findViewById(R.id.cartItemFrappe);
             textViewHeated = itemView.findViewById(R.id.cartItemHeated);
+            textViewCommentTitle = itemView.findViewById(R.id.commentTitle);
             textViewComment = itemView.findViewById(R.id.cartItemComment);
             deleteCartItem = itemView.findViewById(R.id.deleteCartItem);
+            textViewSizeTitle = itemView.findViewById(R.id.sizeTitle);
             textViewSize = itemView.findViewById(R.id.cartItemSize);
 
 

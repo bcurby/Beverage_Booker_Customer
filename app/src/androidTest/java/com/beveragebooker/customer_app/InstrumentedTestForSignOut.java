@@ -6,9 +6,11 @@ import androidx.test.filters.LargeTest;
 
 import com.beveragebooker.customer_app.activities.MainActivity;
 
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -20,6 +22,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InstrumentedTestForSignOut {
 
     @Rule
@@ -33,30 +36,30 @@ public class InstrumentedTestForSignOut {
      * to makes sure the field is there.
      */
     @Test
-    public void SignOutOfProfileActivity() {
+    public void a_IsSignOutSuccessful() throws InterruptedException {
         // Login
-        onView(withId(R.id.loginText))
-                .check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextEmailLogin))
                 .check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("jaketest@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
 
         onView(withId(R.id.editTextPasswordLogin))
                 .check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextPasswordLogin))
-                .perform(typeText("test123"), closeSoftKeyboard());
+                .perform(typeText("123456"), closeSoftKeyboard());
 
         onView(withId(R.id.buttonLogin))
                 .check(matches(isDisplayed()));
 
         onView(withId(R.id.buttonLogin))
                 .perform(click());
+        Thread.sleep(500);
 
         // Profile Activity Sign Out
+        Thread.sleep(500);
         onView(withId(R.id.textViewWelcome))
                 .check(matches(isDisplayed()));
 
@@ -67,7 +70,7 @@ public class InstrumentedTestForSignOut {
                 .perform(click());
 
         // Checking we are back on Login Screen
-        onView(withId(R.id.loginText))
+        onView(withId(R.id.buttonLogin))
                 .check(matches(isDisplayed()));
 
     }
@@ -79,30 +82,30 @@ public class InstrumentedTestForSignOut {
      * to makes sure the field is there.
      */
     @Test
-    public void SignOutOfMenuBar() {
+    public void b_IsMenuBarSignOutSuccessful() throws InterruptedException {
         // Login
-        onView(withId(R.id.loginText))
-                .check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextEmailLogin))
                 .check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextEmailLogin))
-                .perform(typeText("jaketest@gmail.com"), closeSoftKeyboard());
+                .perform(typeText("janedoe@gmail.com"), closeSoftKeyboard());
 
         onView(withId(R.id.editTextPasswordLogin))
                 .check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextPasswordLogin))
-                .perform(typeText("test123"), closeSoftKeyboard());
+                .perform(typeText("123456"), closeSoftKeyboard());
 
         onView(withId(R.id.buttonLogin))
                 .check(matches(isDisplayed()));
 
         onView(withId(R.id.buttonLogin))
                 .perform(click());
+        Thread.sleep(500);
 
         // Account Button
+        Thread.sleep(500);
         onView(withId(R.id.textViewWelcome))
                 .check(matches(isDisplayed()));
 
@@ -113,9 +116,6 @@ public class InstrumentedTestForSignOut {
                 .perform(click());
 
         // Home Button
-        onView(withId(R.id.accountTitle))
-                .check(matches(isDisplayed()));
-
         onView(withId(R.id.homeButton))
                 .check(matches(isDisplayed()));
 
@@ -123,9 +123,6 @@ public class InstrumentedTestForSignOut {
                 .perform(click());
 
         // Cart Button
-        onView(withId(R.id.editText2))
-                .check(matches(isDisplayed()));
-
         onView(withId(R.id.cartButton))
                 .check(matches(isDisplayed()));
 
@@ -133,17 +130,16 @@ public class InstrumentedTestForSignOut {
                 .perform(click());
 
         // Sign Out Button
-        onView(withId(R.id.cartRecyclerView))
+        onView(withId(R.id.signOutButton))
                 .check(matches(isDisplayed()));
 
-        onView(withId(R.id.signOutMenuButton))
-                .check(matches(isDisplayed()));
-
-        onView(withId(R.id.signOutMenuButton))
+        onView(withId(R.id.signOutButton))
                 .perform(click());
+        Thread.sleep(500);
 
         // Checking we are back on Login Screen
-        onView(withId(R.id.loginText))
+        Thread.sleep(500);
+        onView(withId(R.id.buttonLogin))
                 .check(matches(isDisplayed()));
     }
 }

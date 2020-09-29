@@ -7,30 +7,47 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please select optional extras:" />
+        android:layout_marginLeft="34sp"
+        android:layout_marginTop="28sp"
+        android:text=" Please select optional extras:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <CheckBox
         android:id="@+id/vanilla"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginLeft="34sp"
         android:text="Vanilla" />
 
     <CheckBox
         android:id="@+id/caramel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginLeft="34sp"
         android:text="Caramel" />
 
     <CheckBox
         android:id="@+id/chocolate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginLeft="34sp"
         android:text="Chocolate" />
 
     <CheckBox
         android:id="@+id/whippedCream"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginLeft="34sp"
         android:text="Whipped Cream" />
 
 </LinearLayout>

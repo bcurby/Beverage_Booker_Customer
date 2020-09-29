@@ -7,39 +7,52 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please select flavour:" />
+        android:layout_marginLeft="34sp"
+        android:layout_marginTop="28sp"
+        android:text=" Please select flavour:"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <RadioGroup
         android:id="@+id/frappeRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="34sp"
         android:checkedButton="@id/chocolateFrappe">
 
         <RadioButton
             android:id="@+id/chocolateFrappe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chocolate" />
+            android:text="Chocolate"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
 
         <RadioButton
             android:id="@+id/caramelFrappe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Caramel" />
+            android:text="Caramel"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
 
         <RadioButton
             android:id="@+id/coffeeFrappe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Coffee" />
+            android:text="Coffee"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
 
         <RadioButton
             android:id="@+id/mochaFrappe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mocha" />
+            android:text="Mocha"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
 
     </RadioGroup>
-
 
 </LinearLayout>

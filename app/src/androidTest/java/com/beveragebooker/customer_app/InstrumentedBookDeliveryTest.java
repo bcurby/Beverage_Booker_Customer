@@ -49,7 +49,7 @@ public class InstrumentedBookDeliveryTest {
      * displaying.
      */
     @Test
-    public void isFieldsForDeliverInputDisplayed() throws InterruptedException {
+    public void a_IsFieldsForDeliverInputDisplayed() throws InterruptedException {
 
         onView(withId(R.id.foodMenuButton))
                 .perform(click());
@@ -109,7 +109,7 @@ public class InstrumentedBookDeliveryTest {
      * Checks that the address input page will accept an empty unit number field as intended
      */
     @Test
-    public void isEmptyUnitNumberAccepted() throws InterruptedException {
+    public void b_IsEmptyUnitNumberAccepted() throws InterruptedException {
 
         onView(withId(R.id.cartButton))
                 .perform(click());
@@ -137,7 +137,7 @@ public class InstrumentedBookDeliveryTest {
      * Checks that a valid unit number and street number/name are accepted.
      */
     @Test
-    public void isValidUnitNumberAndStreetNameAccepted() throws InterruptedException {
+    public void c_IsValidUnitNumberAndStreetNameAccepted() throws InterruptedException {
 
         onView(withId(R.id.cartButton))
                 .perform(click());
@@ -170,7 +170,7 @@ public class InstrumentedBookDeliveryTest {
      * an error message.
      */
     @Test
-    public void isInValidSymbolsStreetNameAccepted() throws InterruptedException {
+    public void d_IsInValidSymbolsStreetNameAccepted() throws InterruptedException {
 
         onView(withId(R.id.cartButton))
                 .perform(click());
@@ -207,7 +207,7 @@ public class InstrumentedBookDeliveryTest {
      * an error message.
      */
     @Test
-    public void isEmptyStreetNameAccepted() throws InterruptedException {
+    public void e_IsEmptyStreetNameAccepted() throws InterruptedException {
 
         onView(withId(R.id.cartButton))
                 .perform(click());

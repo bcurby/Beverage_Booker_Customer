@@ -5,14 +5,23 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Would you like decaf?:" />
+        android:layout_marginLeft="34sp"
+        android:layout_marginTop="28sp"
+        android:textAlignment="textStart"
+        android:text=" Would you like decaf?"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <CheckBox
         android:id="@+id/decafCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="34sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         android:text="Decaf" />
 
 </LinearLayout>

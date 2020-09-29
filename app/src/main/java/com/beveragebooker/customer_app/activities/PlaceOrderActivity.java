@@ -1,6 +1,8 @@
 package com.beveragebooker.customer_app.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -73,7 +75,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
     private List<MenuItem> cartItemList;
 
-    private TextView orderTotal;
+    private TextView orderTotal, needHelpPlaceOrder;
     private String orderTotalCreditCard;
     private double doubleOrderTotal;
 
@@ -119,16 +121,20 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
         placeOrderButton = findViewById(R.id.placeOrderButton);
 
+        needHelpPlaceOrder = findViewById(R.id.textViewNeedHelpPlaceOrder);
+        needHelpPlaceOrder.setOnClickListener(v -> {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/DI7c75-eGwQ?t=154"));
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://youtu.be/DI7c75-eGwQ?t=154"));
+            try {
+                PlaceOrderActivity.this.startActivity(appIntent);
+            } catch (ActivityNotFoundException ex) {
+                PlaceOrderActivity.this.startActivity(webIntent);
+            }
+        });
+
         //Recyclerview
         cartItemList = new ArrayList<>();
-
-        mRecyclerView = findViewById(R.id.placeOrderRecyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        mCartAdapter = new CartAdapter(cartItemList);
-
-        mRecyclerView.setAdapter(mCartAdapter);
 
         orderTotal = findViewById(R.id.orderTotal);
 
@@ -158,7 +164,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     for (int i = 0; i < response.body().size(); i++) {
                         cartItemList.add(response.body().get(i));
                     }
-                    mCartAdapter.notifyDataSetChanged();
                 }
                 //Display the total of the items in the order
                 orderTotal.setText("Order Total: $" + currency.format(getOrderTotal()));
@@ -362,7 +367,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 if (deliveryStatus == true) {
                     System.out.println(deliveryStatus);
                     createNewDelivery();
-                    placeOrder();
+
                 } else {
                     placeOrder();
                 }
@@ -455,6 +460,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 201) {
+                    placeOrder();
                     Toast.makeText(PlaceOrderActivity.this, "Delivery Submitted", Toast.LENGTH_LONG).show();
                 }else if (response.code() == 402) {
                     Toast.makeText(PlaceOrderActivity.this, "Delivery Failed", Toast.LENGTH_LONG).show();
