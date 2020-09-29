@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
-    
+
     private static final String BASE_URL = "https://benncurby90373.ipage.com/BeverageApi/public/";
 
     private static final String AUTH = "Basic " + Base64.encodeToString(("benn:CoffeeisGood12!").getBytes(), Base64.NO_WRAP);

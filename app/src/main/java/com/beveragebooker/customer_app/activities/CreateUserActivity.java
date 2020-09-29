@@ -73,23 +73,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
 
         PrivacyDialog privacyDialog = new PrivacyDialog();
         privacyDialog.show(getSupportFragmentManager(), "Privacy Dialog");
-
-        /*LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.privacy_policy, null);
-
-        Button acceptPolicyButton = view.findViewById(R.id.acceptPolicyButton);
-        acceptPolicyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        AlertDialog privacyDialog = new AlertDialog.Builder(this)
-                .setView(view)
-                .create();
-
-        privacyDialog.show();*/
+        
     }
 
     @Override
