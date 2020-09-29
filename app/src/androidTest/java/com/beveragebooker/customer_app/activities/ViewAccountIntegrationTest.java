@@ -66,7 +66,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -113,7 +113,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -161,7 +161,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -208,7 +208,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -256,7 +256,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -303,7 +303,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -350,7 +350,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -399,7 +399,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -446,7 +446,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -493,7 +493,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -541,7 +541,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -617,7 +617,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -693,7 +693,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -781,7 +781,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
@@ -827,7 +827,7 @@ public class ViewAccountIntegrationTest {
                 .perform(click());
         Thread.sleep(500);
 
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .check(matches(isDisplayed()));
 
@@ -854,7 +854,7 @@ public class ViewAccountIntegrationTest {
         Thread.sleep(500);
 
         //Profile Landing page
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 

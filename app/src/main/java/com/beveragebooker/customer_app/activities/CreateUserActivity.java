@@ -1,5 +1,6 @@
 package com.beveragebooker.customer_app.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ActivityNotFoundException;
@@ -7,7 +8,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
         editTextPhone;
 
     private TextView needHelpCreateAccount;
+    private TextView privacyPolicy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,22 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                 CreateUserActivity.this.startActivity(webIntent);
             }
         });
+
+        privacyPolicy = findViewById(R.id.textViewPrivacyPolicyLink);
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPrivacyPolicy();
+            }
+        });
     }
 
+    private void showPrivacyPolicy() {
+
+        PrivacyDialog privacyDialog = new PrivacyDialog();
+        privacyDialog.show(getSupportFragmentManager(), "Privacy Dialog");
+        
+    }
 
     @Override
     protected void onStart() {

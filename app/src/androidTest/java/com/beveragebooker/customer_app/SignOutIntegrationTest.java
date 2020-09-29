@@ -47,7 +47,7 @@ public class SignOutIntegrationTest {
                 .perform(click());
 
         // Profile Activity Sign Out
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         onView(withId(R.id.textViewWelcome))
                 .check(matches(isDisplayed()));
 
@@ -74,7 +74,7 @@ public class SignOutIntegrationTest {
                 .perform(click());
 
         // Account Button
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         onView(withId(R.id.textViewWelcome))
                 .check(matches(isDisplayed()));
 

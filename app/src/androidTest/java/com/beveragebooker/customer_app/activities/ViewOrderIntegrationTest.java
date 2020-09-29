@@ -66,7 +66,7 @@ public class ViewOrderIntegrationTest {
         onView(withId(R.id.buttonLogin))
                 .perform(click());
 
-        Thread.sleep(1000);
+        Thread.sleep(4000);
         onView(withId(R.id.continueButton))
                 .perform(click());
 
