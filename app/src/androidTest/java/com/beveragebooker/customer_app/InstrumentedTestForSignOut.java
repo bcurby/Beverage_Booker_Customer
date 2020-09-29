@@ -59,7 +59,7 @@ public class InstrumentedTestForSignOut {
         Thread.sleep(500);
 
         // Profile Activity Sign Out
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.textViewWelcome))
                 .check(matches(isDisplayed()));
 
@@ -83,8 +83,9 @@ public class InstrumentedTestForSignOut {
      */
     @Test
     public void b_IsMenuBarSignOutSuccessful() throws InterruptedException {
-        // Login
 
+        // Login
+        Thread.sleep(2000);
         onView(withId(R.id.editTextEmailLogin))
                 .check(matches(isDisplayed()));
 
@@ -105,7 +106,7 @@ public class InstrumentedTestForSignOut {
         Thread.sleep(500);
 
         // Account Button
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.textViewWelcome))
                 .check(matches(isDisplayed()));
 
@@ -138,7 +139,7 @@ public class InstrumentedTestForSignOut {
         Thread.sleep(500);
 
         // Checking we are back on Login Screen
-        Thread.sleep(500);
+        Thread.sleep(4000);
         onView(withId(R.id.buttonLogin))
                 .check(matches(isDisplayed()));
     }

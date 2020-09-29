@@ -55,6 +55,7 @@ public class InstrumentedBookDeliveryTest {
                 .perform(click());
         Thread.sleep(500);
 
+        Thread.sleep(3000);
         onView(allOf(ViewMatchers.withId(R.id.addToCart), hasSibling(withText("Sausage Roll"))))
                 .perform(click());
         Thread.sleep(500);
