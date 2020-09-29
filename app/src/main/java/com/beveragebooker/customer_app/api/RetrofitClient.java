@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     //private static final String BASE_URL = "http://192.168.1.110/BeverageApi/public/";
-    private static final String BASE_URL = "http://benncurby90373.ipage.com/BeverageApi/public/";
+    private static final String BASE_URL = "https://benncurby90373.ipage.com/BeverageApi/public/";
 
     private static final String AUTH = "Basic " + Base64.encodeToString(("benn:CoffeeisGood12!").getBytes(), Base64.NO_WRAP);
 
