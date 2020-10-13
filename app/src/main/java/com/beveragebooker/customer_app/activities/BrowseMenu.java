@@ -195,4 +195,10 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, PrimaryMenu.class);
+        startActivity(intent);
+    }
 }

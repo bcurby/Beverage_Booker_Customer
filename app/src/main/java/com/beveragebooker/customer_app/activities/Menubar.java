@@ -45,6 +45,7 @@ public class Menubar extends Fragment {
         homeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 Intent intent = new Intent(Menubar.super.getActivity(), PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
