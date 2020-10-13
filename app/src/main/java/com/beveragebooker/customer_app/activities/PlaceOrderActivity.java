@@ -14,11 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.beveragebooker.customer_app.R;
-import com.beveragebooker.customer_app.adapters.CartAdapter;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.MenuItem;
@@ -69,9 +66,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
     private String streetUnit, streetName;
     private int deliveryStatusInt;
     private boolean deliveryStatus;
-
-    private RecyclerView mRecyclerView;
-    private CartAdapter mCartAdapter;
 
     private List<MenuItem> cartItemList;
 
@@ -150,7 +144,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         String phone = loggedUser.getPhone();
         System.out.println("Check Mobile: " + phone);
 
-        Call<List<MenuItem>> call = RetrofitClient
+        /*Call<List<MenuItem>> call = RetrofitClient
                 .getInstance()
                 .getApi()
                 .getCartItems(userID);
@@ -174,7 +168,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
             public void onFailure(Call<List<MenuItem>> call, Throwable t) {
 
             }
-        });
+        });*/
 
         //Stripe
         stripe = new Stripe(
@@ -212,7 +206,11 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Cart> call, Throwable t) {
-
+                Toast.makeText(PlaceOrderActivity.this, "There was an issue with the database. Please try placing your order again",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }
@@ -254,6 +252,12 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     ConfirmPaymentIntentParams confirmPaymentIntentParams = ConfirmPaymentIntentParams
                             .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
                     stripe.confirmPayment(PlaceOrderActivity.this, confirmPaymentIntentParams);
+                } else {
+                    Toast.makeText(PlaceOrderActivity.this, "There was an issue with payment. Please try placing your order again. You have not been charged.",
+                            Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
             }
         });
@@ -305,11 +309,16 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 return;
             }
 
-            activity.runOnUiThread(() ->
-                    Toast.makeText(
-                            activity, "Error: " + e.toString(), Toast.LENGTH_LONG
-                    ).show()
-            );
+            //activity.runOnUiThread(() ->
+                    //Toast.makeText(
+                       //     activity, "Error: " + e.toString(), Toast.LENGTH_LONG
+                    //).show()
+            //);
+            Toast.makeText(activity, "There was an issue with payment. Please try placing your order again. You have not been charged.",
+                    Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(activity, PrimaryMenu.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            activity.startActivity(intent);
         }
 
         @Override
@@ -320,11 +329,16 @@ public class PlaceOrderActivity extends AppCompatActivity {
             }
 
             if (!response.isSuccessful()) {
-                activity.runOnUiThread(() ->
-                        Toast.makeText(
-                                activity, "Error: " + response.toString(), Toast.LENGTH_LONG
-                        ).show()
-                );
+                //activity.runOnUiThread(() ->
+                        //Toast.makeText(
+                                //activity, "Error: " + response.toString(), Toast.LENGTH_LONG
+                        //.show()
+                //);
+                Toast.makeText(activity, "There was an issue with payment. Please try placing your order again. You have not been charged.",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(activity, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                activity.startActivity(intent);
             } else {
                 activity.onPaymentSuccess(response);
             }
@@ -346,7 +360,12 @@ public class PlaceOrderActivity extends AppCompatActivity {
             }
 
             //Payment request failed
-            activity.displayAlert("Error", e.toString());
+            //activity.displayAlert("Error", e.toString());
+            Toast.makeText(activity, "There was an issue with payment. Please try placing your order again. You have not been charged.",
+                    Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(activity, PrimaryMenu.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            activity.startActivity(intent);
         }
 
         @Override
@@ -384,10 +403,15 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
                 //Payment failed
-                activity.displayAlert(
-                        "Payment failed",
-                        Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage()
-                );
+                //activity.displayAlert(
+                        //"Payment failed",
+                        //Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage()
+                //);
+                Toast.makeText(activity, "There was an issue with payment. Please try placing your order again. You have not been charged.",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(activity, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                activity.startActivity(intent);
             }
         }
     }
@@ -423,14 +447,22 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
 
                 } else if (response.code() == 422) {
-                    Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your order",
+                    Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your order. Please contact the store.",
                             Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(PlaceOrderActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(PlaceOrderActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your order. Please contact the store.",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }
@@ -463,13 +495,18 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     placeOrder();
                     Toast.makeText(PlaceOrderActivity.this, "Delivery Submitted", Toast.LENGTH_LONG).show();
                 }else if (response.code() == 402) {
-                    Toast.makeText(PlaceOrderActivity.this, "Delivery Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PlaceOrderActivity.this, "Delivery order Failed. Please contact the store.", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(PlaceOrderActivity.this, t.getMessage(),
+                //Toast.makeText(PlaceOrderActivity.this, t.getMessage(),
+                        //Toast.LENGTH_LONG).show();
+                Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your delivery order. Please contact the store.",
                         Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }
