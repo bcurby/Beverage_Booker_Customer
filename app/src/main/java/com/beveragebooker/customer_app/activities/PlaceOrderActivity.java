@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
+import com.beveragebooker.customer_app.notifications.DatabaseDialog;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -201,18 +204,38 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     Cart currentCart = response.body();
                     cartID = currentCart.getCartID();
                     System.out.println("CartID: " + cartID);
+                    showDatabaseErrorDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<Cart> call, Throwable t) {
-                Toast.makeText(PlaceOrderActivity.this, "There was an issue with the database. Please try placing your order again",
-                        Toast.LENGTH_LONG).show();
+                showDatabaseErrorDialog();
+            }
+        });
+    }
+
+    private void showDatabaseErrorDialog() {
+
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.error_dialog, viewGroup, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+
+        ((TextView) dialogView.findViewById(R.id.dialogTitle)).setText(getResources().getString(R.string.database_error_title));
+        ((TextView) dialogView.findViewById(R.id.dialogTextMessage)).setText(getResources().getString(R.string.database_error_title));
+        AlertDialog alertDialog = builder.create();
+
+        dialogView.findViewById(R.id.dialogButtonOk).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
+        alertDialog.show();
     }
 
     private void startCheckout() {
@@ -253,11 +276,12 @@ public class PlaceOrderActivity extends AppCompatActivity {
                             .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
                     stripe.confirmPayment(PlaceOrderActivity.this, confirmPaymentIntentParams);
                 } else {
-                    Toast.makeText(PlaceOrderActivity.this, "There was an issue with payment. Please try placing your order again. You have not been charged.",
+                    /*Toast.makeText(PlaceOrderActivity.this, "There was an issue with payment. Please try placing your order again. You have not been charged.",
                             Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    startActivity(intent);*/
+
                 }
             }
         });

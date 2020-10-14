@@ -53,4 +53,9 @@
     <string name="the_cafe_only_delivers_to_the_city_of_bathurst_2795">The cafe only delivers to the city of Bathurst 2795</string>
     <string name="stock">Stock</string>
     <string name="by_signing_up_you_agree_to_our">By signing up you agree to our</string>
+    <string name="payment_error_text">There was an issue with payment. \n Please try placing your order again. \n You have not been charged.</string>
+    <string name="database_error_text">There was an issue with our database. \n Please try placing your order again. \n You have not been charged.</string>
+    <string name="payment_error_title">Payment Error</string>
+    <string name="database_error_title">Database Error</string>
+    <string name="ok">OK</string>
 </resources>

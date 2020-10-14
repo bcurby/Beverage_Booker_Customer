@@ -11,5 +11,7 @@
     <color name="colorWhite" >#FFFFFF</color>
     <color name="colorBlack" >#000000</color>
 
+    <color name="errorRed" >#FF0000</color>
+
     <color name="browseMenuBackground">#3C3F41</color>
 </resources>
