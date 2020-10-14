@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.beveragebooker.customer_app.storage.SharedPrefManager;
 
 import java.io.IOException;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -159,22 +161,36 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(CreateUserActivity.this, s, Toast.LENGTH_LONG).show();
+
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.success(CreateUserActivity.this, "User created successfully", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 150);
+                    toast.show();
                     Intent intent = new Intent(CreateUserActivity.this, MainActivity.class);
                     startActivity(intent);
 
                 } else if (response.code() == 403) {
-                    Toast.makeText(CreateUserActivity.this, "User already exists",
-                            Toast.LENGTH_LONG).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.info(CreateUserActivity.this, "User already exists",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 150);
+                    toast.show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                Toast.makeText(CreateUserActivity.this, t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(CreateUserActivity.this, "An error has occurred. Please try again.",
+                        Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 150);
+                toast.show();
             }
         });
     }
