@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +22,9 @@ import com.beveragebooker.customer_app.models.User;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -101,8 +104,13 @@ public class CartActivity extends AppCompatActivity {
                 if (getCartTotal() > 0) {
                     goToCheckout();
                 } else {
-                    Toast.makeText(CartActivity.this,
-                            "Please add an item to your cart before clicking Checkout", Toast.LENGTH_SHORT).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.info(CartActivity.this,
+                            "Please add an item to your cart before clicking Checkout", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 }
             }
         });
@@ -116,8 +124,13 @@ public class CartActivity extends AppCompatActivity {
                     emptyTheCart();
                     //goToMenu();
                 } else {
-                    Toast.makeText(CartActivity.this,
-                            "There are no items in the cart to empty", Toast.LENGTH_SHORT).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.info(CartActivity.this,
+                            "There are no items in the cart to empty", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 }
             }
         });
@@ -145,7 +158,13 @@ public class CartActivity extends AppCompatActivity {
 
                 //Cart is empty
                 } else if (response.code() == 303) {
-                    Toast.makeText(CartActivity.this, "Your cart is empty", Toast.LENGTH_SHORT).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.info(CartActivity.this,
+                            "Your cart is empty", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 }
                 //Display the total of items in the cart
                 cartTotal.setText("Cart Total: $" + currency.format(getCartTotal()));
@@ -155,7 +174,13 @@ public class CartActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<MenuItem>> call, Throwable t) {
-                Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(CartActivity.this,
+                        Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                toast.show();
             }
         });
     }
@@ -197,22 +222,37 @@ public class CartActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.code() == 201) {
-                    Toast.makeText(CartActivity.this, "Cart emptied", Toast.LENGTH_LONG).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.success(CartActivity.this,
+                            "Cart emptied", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+
                     Intent intent = new Intent(CartActivity.this, CartActivity.class);
                     startActivity(intent);
 
                 } else if (response.code() == 402) {
-                    Toast.makeText(CartActivity.this, "Cart failed to empty",
-                            Toast.LENGTH_LONG).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(CartActivity.this,
+                            "Cart failed to empty", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                Toast.makeText(CartActivity.this, t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(CartActivity.this,
+                        Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                toast.show();
             }
         });
 
@@ -250,16 +290,34 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 201) {
-                    Toast.makeText(CartActivity.this, "Item Deleted", Toast.LENGTH_LONG).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.success(CartActivity.this,
+                            "Item Deleted", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 } else if (response.code() == 402) {
-                    Toast.makeText(CartActivity.this, "Item Failed To Delete", Toast.LENGTH_LONG).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(CartActivity.this,
+                            "Item Failed To Delete", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 } else {
                     System.out.println(response.code());
                 }
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(CartActivity.this,
+                        Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                toast.show();
             }
         });
 

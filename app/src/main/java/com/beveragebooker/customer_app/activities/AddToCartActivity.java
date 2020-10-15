@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -203,30 +205,47 @@ public class AddToCartActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                         if (response.code() == 200) {
-                            Toast.makeText(AddToCartActivity.this, "Item added to cart", Toast.LENGTH_LONG).show();
+                            Toasty.Config.getInstance()
+                                    .setTextSize(20)
+                                    .apply();
+                            Toast toast = Toasty.success(AddToCartActivity.this, "Item added to cart", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                            toast.show();
+
                             Intent intent = new Intent(AddToCartActivity.this, BrowseMenu.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra(ITEM_TYPE_RETURN, itemType);
                             startActivity(intent);
 
                         } else if (response.code() == 403) {
-                            Toast.makeText(AddToCartActivity.this, "There was a problem adding the item to cart",
-                                    Toast.LENGTH_LONG).show();
+                            Toasty.Config.getInstance()
+                                    .setTextSize(20)
+                                    .apply();
+                            Toast toast = Toasty.error(AddToCartActivity.this, "There was a problem adding the item to cart", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                            toast.show();
 
                         } else if (response.code() == 402) {
-                            Toast.makeText(AddToCartActivity.this, "There is not that quantity of the item in stock. " +
-                                            "Please check updated stock level on screen.",
-                                    Toast.LENGTH_LONG).show();
+                            Toasty.Config.getInstance()
+                                    .setTextSize(20)
+                                    .apply();
+                            Toast toast = Toasty.info(AddToCartActivity.this, "There is not that quantity of the item in stock." + "\n" +
+                                    "Please check updated stock level on screen", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                            toast.show();
+
                             getStockUpdate();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                        Toast.makeText(AddToCartActivity.this, t.getMessage(),
-                                Toast.LENGTH_LONG).show();
-
+                        Toasty.Config.getInstance()
+                                .setTextSize(20)
+                                .apply();
+                        Toast toast = Toasty.info(AddToCartActivity.this, Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                        toast.show();
                     }
                 });
             }

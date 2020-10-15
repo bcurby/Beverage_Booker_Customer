@@ -2,6 +2,8 @@ package com.beveragebooker.customer_app.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -96,11 +99,11 @@ public class AccountActivity extends AppCompatActivity {
 
     // method for setting the edittext values which are by default disabled
     @SuppressLint("SetTextI18n")
-    private void setTextView(){
+    private void setTextView() {
         mFirstName.setText("   " + user.getFirstName());
         mLastName.setText("   " + user.getLastName());
         mEmail.setText("   " + user.getEmail());
-        mPhoneNum.setText("   " +user.getPhone());
+        mPhoneNum.setText("   " + user.getPhone());
     }
 
     // method to call api for saving changed
@@ -157,23 +160,34 @@ public class AccountActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
 
-                if(response.code() == 201 ){
-                    Toast.makeText(AccountActivity
-                                    .this, "SAVED",
-                            Toast.LENGTH_LONG).show();
-                    User newUser = getNewUser(firstName, lastName, email, phoneNum );
+                if (response.code() == 201) {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.success(AccountActivity.this, "SAVED",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+
+                    User newUser = getNewUser(firstName, lastName, email, phoneNum);
                     SharedPrefManager.getInstance(AccountActivity.this).saveUser(newUser);
 
-                }else if (response.code()== 404){
-                        Toast.makeText(AccountActivity
-                                        .this, "Account not found",
-                                Toast.LENGTH_LONG).show();
+                } else if (response.code() == 404) {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.info(AccountActivity.this, "Account not found", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
 
-                }else if (response.code() == 422){
-                        Toast.makeText(AccountActivity
-                                        .this, "An error has occured"+ "\n" +"No " +
-                                        "changes were saved",
-                                Toast.LENGTH_LONG).show();
+                } else if (response.code() == 422) {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.info(AccountActivity.this, "An error has occurred." +
+                            "\n" + "No changes were saved.", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 }
 
                 Log.d("WHAT IS THIS:  ", String.valueOf(response.code()));
@@ -182,8 +196,12 @@ public class AccountActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(AccountActivity.this, t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(AccountActivity.this, t.getMessage(), Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                toast.show();
             }
         });
 
@@ -205,49 +223,57 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     // method to call api for deleting users account
-    private void deleteAccount(){
+    private void deleteAccount() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmation");
         builder.setMessage("Are you sure you want to delete your account?");
         builder.setCancelable(false);
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Call<ResponseBody> call = RetrofitClient
+                        .getInstance()
+                        .getApi()
+                        .deleteUser(userID);
+
+                call.enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Call<ResponseBody> call = RetrofitClient
-                                        .getInstance()
-                                        .getApi()
-                                        .deleteUser(userID);
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
 
-                        call.enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call,
-                                                   Response<ResponseBody> response) {
+                        if (response.code() == 201) {
+                            Toasty.Config.getInstance()
+                                    .setTextSize(20)
+                                    .apply();
+                            Toast toast = Toasty.success(AccountActivity.this,
+                                    "Account has been deleted", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                            toast.show();
 
-                                if(response.code() == 201){
+                            SharedPrefManager.getInstance(AccountActivity.this).clear();
+                            startActivity(new Intent(AccountActivity.this, MainActivity.class));
 
-                                    Toast.makeText(AccountActivity
-                                                    .this, "Account has been deleted",
-                                            Toast.LENGTH_LONG).show();
-                                    SharedPrefManager.getInstance(AccountActivity.this).clear();
-                                    startActivity(new Intent(AccountActivity.this, MainActivity.class));
+                        } else if (response.code() == 402 || response.code() == 422) {
 
-                                } else if (response.code() == 402 || response.code() == 422) {
+                            Toasty.Config.getInstance()
+                                    .setTextSize(20)
+                                    .apply();
+                            Toast toast = Toasty.success(AccountActivity.this,
+                                    "Account can not be deleted." + "\n" +
+                                            "An error occurred.", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                            toast.show();
+                        }
+                    }
 
-                                    Toast.makeText(AccountActivity
-                                                    .this, "Account can not be " +
-                                                    "deleted an error occurred",
-                                            Toast.LENGTH_LONG).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                            }
-                        });
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                     }
+                });
+
+            }
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> {
         });
@@ -255,7 +281,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     // method to enable editText and remove the delete button
-    private void editAccount(){
+    private void editAccount() {
 
         //change buttons visibility and usability
         mDeleteButton.setVisibility(View.GONE);
@@ -275,7 +301,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public User getNewUser(String firstName, String lastName, String email,
-                           String phoneNum){
+                           String phoneNum) {
 
 
         return new User(

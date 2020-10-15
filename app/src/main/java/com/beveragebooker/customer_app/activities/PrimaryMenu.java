@@ -3,6 +3,7 @@ package com.beveragebooker.customer_app.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.activities.BrowseMenu;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
+
+import es.dmoral.toasty.Toasty;
 
 public class PrimaryMenu extends AppCompatActivity {
 
@@ -72,7 +75,12 @@ public class PrimaryMenu extends AppCompatActivity {
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please press BACK again to exit", Toast.LENGTH_SHORT).show();
+        Toasty.Config.getInstance()
+                .setTextSize(20)
+                .apply();
+        Toast toast = Toasty.info(PrimaryMenu.this, "Please press BACK again to exit", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+        toast.show();
 
         new Handler().postDelayed(new Runnable() {
 
@@ -80,7 +88,7 @@ public class PrimaryMenu extends AppCompatActivity {
             public void run() {
                 doubleBackToExitPressedOnce = false;
             }
-        }, 2000);
+        }, 3500);
     }
 }
 
