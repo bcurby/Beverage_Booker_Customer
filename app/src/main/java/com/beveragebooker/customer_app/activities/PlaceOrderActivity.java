@@ -1,10 +1,12 @@
 package com.beveragebooker.customer_app.activities;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,6 @@ import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
-import com.beveragebooker.customer_app.notifications.DatabaseDialog;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -47,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -147,32 +149,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
         String phone = loggedUser.getPhone();
         System.out.println("Check Mobile: " + phone);
 
-        /*Call<List<MenuItem>> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .getCartItems(userID);
-
-        call.enqueue(new Callback<List<MenuItem>>() {
-            @Override
-            public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
-
-                //Cart items are retrieved from the database
-                if (response.code() == 201) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        cartItemList.add(response.body().get(i));
-                    }
-                }
-                //Display the total of the items in the order
-                orderTotal.setText("Order Total: $" + currency.format(getOrderTotal()));
-
-            }
-
-            @Override
-            public void onFailure(Call<List<MenuItem>> call, Throwable t) {
-
-            }
-        });*/
-
         //Stripe
         stripe = new Stripe(
                 getApplicationContext(),
@@ -204,6 +180,11 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     Cart currentCart = response.body();
                     cartID = currentCart.getCartID();
                     System.out.println("CartID: " + cartID);
+                    //PaymentDialog paymentDialog = new PaymentDialog(PlaceOrderActivity.this);
+                    //paymentDialog.show();
+
+
+                } else {
                     showDatabaseErrorDialog();
                 }
             }
@@ -215,6 +196,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         });
     }
 
+    //Show database error dialog
     private void showDatabaseErrorDialog() {
 
         ViewGroup viewGroup = findViewById(android.R.id.content);
@@ -236,6 +218,53 @@ public class PlaceOrderActivity extends AppCompatActivity {
             }
         });
         alertDialog.show();
+    }
+
+    //Show payment error dialog
+    private void showPaymentErrorDialog() {
+
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.error_dialog, viewGroup, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+
+        AlertDialog alertDialog = builder.create();
+
+        dialogView.findViewById(R.id.dialogButtonOk).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+        alertDialog.show();
+    }
+
+    //Static payment error dialog
+    public static class PaymentDialog extends AlertDialog.Builder{
+
+        public PaymentDialog(Context context) {
+            super(context);
+
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View view = inflater.inflate(R.layout.error_dialog, null);
+            setView(view);
+
+            setCancelable(true);
+
+
+            Button button = (Button)view.findViewById(R.id.dialogButtonOk);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, PrimaryMenu.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     private void startCheckout() {
@@ -276,12 +305,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                             .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
                     stripe.confirmPayment(PlaceOrderActivity.this, confirmPaymentIntentParams);
                 } else {
-                    /*Toast.makeText(PlaceOrderActivity.this, "There was an issue with payment. Please try placing your order again. You have not been charged.",
-                            Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);*/
-
+                    showPaymentErrorDialog();
                 }
             }
         });
@@ -317,6 +341,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         paymentIntentClientSecret = responseMap.get("clientSecret");
     }
 
+
     //Ok http call back
     private static final class PayCallBack implements okhttp3.Callback {
         @NonNull private final WeakReference<PlaceOrderActivity> activityWeakReference;
@@ -328,21 +353,12 @@ public class PlaceOrderActivity extends AppCompatActivity {
         @Override
         public void onFailure(@NotNull okhttp3.Call call, @NotNull IOException e) {
             final PlaceOrderActivity activity = activityWeakReference.get();
-            Log.e("TAG", "onFailure: "+e.getMessage());
+            //Log.e("TAG", "onFailure: "+e.getMessage());
             if (activity == null) {
                 return;
             }
-
-            //activity.runOnUiThread(() ->
-                    //Toast.makeText(
-                       //     activity, "Error: " + e.toString(), Toast.LENGTH_LONG
-                    //).show()
-            //);
-            Toast.makeText(activity, "There was an issue with payment. Please try placing your order again. You have not been charged.",
-                    Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(activity, PrimaryMenu.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            activity.startActivity(intent);
+            PaymentDialog paymentDialog = new PaymentDialog(activity);
+            paymentDialog.show();
         }
 
         @Override
@@ -353,16 +369,9 @@ public class PlaceOrderActivity extends AppCompatActivity {
             }
 
             if (!response.isSuccessful()) {
-                //activity.runOnUiThread(() ->
-                        //Toast.makeText(
-                                //activity, "Error: " + response.toString(), Toast.LENGTH_LONG
-                        //.show()
-                //);
-                Toast.makeText(activity, "There was an issue with payment. Please try placing your order again. You have not been charged.",
-                        Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(activity, PrimaryMenu.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                activity.startActivity(intent);
+                PaymentDialog paymentDialog = new PaymentDialog(activity);
+                paymentDialog.show();
+
             } else {
                 activity.onPaymentSuccess(response);
             }
@@ -382,14 +391,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
             if (activity == null) {
                 return;
             }
-
-            //Payment request failed
-            //activity.displayAlert("Error", e.toString());
-            Toast.makeText(activity, "There was an issue with payment. Please try placing your order again. You have not been charged.",
-                    Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(activity, PrimaryMenu.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            activity.startActivity(intent);
+            showPaymentErrorDialog();
         }
 
         @Override
@@ -426,16 +428,9 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 //);
 
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
-                //Payment failed
-                //activity.displayAlert(
-                        //"Payment failed",
-                        //Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage()
-                //);
-                Toast.makeText(activity, "There was an issue with payment. Please try placing your order again. You have not been charged.",
-                        Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(activity, PrimaryMenu.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                activity.startActivity(intent);
+                showPaymentErrorDialog();
+            } else {
+                showPaymentErrorDialog();
             }
         }
     }
@@ -464,6 +459,16 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 if (response.code() == 201) {
                     int orderID = response.message().indexOf(2);
                     Log.d("GetOrder", String.valueOf(orderID));
+
+                    //Order successful toast
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.success(PlaceOrderActivity.this,
+                            "Order successful", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 150);
+                    toast.show();
+
                     Intent intent = new Intent(PlaceOrderActivity.this, OrderConfirmationActivity.class);
                     intent.putExtra(CART_ID, cartID);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -471,22 +476,15 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
 
                 } else if (response.code() == 422) {
-                    Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your order. Please contact the store.",
-                            Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    showDatabaseErrorDialog();
+                } else {
+                    showDatabaseErrorDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                //Toast.makeText(PlaceOrderActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your order. Please contact the store.",
-                        Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                showDatabaseErrorDialog();
             }
         });
     }
@@ -517,20 +515,15 @@ public class PlaceOrderActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 201) {
                     placeOrder();
-                    Toast.makeText(PlaceOrderActivity.this, "Delivery Submitted", Toast.LENGTH_LONG).show();
                 }else if (response.code() == 402) {
-                    Toast.makeText(PlaceOrderActivity.this, "Delivery order Failed. Please contact the store.", Toast.LENGTH_LONG).show();
+                    showDatabaseErrorDialog();
+                } else {
+                    showDatabaseErrorDialog();
                 }
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                //Toast.makeText(PlaceOrderActivity.this, t.getMessage(),
-                        //Toast.LENGTH_LONG).show();
-                Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your delivery order. Please contact the store.",
-                        Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                showDatabaseErrorDialog();
             }
         });
     }
