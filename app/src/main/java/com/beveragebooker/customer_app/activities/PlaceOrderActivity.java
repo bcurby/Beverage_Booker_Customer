@@ -149,6 +149,32 @@ public class PlaceOrderActivity extends AppCompatActivity {
         String phone = loggedUser.getPhone();
         System.out.println("Check Mobile: " + phone);
 
+        Call<List<MenuItem>> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getCartItems(userID);
+
+        call.enqueue(new Callback<List<MenuItem>>() {
+            @Override
+            public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
+
+                //Cart items are retrieved from the database
+                if (response.code() == 201) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        cartItemList.add(response.body().get(i));
+                    }
+                }
+                //Display the total of the items in the order
+                orderTotal.setText("Order Total:" + "\n" + "$" + currency.format(getOrderTotal()));
+
+            }
+
+            @Override
+            public void onFailure(Call<List<MenuItem>> call, Throwable t) {
+
+            }
+        });
+
         //Stripe
         stripe = new Stripe(
                 getApplicationContext(),

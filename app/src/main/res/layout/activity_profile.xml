@@ -49,7 +49,7 @@
 
     <Button
         android:id="@+id/continueButton"
-        android:layout_width="200sp"
+        android:layout_width="210sp"
         android:layout_height="wrap_content"
         android:background="@drawable/button"
         android:text="@string/continue_to_menu"

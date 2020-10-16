@@ -40,8 +40,8 @@
 
         <TextView
             android:id="@+id/textViewNeedHelpAddToCart"
-            android:layout_width="94dp"
-            android:layout_height="26dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/need_help"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -56,11 +56,13 @@
 
         <Button
             android:id="@+id/addToCartButton"
-            android:layout_width="135sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="55dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="12dp"
             android:background="@drawable/button"
             android:text="Add to Cart"
             android:textAllCaps="false"
@@ -93,9 +95,9 @@
 
         <TextView
             android:id="@+id/stockLevelAddToCart"
-            android:layout_width="135dp"
-            android:layout_height="15dp"
-            android:layout_marginStart="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="24dp"
             android:gravity="center_horizontal"
             android:textColor="@android:color/black"
