@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beveragebooker.customer_app.R;
 
 import com.beveragebooker.customer_app.models.MenuItem;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -25,7 +26,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     DecimalFormat currency = new DecimalFormat("###0.00");
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int selection, int position);
     }
 
     public void setOnButtonClickListener(OnItemClickListener listener) {
@@ -61,10 +62,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         String currentItemFrappe = cartItem.getItemFrappe();
         String currentItemHeated = cartItem.getItemHeated();
         String currentItemComment = cartItem.getItemComment();
+        String currentItemQuantity = String.valueOf(cartItem.getQuantity());
 
         holder.textViewName.setText(cartItem.getName());
         holder.textViewPrice.setText("$" + currency.format(cartItem.getPrice()));
         holder.textViewQuantity.setText(String.valueOf(cartItem.getQuantity()));
+        holder.qtyButtonCart.setNumber(currentItemQuantity);
 
         if (!currentItemSize.equals("-")) {
             holder.textViewSizeTitle.setVisibility(TextView.VISIBLE);
@@ -141,7 +144,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 if (itemListener != null) {
                     int pos = position;
                     if (pos != RecyclerView.NO_POSITION) {
-                        itemListener.onItemClick(pos);
+                        itemListener.onItemClick(1, pos);
+                    }
+                }
+            }
+        });
+
+        holder.qtyButtonCart.setOnClickListener(new ElegantNumberButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (itemListener != null) {
+                    int pos = position;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        itemListener.onItemClick(2, pos);
+                        String stringItemQuantity = holder.qtyButtonCart.getNumber();
+                        holder.textViewQuantity.setText(stringItemQuantity);
+                        System.out.println("Qty: " + stringItemQuantity);
                     }
                 }
             }
@@ -158,6 +176,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
         textViewFrappe, textViewHeated, textViewCommentTitle, textViewComment, textViewSizeTitle, textViewSize;
         Button deleteCartItem;
+        ElegantNumberButton qtyButtonCart;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -179,6 +198,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             deleteCartItem = itemView.findViewById(R.id.deleteCartItem);
             textViewSizeTitle = itemView.findViewById(R.id.sizeTitle);
             textViewSize = itemView.findViewById(R.id.cartItemSize);
+            qtyButtonCart = itemView.findViewById(R.id.qtyButtonCart);
 
 
         }

@@ -18,6 +18,7 @@ import com.beveragebooker.customer_app.api.RetrofitClient;
 
 import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -52,6 +53,8 @@ public class CartActivity extends AppCompatActivity {
     private Button checkoutButton;
     private Button emptyCartButton;
 
+    ElegantNumberButton qtyButtonCart;
+
     DecimalFormat currency = new DecimalFormat("###0.00");
 
     @Override
@@ -68,10 +71,12 @@ public class CartActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mCartAdapter);
         cartTotal = findViewById(R.id.cartTotal);
 
+        //qtyButtonCart = findViewById(R.id.qtyButtonCart);
+
         //delete button
         mCartAdapter.setOnButtonClickListener(new CartAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(int selection, int position) {
                 itemClicked = cartItemList.get(position);
                 //ItemID
                 id = itemClicked.getId();
@@ -92,7 +97,12 @@ public class CartActivity extends AppCompatActivity {
                 itemQuantity = cartItemList.get(position).getQuantity();
                 System.out.println("ItemID: " + id);
                 System.out.println("ItemTitle: " + itemTitle);
-                deleteCartItem();
+                if (selection == 1) {
+                    deleteCartItem();
+                }
+                else if (selection == 2) {
+                    updateCartQuantity();
+                }
             }
         });
 
@@ -181,6 +191,46 @@ public class CartActivity extends AppCompatActivity {
                         Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
+            }
+        });
+    }
+
+    private void updateCartQuantity() {
+        final User loggedUser = getInstance(CartActivity.this).getUser();
+        int userID = loggedUser.getId();
+
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .updateCartItemQuantity(id, itemTitle, itemPrice, itemSize, itemMilk, itemSugar,
+                        itemDecaf, itemVanilla, itemCaramel, itemChocolate, itemWhippedCream, itemFrappe,
+                        itemHeated, itemComment, itemType, userID, itemQuantity);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 201) {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.success(CartActivity.this,
+                            "Quantity updated", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+                } else if (response.code() == 402) {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(CartActivity.this,
+                            "Quantity failed to update", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
             }
         });
     }
