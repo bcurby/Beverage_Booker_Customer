@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutCartItem"
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="190dp">
 
         <TextView
             android:id="@+id/cartItemName"
@@ -217,12 +217,11 @@
             android:layout_width="107dp"
             android:layout_height="36dp"
             android:layout_marginStart="7dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="9dp"
             app:backGroundColor="@color/colorAccent"
-            app:layout_constraintBottom_toTopOf="@+id/cartItemPrice"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/linearLayoutCartOptions"
             app:layout_constraintTop_toBottomOf="@+id/QtyTitle"
             app:textColor="@color/colorPrimaryDark">
@@ -230,9 +229,31 @@
         </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
         <Button
+            android:id="@+id/updateCartQuantityButton"
+            android:layout_width="107dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button"
+            android:text="Update Qty"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayoutCartOptions"
+            app:layout_constraintTop_toBottomOf="@+id/qtyButtonCart"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
             android:id="@+id/deleteCartItem"
             android:layout_width="107dp"
             android:layout_height="36dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/button"
             android:text="@string/delete"
             android:textAllCaps="false"
@@ -240,49 +261,46 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.944"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.862" />
-
-        <TextView
-            android:id="@+id/QtyTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/qty"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/cartItemQuantity"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/cartItemPrice"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.078" />
+            app:layout_constraintStart_toEndOf="@+id/linearLayoutCartOptions"
+            app:layout_constraintTop_toBottomOf="@+id/updateCartQuantityButton"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/cartItemQuantity"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.887"
+            app:layout_constraintHorizontal_bias="0.879"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.078" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/cartItemPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
             android:text="@string/price"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.828"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.553" />
+            app:layout_constraintHorizontal_bias="0.788"
+            app:layout_constraintStart_toEndOf="@+id/cartItemName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/QtyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/qty"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/cartItemPrice"
+            app:layout_constraintStart_toStartOf="@+id/cartItemPrice"
+            app:layout_constraintTop_toBottomOf="@+id/cartItemPrice" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

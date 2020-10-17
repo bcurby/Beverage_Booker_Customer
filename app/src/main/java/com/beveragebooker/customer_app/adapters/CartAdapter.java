@@ -29,6 +29,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         void onItemClick(int selection, int position);
     }
 
+
     public void setOnButtonClickListener(OnItemClickListener listener) {
         itemListener = listener;
     }
@@ -157,9 +158,29 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     int pos = position;
                     if (pos != RecyclerView.NO_POSITION) {
                         itemListener.onItemClick(2, pos);
+
+                        int intItemQuantity = Integer.parseInt(holder.qtyButtonCart.getNumber());
                         String stringItemQuantity = holder.qtyButtonCart.getNumber();
                         holder.textViewQuantity.setText(stringItemQuantity);
                         System.out.println("Qty: " + stringItemQuantity);
+
+                        cartItemList.get(pos).setQuantity(intItemQuantity);
+                        int newQuantity = cartItemList.get(pos).getQuantity();
+
+                        System.out.println("New Qty: " + newQuantity);
+
+                    }
+                }
+            }
+        });
+
+        holder.updateCartQuantityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemListener != null) {
+                    int pos = position;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        itemListener.onItemClick(3, pos);
                     }
                 }
             }
@@ -177,6 +198,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         textViewFrappe, textViewHeated, textViewCommentTitle, textViewComment, textViewSizeTitle, textViewSize;
         Button deleteCartItem;
         ElegantNumberButton qtyButtonCart;
+        Button updateCartQuantityButton;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -199,8 +221,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewSizeTitle = itemView.findViewById(R.id.sizeTitle);
             textViewSize = itemView.findViewById(R.id.cartItemSize);
             qtyButtonCart = itemView.findViewById(R.id.qtyButtonCart);
+            updateCartQuantityButton = itemView.findViewById(R.id.updateCartQuantityButton);
 
 
         }
     }
+
 }

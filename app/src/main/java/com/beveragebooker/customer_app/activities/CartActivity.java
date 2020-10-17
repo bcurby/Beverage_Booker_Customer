@@ -71,7 +71,7 @@ public class CartActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mCartAdapter);
         cartTotal = findViewById(R.id.cartTotal);
 
-        //qtyButtonCart = findViewById(R.id.qtyButtonCart);
+        qtyButtonCart = findViewById(R.id.qtyButtonCart);
 
         //delete button
         mCartAdapter.setOnButtonClickListener(new CartAdapter.OnItemClickListener() {
@@ -101,6 +101,8 @@ public class CartActivity extends AppCompatActivity {
                     deleteCartItem();
                 }
                 else if (selection == 2) {
+
+                } else if (selection == 3) {
                     updateCartQuantity();
                 }
             }
