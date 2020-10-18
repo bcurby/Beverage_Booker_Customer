@@ -219,6 +219,10 @@ public class CartActivity extends AppCompatActivity {
                             "Quantity updated", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
+
+                    Intent intent = new Intent(CartActivity.this, CartActivity.class);
+                    startActivity(intent);
+
                 } else if (response.code() == 402) {
                     Toasty.Config.getInstance()
                             .setTextSize(20)
@@ -235,10 +239,6 @@ public class CartActivity extends AppCompatActivity {
 
             }
         });
-
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
     }
 
     //Method that calculates the total of items in the cart
