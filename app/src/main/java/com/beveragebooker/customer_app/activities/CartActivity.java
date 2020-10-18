@@ -235,6 +235,10 @@ public class CartActivity extends AppCompatActivity {
 
             }
         });
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     //Method that calculates the total of items in the cart
