@@ -208,6 +208,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, PrimaryMenu.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
