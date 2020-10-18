@@ -58,4 +58,5 @@
     <string name="payment_error_title">Payment Error</string>
     <string name="database_error_title">Database Error</string>
     <string name="ok">OK</string>
+    <string name="update_qty">Update Qty</string>
 </resources>

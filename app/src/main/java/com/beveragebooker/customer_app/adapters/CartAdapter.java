@@ -194,8 +194,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     class CartViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName, textViewPrice, textViewQuantity, textViewMilk, textViewSugar,
-        textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
-        textViewFrappe, textViewHeated, textViewCommentTitle, textViewComment, textViewSizeTitle, textViewSize;
+                textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
+                textViewFrappe, textViewHeated, textViewCommentTitle, textViewComment, textViewSizeTitle,
+                textViewSize;
+
         Button deleteCartItem;
         ElegantNumberButton qtyButtonCart;
         Button updateCartQuantityButton;
@@ -222,9 +224,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewSize = itemView.findViewById(R.id.cartItemSize);
             qtyButtonCart = itemView.findViewById(R.id.qtyButtonCart);
             updateCartQuantityButton = itemView.findViewById(R.id.updateCartQuantityButton);
-
-
         }
     }
-
 }
