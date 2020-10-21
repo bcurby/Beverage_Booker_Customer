@@ -140,7 +140,7 @@ public class CartActivity extends AppCompatActivity {
                             .setTextSize(20)
                             .apply();
                     Toast toast = Toasty.info(CartActivity.this,
-                            "There are no items in the cart to empty", Toast.LENGTH_LONG);
+                            "There are no items in your cart", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                 }
@@ -177,6 +177,17 @@ public class CartActivity extends AppCompatActivity {
                             "Your cart is empty", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
+                } else {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(CartActivity.this,
+                            "An error occurred emptying your cart", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+
+                    Intent intent = new Intent(CartActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
                 //Display the total of items in the cart
                 cartTotal.setText("Cart Total: $" + currency.format(getCartTotal()));
@@ -236,7 +247,13 @@ public class CartActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(CartActivity.this,
+                        "Quantity failed to update", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                toast.show();
             }
         });
     }
@@ -326,11 +343,6 @@ public class CartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void goToMenu() {
-        Intent intent = new Intent(this, BrowseMenu.class );
-        startActivity(intent);
-    }
-
     private void deleteCartItem() {
         final User loggedUser = getInstance(CartActivity.this).getUser();
         int userID = loggedUser.getId();
@@ -353,6 +365,10 @@ public class CartActivity extends AppCompatActivity {
                             "Item Deleted", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
+
+                    Intent intent = new Intent(CartActivity.this, CartActivity.class);
+                    startActivity(intent);
+
                 } else if (response.code() == 402) {
                     Toasty.Config.getInstance()
                             .setTextSize(20)
@@ -362,7 +378,13 @@ public class CartActivity extends AppCompatActivity {
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                 } else {
-                    System.out.println(response.code());
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(CartActivity.this,
+                            "Item Failed To Delete", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 }
             }
             @Override
@@ -371,7 +393,7 @@ public class CartActivity extends AppCompatActivity {
                         .setTextSize(20)
                         .apply();
                 Toast toast = Toasty.error(CartActivity.this,
-                        Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                        "Item Failed To Delete", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
             }

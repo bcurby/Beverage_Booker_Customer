@@ -69,7 +69,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         //Displays the order ready message if the push notification has been sent and it has set the cartID to -1
         if (cartID == -1) {
-            mOrderConfirmTextView.setText("Your order is ready for pick up, " + user.getFirstName() + ".");
+            mOrderConfirmTextView.setText("Your order is ready, " + user.getFirstName() + ".");
         }
 
         //if the timer is running and the cartID is valid it gets the estimated order time so it can be displayed for the user
@@ -133,14 +133,17 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                         mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + "."
                                 + "\nYour order will be ready in approximately " + orderTime + " minutes.");
                     } else if (orderStatus == 0) {
-                        mOrderConfirmTextView.setText("Your order is ready for pick up, " + user.getFirstName() + ".");
+                        mOrderConfirmTextView.setText("Your order is ready, " + user.getFirstName() + ".");
                     }
+                } else {
+                    mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + ".");
                 }
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onFailure(Call<Order> call, Throwable t) {
-
+                mOrderConfirmTextView.setText("Thank you for your order, " + user.getFirstName() + ".");
             }
         });
     }

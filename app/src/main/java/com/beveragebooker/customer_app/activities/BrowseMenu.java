@@ -56,9 +56,6 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     private RecyclerAdapter mRecyclerAdapter;
     private ArrayList<MenuItem> mMenuItems;
 
-    //View Cart Button
-    private Button viewCart;
-
     private String itemType;
 
 
@@ -166,9 +163,14 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 Toasty.Config.getInstance()
                         .setTextSize(20)
                         .apply();
-                Toast toast = Toasty.info(BrowseMenu.this, Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                Toast toast = Toasty.error(BrowseMenu.this, "An error has occurred. Please try again.",
+                        Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
+
+                Intent intent = new Intent(BrowseMenu.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
 
             }
         });
@@ -199,11 +201,6 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     public void onItemClick(int position) {
     }
 
-
-    private void openCart() {
-        Intent intent = new Intent(this, CartActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onBackPressed() {

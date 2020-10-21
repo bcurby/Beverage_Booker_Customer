@@ -1,5 +1,6 @@
 package com.beveragebooker.customer_app.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +43,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         Button mAddToCart;
 
 
-
-
         RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             mItemName = itemView.findViewById(R.id.itemName);
@@ -79,6 +78,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     }
 
     //Pass values to the views
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         MenuItem currentItem = menuItems.get(position);
@@ -105,8 +105,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             holder.mSoldOut.setVisibility(TextView.INVISIBLE);
             holder.mShortDesc.setVisibility(TextView.VISIBLE);
         }
-
-
     }
 
     @Override

@@ -22,8 +22,6 @@ public class PrimaryMenu extends AppCompatActivity {
 
     private Button foodMenuButton;
     private Button drinkMenuButton;
-    private Button viewOrderButton;
-    private Button viewHelpButton;
 
     private String itemType;
 

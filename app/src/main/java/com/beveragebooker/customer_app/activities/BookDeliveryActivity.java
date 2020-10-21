@@ -89,10 +89,6 @@ public class BookDeliveryActivity extends AppCompatActivity {
         goToPayment();
     }
 
-    private void checkAddress(){
-
-    }
-
     private void goToPayment() {
         String streetUnit = editTextUnitNumber.getText().toString().trim();
         String streetName = editTextStreetName.getText().toString().trim();

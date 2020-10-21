@@ -163,6 +163,10 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     for (int i = 0; i < response.body().size(); i++) {
                         cartItemList.add(response.body().get(i));
                     }
+                } else if (response.code() == 303) {
+                    showPaymentErrorDialog();
+                } else {
+                    showDatabaseErrorDialog();
                 }
                 //Display the total of the items in the order
                 orderTotal.setText("Order Total:" + "\n" + "$" + currency.format(getOrderTotal()));
@@ -171,7 +175,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<MenuItem>> call, Throwable t) {
-
+                showDatabaseErrorDialog();
             }
         });
 
@@ -232,7 +236,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         builder.setView(dialogView);
 
         ((TextView) dialogView.findViewById(R.id.dialogTitle)).setText(getResources().getString(R.string.database_error_title));
-        ((TextView) dialogView.findViewById(R.id.dialogTextMessage)).setText(getResources().getString(R.string.database_error_title));
+        ((TextView) dialogView.findViewById(R.id.dialogTextMessage)).setText(getResources().getString(R.string.database_error_text));
         AlertDialog alertDialog = builder.create();
 
         dialogView.findViewById(R.id.dialogButtonOk).setOnClickListener(new View.OnClickListener() {
@@ -335,16 +339,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void displayAlert(@NonNull String title,
-                              @Nullable String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message);
-
-        builder.setPositiveButton("Ok", null);
-        builder.create().show();
     }
 
     //Once payment is started, It will call onActivityResult

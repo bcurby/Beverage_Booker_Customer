@@ -246,9 +246,14 @@ public class AddToCartActivity extends AppCompatActivity {
                         Toasty.Config.getInstance()
                                 .setTextSize(20)
                                 .apply();
-                        Toast toast = Toasty.info(AddToCartActivity.this, Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                        Toast toast = Toasty.error(AddToCartActivity.this, "An error has occurred. Please try again.",
+                                Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                         toast.show();
+
+                        Intent intent = new Intent(AddToCartActivity.this, PrimaryMenu.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
                 });
             }
@@ -318,8 +323,17 @@ public class AddToCartActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<MenuItem>> call, Throwable t) {
 
-                Toast.makeText(AddToCartActivity.this, t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(AddToCartActivity.this, "An error has occurred. Please try again.",
+                        Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                toast.show();
+
+                Intent intent = new Intent(AddToCartActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }

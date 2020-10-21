@@ -184,7 +184,15 @@ public class AccountActivity extends AppCompatActivity {
                     Toasty.Config.getInstance()
                             .setTextSize(20)
                             .apply();
-                    Toast toast = Toasty.info(AccountActivity.this, "An error has occurred." +
+                    Toast toast = Toasty.error(AccountActivity.this, "An error has occurred." +
+                            "\n" + "No changes were saved.", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+                } else {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(AccountActivity.this, "An error has occurred." +
                             "\n" + "No changes were saved.", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
@@ -199,7 +207,8 @@ public class AccountActivity extends AppCompatActivity {
                 Toasty.Config.getInstance()
                         .setTextSize(20)
                         .apply();
-                Toast toast = Toasty.error(AccountActivity.this, t.getMessage(), Toast.LENGTH_LONG);
+                Toast toast = Toasty.error(AccountActivity.this, "An error has occurred." +
+                        "\n" + "No changes were saved.", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
             }
@@ -259,9 +268,18 @@ public class AccountActivity extends AppCompatActivity {
                             Toasty.Config.getInstance()
                                     .setTextSize(20)
                                     .apply();
-                            Toast toast = Toasty.success(AccountActivity.this,
-                                    "Account can not be deleted." + "\n" +
-                                            "An error occurred.", Toast.LENGTH_LONG);
+                            Toast toast = Toasty.error(AccountActivity.this,
+                                    "An error occurred." + "\n" +
+                                            "Account can not be deleted.", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                            toast.show();
+                        } else {
+                            Toasty.Config.getInstance()
+                                    .setTextSize(20)
+                                    .apply();
+                            Toast toast = Toasty.error(AccountActivity.this,
+                                    "An error occurred." + "\n" +
+                                            "Account can not be deleted.", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                             toast.show();
                         }
@@ -269,7 +287,14 @@ public class AccountActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        Toasty.Config.getInstance()
+                                .setTextSize(20)
+                                .apply();
+                        Toast toast = Toasty.error(AccountActivity.this,
+                                "An error occurred." + "\n" +
+                                        "Account can not be deleted.", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                        toast.show();
                     }
                 });
 

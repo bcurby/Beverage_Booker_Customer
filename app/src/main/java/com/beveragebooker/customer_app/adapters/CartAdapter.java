@@ -1,5 +1,6 @@
 package com.beveragebooker.customer_app.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return cartViewHolder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, final int position) {
         MenuItem cartItem = cartItemList.get(position);
@@ -127,17 +129,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             holder.textViewComment.setText(cartItem.getItemComment());
         }
 
-        /*
-        holder.textViewSugar.setText(cartItem.getItemSugar());
-        holder.textViewDecaf.setText(cartItem.getItemDecaf());
-        holder.textViewVanilla.setText(cartItem.getItemVanilla());
-        holder.textViewCaramel.setText(cartItem.getItemCaramel());
-        holder.textViewChocolate.setText(cartItem.getItemChocolate());
-        holder.textViewWhippedCream.setText(cartItem.getItemWhippedCream());
-        holder.textViewFrappe.setText(cartItem.getItemFrappe());
-        holder.textViewHeated.setText(cartItem.getItemHeated());
-        holder.textViewComment.setText(cartItem.getItemComment());
-        holder.textViewSize.setText(cartItem.getItemSize());*/
 
         holder.deleteCartItem.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -99,6 +99,15 @@ Log.d("USER ID", String.valueOf(userID));
                                 "User not found", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                         toast.show();
+                    } else {
+                        Toasty.Config.getInstance()
+                                .setTextSize(20)
+                                .apply();
+                        Toast toast = Toasty.error(SavePasswordActivity.this,
+                                "An error occurred." + "\n" +
+                                        "Your password was not updated.", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                        toast.show();
                     }
                     Log.d("WHAT IS THIS:  ", String.valueOf(response.code()));
                 }

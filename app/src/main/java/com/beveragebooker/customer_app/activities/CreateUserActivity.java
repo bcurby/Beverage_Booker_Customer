@@ -164,9 +164,10 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                             .setTextSize(20)
                             .apply();
                     Toast toast = Toasty.success(CreateUserActivity.this, "User created successfully", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 150);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                     Intent intent = new Intent(CreateUserActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
                 } else if (response.code() == 403) {
@@ -175,7 +176,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                             .apply();
                     Toast toast = Toasty.info(CreateUserActivity.this, "User already exists",
                             Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 150);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                 }
             }
@@ -187,7 +188,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                         .apply();
                 Toast toast = Toasty.error(CreateUserActivity.this, "An error has occurred. Please try again.",
                         Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 150);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
             }
         });
