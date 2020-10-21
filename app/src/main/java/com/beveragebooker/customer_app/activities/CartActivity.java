@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -99,8 +100,7 @@ public class CartActivity extends AppCompatActivity {
                 System.out.println("ItemTitle: " + itemTitle);
                 if (selection == 1) {
                     deleteCartItem();
-                }
-                else if (selection == 2) {
+                } else if (selection == 2) {
 
                 } else if (selection == 3) {
                     updateCartQuantity();
@@ -134,7 +134,6 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (getCartTotal() > 0) {
                     emptyTheCart();
-                    //goToMenu();
                 } else {
                     Toasty.Config.getInstance()
                             .setTextSize(20)
@@ -158,6 +157,7 @@ public class CartActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<List<MenuItem>>() {
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
 
@@ -165,16 +165,19 @@ public class CartActivity extends AppCompatActivity {
                 if (response.code() == 201) {
                     for (int i = 0; i < response.body().size(); i++) {
                         cartItemList.add(response.body().get(i));
+
+                        //testing
+
                     }
                     mCartAdapter.notifyDataSetChanged();
 
-                //Cart is empty
+                    //Cart is empty
                 } else if (response.code() == 303) {
                     Toasty.Config.getInstance()
                             .setTextSize(20)
                             .apply();
                     Toast toast = Toasty.info(CartActivity.this,
-                            "Your cart is empty", Toast.LENGTH_LONG);
+                            "Your cart is empty.", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                 } else {
@@ -182,11 +185,12 @@ public class CartActivity extends AppCompatActivity {
                             .setTextSize(20)
                             .apply();
                     Toast toast = Toasty.error(CartActivity.this,
-                            "An error occurred emptying your cart", Toast.LENGTH_LONG);
+                            "An error occurred. \n Please try viewing your cart again.", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
 
-                    Intent intent = new Intent(CartActivity.this, MainActivity.class);
+                    Intent intent = new Intent(CartActivity.this, PrimaryMenu.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
                 //Display the total of items in the cart
@@ -201,9 +205,13 @@ public class CartActivity extends AppCompatActivity {
                         .setTextSize(20)
                         .apply();
                 Toast toast = Toasty.error(CartActivity.this,
-                        Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                        "An error occurred. \n Please try viewing your cart again.", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
+
+                Intent intent = new Intent(CartActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }
@@ -239,7 +247,15 @@ public class CartActivity extends AppCompatActivity {
                             .setTextSize(20)
                             .apply();
                     Toast toast = Toasty.error(CartActivity.this,
-                            "Quantity failed to update", Toast.LENGTH_LONG);
+                            "Quantity failed to update. \n Please try again.", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+                } else {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(CartActivity.this,
+                            "Quantity failed to update. \n Please try again.", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                 }
@@ -251,7 +267,7 @@ public class CartActivity extends AppCompatActivity {
                         .setTextSize(20)
                         .apply();
                 Toast toast = Toasty.error(CartActivity.this,
-                        "Quantity failed to update", Toast.LENGTH_LONG);
+                        "Quantity failed to update. \n Please try again.", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
             }
@@ -295,13 +311,6 @@ public class CartActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.code() == 201) {
-                    Toasty.Config.getInstance()
-                            .setTextSize(20)
-                            .apply();
-                    Toast toast = Toasty.success(CartActivity.this,
-                            "Cart emptied", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
-                    toast.show();
 
                     Intent intent = new Intent(CartActivity.this, CartActivity.class);
                     startActivity(intent);
@@ -311,7 +320,7 @@ public class CartActivity extends AppCompatActivity {
                             .setTextSize(20)
                             .apply();
                     Toast toast = Toasty.error(CartActivity.this,
-                            "Cart failed to empty", Toast.LENGTH_LONG);
+                            "Cart failed to empty. \n Please try again.", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                 }
@@ -323,21 +332,17 @@ public class CartActivity extends AppCompatActivity {
                         .setTextSize(20)
                         .apply();
                 Toast toast = Toasty.error(CartActivity.this,
-                        Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                        "Cart failed to empty. \n Please try again.", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
             }
         });
-
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
     }
 
     private void goToCheckout() {
         String orderTotal = String.valueOf(getCartTotal());
-        System.out.println("Order Test: " +orderTotal);
-        Intent intent = new Intent(this, SelectOrderTypeActivity.class );
+        System.out.println("Order Test: " + orderTotal);
+        Intent intent = new Intent(this, SelectOrderTypeActivity.class);
         intent.putExtra(CART_TOTAL, orderTotal);
 
         startActivity(intent);
@@ -374,7 +379,7 @@ public class CartActivity extends AppCompatActivity {
                             .setTextSize(20)
                             .apply();
                     Toast toast = Toasty.error(CartActivity.this,
-                            "Item Failed To Delete", Toast.LENGTH_LONG);
+                            "Item Failed To Delete. \n Please try again.", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                 } else {
@@ -382,25 +387,22 @@ public class CartActivity extends AppCompatActivity {
                             .setTextSize(20)
                             .apply();
                     Toast toast = Toasty.error(CartActivity.this,
-                            "Item Failed To Delete", Toast.LENGTH_LONG);
+                            "Item Failed To Delete. \n Please try again.", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                     toast.show();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toasty.Config.getInstance()
                         .setTextSize(20)
                         .apply();
                 Toast toast = Toasty.error(CartActivity.this,
-                        "Item Failed To Delete", Toast.LENGTH_LONG);
+                        "Item Failed To Delete. \n Please try again.", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();
             }
         });
-
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
     }
 }

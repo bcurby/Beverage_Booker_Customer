@@ -159,7 +159,6 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                     Toasty.Config.getInstance()
                             .setTextSize(20)
                             .apply();
@@ -186,7 +185,8 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                 Toasty.Config.getInstance()
                         .setTextSize(20)
                         .apply();
-                Toast toast = Toasty.error(CreateUserActivity.this, "An error has occurred. Please try again.",
+                Toast toast = Toasty.error(CreateUserActivity.this, "An error has occurred. " +
+                                "\n Please try again.",
                         Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();

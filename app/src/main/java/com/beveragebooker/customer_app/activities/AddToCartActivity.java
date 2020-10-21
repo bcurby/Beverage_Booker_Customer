@@ -211,6 +211,7 @@ public class AddToCartActivity extends AppCompatActivity {
                             Toasty.Config.getInstance()
                                     .setTextSize(20)
                                     .apply();
+
                             Toast toast = Toasty.success(AddToCartActivity.this, "Item added to cart", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                             toast.show();
@@ -238,6 +239,15 @@ public class AddToCartActivity extends AppCompatActivity {
                             toast.show();
 
                             getStockUpdate();
+                        } else {
+                            Toasty.Config.getInstance()
+                                    .setTextSize(20)
+                                    .apply();
+                            Toast toast = Toasty.error(AddToCartActivity.this, "An error has occurred. " +
+                                            "\n Please try adding item to cart again.",
+                                    Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                            toast.show();
                         }
                     }
 
@@ -246,7 +256,8 @@ public class AddToCartActivity extends AppCompatActivity {
                         Toasty.Config.getInstance()
                                 .setTextSize(20)
                                 .apply();
-                        Toast toast = Toasty.error(AddToCartActivity.this, "An error has occurred. Please try again.",
+                        Toast toast = Toasty.error(AddToCartActivity.this, "An error has occurred. " +
+                                        "\n Please try adding item to cart again.",
                                 Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                         toast.show();
@@ -323,17 +334,6 @@ public class AddToCartActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<MenuItem>> call, Throwable t) {
 
-                Toasty.Config.getInstance()
-                        .setTextSize(20)
-                        .apply();
-                Toast toast = Toasty.error(AddToCartActivity.this, "An error has occurred. Please try again.",
-                        Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
-                toast.show();
-
-                Intent intent = new Intent(AddToCartActivity.this, PrimaryMenu.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
             }
         });
     }

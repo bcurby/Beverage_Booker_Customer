@@ -155,6 +155,18 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                     }
 
                     mRecyclerAdapter.notifyDataSetChanged();
+                } else {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(BrowseMenu.this, "An error has occurred. \n Please try again.",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+
+                    Intent intent = new Intent(BrowseMenu.this, PrimaryMenu.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
             }
 
@@ -163,7 +175,7 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                 Toasty.Config.getInstance()
                         .setTextSize(20)
                         .apply();
-                Toast toast = Toasty.error(BrowseMenu.this, "An error has occurred. Please try again.",
+                Toast toast = Toasty.error(BrowseMenu.this, "An error has occurred. \n Please try again.",
                         Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();

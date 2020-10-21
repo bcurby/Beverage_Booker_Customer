@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toasty.Config.getInstance()
                         .setTextSize(20)
                         .apply();
-                Toast toast = Toasty.error(MainActivity.this, "An error has occurred. Please try again.",
+                Toast toast = Toasty.error(MainActivity.this, "An error has occurred. \n Please try again.",
                         Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
                 toast.show();

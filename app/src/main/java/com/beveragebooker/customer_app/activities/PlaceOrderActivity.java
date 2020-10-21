@@ -1,5 +1,6 @@
 package com.beveragebooker.customer_app.activities;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -106,7 +107,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         //Assigns delivery status int and order total variable
         deliveryStatus = intent.getBooleanExtra(BookDeliveryActivity.DELIVERY_STATUS, false);
         System.out.println(deliveryStatus);
-        if(deliveryStatus == true) {
+        if (deliveryStatus == true) {
             deliveryStatusInt = 1;
             orderTotalCreditCard = intent.getStringExtra(BookDeliveryActivity.CART_TOTAL_BOOK_DELIVERY);
             doubleOrderTotal = Double.parseDouble(orderTotalCreditCard);
@@ -155,6 +156,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 .getCartItems(userID);
 
         call.enqueue(new Callback<List<MenuItem>>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
 
@@ -164,7 +166,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                         cartItemList.add(response.body().get(i));
                     }
                 } else if (response.code() == 303) {
-                    showPaymentErrorDialog();
+                    showDatabaseErrorDialog();
                 } else {
                     showDatabaseErrorDialog();
                 }
@@ -210,9 +212,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     Cart currentCart = response.body();
                     cartID = currentCart.getCartID();
                     System.out.println("CartID: " + cartID);
-                    //PaymentDialog paymentDialog = new PaymentDialog(PlaceOrderActivity.this);
-                    //paymentDialog.show();
-
 
                 } else {
                     showDatabaseErrorDialog();
@@ -273,7 +272,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
     }
 
     //Static payment error dialog
-    public static class PaymentDialog extends AlertDialog.Builder{
+    public static class PaymentDialog extends AlertDialog.Builder {
 
         public PaymentDialog(Context context) {
             super(context);
@@ -285,7 +284,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
             setCancelable(true);
 
 
-            Button button = (Button)view.findViewById(R.id.dialogButtonOk);
+            Button button = (Button) view.findViewById(R.id.dialogButtonOk);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -304,14 +303,14 @@ public class PlaceOrderActivity extends AppCompatActivity {
         System.out.println(total);
         Map<String, Object> payMap = new HashMap<>();
         Map<String, Object> itemMap = new HashMap<>();
-        List<Map<String,Object>> itemList =new ArrayList<>();
-        payMap.put("currency","aud");
-        itemMap.put("id","cafe_order");
+        List<Map<String, Object>> itemList = new ArrayList<>();
+        payMap.put("currency", "aud");
+        itemMap.put("id", "cafe_order");
         itemMap.put("amount", total);
         itemList.add(itemMap);
         payMap.put("items", itemList);
         String json = new Gson().toJson(payMap);
-        Log.i("TAG", "startCheckout: "+json);
+        Log.i("TAG", "startCheckout: " + json);
 
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 
@@ -352,7 +351,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
     private void onPaymentSuccess(@NonNull final okhttp3.Response response) throws IOException {
         Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
         Map<String, String> responseMap = gson.fromJson(
                 Objects.requireNonNull(response.body()).string(),
                 type
@@ -364,7 +364,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
     //Ok http call back
     private static final class PayCallBack implements okhttp3.Callback {
-        @NonNull private final WeakReference<PlaceOrderActivity> activityWeakReference;
+        @NonNull
+        private final WeakReference<PlaceOrderActivity> activityWeakReference;
 
         PayCallBack(@NonNull PlaceOrderActivity activity) {
             activityWeakReference = new WeakReference<>(activity);
@@ -399,7 +400,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
     }
 
     private final class PaymentResultCallBack implements ApiResultCallback<PaymentIntentResult> {
-        @NonNull private final WeakReference<PlaceOrderActivity> activityWeakReference;
+        @NonNull
+        private final WeakReference<PlaceOrderActivity> activityWeakReference;
 
         PaymentResultCallBack(@NonNull PlaceOrderActivity activity) {
             activityWeakReference = new WeakReference<>(activity);
@@ -522,7 +524,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
         System.out.println("Check Mobile: " + phone);
 
 
-
         Log.d("WHAT IS THIS", streetUnit + streetName);
 
         Call<ResponseBody> call = RetrofitClient
@@ -535,12 +536,13 @@ public class PlaceOrderActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 201) {
                     placeOrder();
-                }else if (response.code() == 402) {
+                } else if (response.code() == 402) {
                     showDatabaseErrorDialog();
                 } else {
                     showDatabaseErrorDialog();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 showDatabaseErrorDialog();
