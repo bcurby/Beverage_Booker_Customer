@@ -48,8 +48,10 @@
 
     <Button
         android:id="@+id/checkoutButton"
-        android:layout_width="130sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
         android:background="@drawable/button"
         android:text="@string/checkout"
         android:textAllCaps="false"
@@ -62,8 +64,10 @@
 
     <Button
         android:id="@+id/emptyCartButton"
-        android:layout_width="130sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:background="@drawable/button"
         android:text="@string/empty_cart"
         android:textAllCaps="false"

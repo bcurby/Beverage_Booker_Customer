@@ -24,14 +24,17 @@
 
     <Button
         android:id="@+id/placeOrderButton"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:background="@drawable/button"
+        android:paddingLeft="18dp"
+        android:paddingRight="15dp"
         android:text="Place Order"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -43,17 +46,18 @@
 
     <TextView
         android:id="@+id/orderTotal"
-        android:layout_width="96dp"
-        android:layout_height="51dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
         android:textColor="@color/colorAccentDark"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/placeOrderButton"
         app:layout_constraintTop_toBottomOf="@+id/cardInputWidget"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
         android:id="@+id/paymentTitle"
@@ -72,8 +76,8 @@
 
     <TextView
         android:id="@+id/textViewNeedHelpPlaceOrder"
-        android:layout_width="94dp"
-        android:layout_height="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="@string/need_help"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"

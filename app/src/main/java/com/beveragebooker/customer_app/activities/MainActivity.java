@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private TextView needHelpLogin;
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,19 +142,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
 
                 } else if (response.code() == 200) {
-                    Toast.makeText(MainActivity.this, "User does not exist",
-                            Toast.LENGTH_LONG).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.info(MainActivity.this, "User does not exist", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
 
                 } else if (response.code() == 401) {
-                    Toast.makeText(MainActivity.this, "Invalid login credentials",
-                            Toast.LENGTH_LONG).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(MainActivity.this, "Invalid username or password", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+
                 }
             }
 
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(MainActivity.this, "An error has occurred. \n Please try again.",
+                        Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                toast.show();
             }
         });
 
@@ -170,5 +190,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toasty.Config.getInstance()
+                .setTextSize(20)
+                .apply();
+        Toast toast = Toasty.info(MainActivity.this, "Please press BACK again to exit", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+        toast.show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 3500);
     }
 }

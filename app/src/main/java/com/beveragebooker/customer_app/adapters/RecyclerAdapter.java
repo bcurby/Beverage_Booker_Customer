@@ -1,5 +1,6 @@
 package com.beveragebooker.customer_app.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +38,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         TextView mItemName;
         TextView mPrice;
         TextView mSoldOut;
+        TextView mShortDesc;
 
         Button mAddToCart;
-
-
 
 
         RecyclerViewHolder(@NonNull View itemView) {
@@ -49,6 +49,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             mPrice = itemView.findViewById(R.id.itemPrice);
             mAddToCart = itemView.findViewById(R.id.addToCart);
             mSoldOut = itemView.findViewById(R.id.soldOutStatus);
+            mShortDesc = itemView.findViewById(R.id.itemShortDesc);
 
             mAddToCart.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,6 +78,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     }
 
     //Pass values to the views
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         MenuItem currentItem = menuItems.get(position);
@@ -89,20 +91,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         holder.mItemName.setText(currentItem.getName());
         holder.mPrice.setText("$" + currency.format(currentItem.getPrice()));
+        holder.mShortDesc.setText(currentItem.getDescription());
 
         if (itemStock <= 5 && itemType.equals("food")) {
             holder.mAddToCart.setEnabled(false);
             holder.mAddToCart.setText("SOLD OUT");
             holder.mSoldOut.setVisibility(TextView.VISIBLE);
+            holder.mShortDesc.setVisibility(TextView.INVISIBLE);
         }
 
         if (itemStock >= 6 && itemType.equals("food")) {
             holder.mAddToCart.setEnabled(true);
-            //holder.mAddToCart.setText("SOLD OUT");
             holder.mSoldOut.setVisibility(TextView.INVISIBLE);
+            holder.mShortDesc.setVisibility(TextView.VISIBLE);
         }
-
-
     }
 
     @Override

@@ -191,8 +191,8 @@
 
     <TextView
         android:id="@+id/textViewNeedHelpAccount"
-        android:layout_width="94dp"
-        android:layout_height="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/need_help"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorAccentDark"

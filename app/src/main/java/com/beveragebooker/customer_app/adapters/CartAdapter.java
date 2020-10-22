@@ -1,5 +1,6 @@
 package com.beveragebooker.customer_app.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beveragebooker.customer_app.R;
 
 import com.beveragebooker.customer_app.models.MenuItem;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -25,8 +27,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     DecimalFormat currency = new DecimalFormat("###0.00");
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int selection, int position);
     }
+
 
     public void setOnButtonClickListener(OnItemClickListener listener) {
         itemListener = listener;
@@ -45,6 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return cartViewHolder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, final int position) {
         MenuItem cartItem = cartItemList.get(position);
@@ -61,10 +65,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         String currentItemFrappe = cartItem.getItemFrappe();
         String currentItemHeated = cartItem.getItemHeated();
         String currentItemComment = cartItem.getItemComment();
+        String currentItemQuantity = String.valueOf(cartItem.getQuantity());
 
         holder.textViewName.setText(cartItem.getName());
         holder.textViewPrice.setText("$" + currency.format(cartItem.getPrice()));
         holder.textViewQuantity.setText(String.valueOf(cartItem.getQuantity()));
+        holder.qtyButtonCart.setNumber(currentItemQuantity);
 
         if (!currentItemSize.equals("-")) {
             holder.textViewSizeTitle.setVisibility(TextView.VISIBLE);
@@ -123,17 +129,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             holder.textViewComment.setText(cartItem.getItemComment());
         }
 
-        /*
-        holder.textViewSugar.setText(cartItem.getItemSugar());
-        holder.textViewDecaf.setText(cartItem.getItemDecaf());
-        holder.textViewVanilla.setText(cartItem.getItemVanilla());
-        holder.textViewCaramel.setText(cartItem.getItemCaramel());
-        holder.textViewChocolate.setText(cartItem.getItemChocolate());
-        holder.textViewWhippedCream.setText(cartItem.getItemWhippedCream());
-        holder.textViewFrappe.setText(cartItem.getItemFrappe());
-        holder.textViewHeated.setText(cartItem.getItemHeated());
-        holder.textViewComment.setText(cartItem.getItemComment());
-        holder.textViewSize.setText(cartItem.getItemSize());*/
 
         holder.deleteCartItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +136,42 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 if (itemListener != null) {
                     int pos = position;
                     if (pos != RecyclerView.NO_POSITION) {
-                        itemListener.onItemClick(pos);
+                        itemListener.onItemClick(1, pos);
+                    }
+                }
+            }
+        });
+
+        holder.qtyButtonCart.setOnClickListener(new ElegantNumberButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (itemListener != null) {
+                    int pos = position;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        itemListener.onItemClick(2, pos);
+
+                        int intItemQuantity = Integer.parseInt(holder.qtyButtonCart.getNumber());
+                        String stringItemQuantity = holder.qtyButtonCart.getNumber();
+                        holder.textViewQuantity.setText(stringItemQuantity);
+                        System.out.println("Qty: " + stringItemQuantity);
+
+                        cartItemList.get(pos).setQuantity(intItemQuantity);
+                        int newQuantity = cartItemList.get(pos).getQuantity();
+
+                        System.out.println("New Qty: " + newQuantity);
+
+                    }
+                }
+            }
+        });
+
+        holder.updateCartQuantityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemListener != null) {
+                    int pos = position;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        itemListener.onItemClick(3, pos);
                     }
                 }
             }
@@ -155,9 +185,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     class CartViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName, textViewPrice, textViewQuantity, textViewMilk, textViewSugar,
-        textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
-        textViewFrappe, textViewHeated, textViewCommentTitle, textViewComment, textViewSizeTitle, textViewSize;
+                textViewDecaf, textViewVanilla, textViewCaramel, textViewChocolate, textViewWhippedCream,
+                textViewFrappe, textViewHeated, textViewCommentTitle, textViewComment, textViewSizeTitle,
+                textViewSize;
+
         Button deleteCartItem;
+        ElegantNumberButton qtyButtonCart;
+        Button updateCartQuantityButton;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -179,8 +213,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             deleteCartItem = itemView.findViewById(R.id.deleteCartItem);
             textViewSizeTitle = itemView.findViewById(R.id.sizeTitle);
             textViewSize = itemView.findViewById(R.id.cartItemSize);
-
-
+            qtyButtonCart = itemView.findViewById(R.id.qtyButtonCart);
+            updateCartQuantityButton = itemView.findViewById(R.id.updateCartQuantityButton);
         }
     }
 }

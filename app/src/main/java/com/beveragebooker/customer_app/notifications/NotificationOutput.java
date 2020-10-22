@@ -2,9 +2,12 @@ package com.beveragebooker.customer_app.notifications;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.beveragebooker.customer_app.R;
+import com.beveragebooker.customer_app.activities.AccountActivity;
 import com.beveragebooker.customer_app.activities.MainActivity;
 import com.beveragebooker.customer_app.activities.OrderConfirmationActivity;
 import com.beveragebooker.customer_app.api.RetrofitClient;
@@ -19,6 +22,7 @@ import java.util.TimerTask;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

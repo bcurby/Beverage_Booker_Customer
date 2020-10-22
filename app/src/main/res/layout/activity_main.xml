@@ -52,8 +52,8 @@
 
     <TextView
         android:id="@+id/textViewAccountQuestion"
-        android:layout_width="193dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/don_t_have_an_account"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -67,8 +67,8 @@
 
     <TextView
         android:id="@+id/textViewRegister"
-        android:layout_width="114dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/register_here"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -83,8 +83,8 @@
 
     <TextView
         android:id="@+id/textViewNeedHelp"
-        android:layout_width="94dp"
-        android:layout_height="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/need_help"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorAccentDark"

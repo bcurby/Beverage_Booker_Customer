@@ -1,11 +1,16 @@
 package com.beveragebooker.customer_app.activities;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,11 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.beveragebooker.customer_app.R;
-import com.beveragebooker.customer_app.adapters.CartAdapter;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.Cart;
 import com.beveragebooker.customer_app.models.MenuItem;
@@ -47,6 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -69,9 +72,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
     private String streetUnit, streetName;
     private int deliveryStatusInt;
     private boolean deliveryStatus;
-
-    private RecyclerView mRecyclerView;
-    private CartAdapter mCartAdapter;
 
     private List<MenuItem> cartItemList;
 
@@ -107,7 +107,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
         //Assigns delivery status int and order total variable
         deliveryStatus = intent.getBooleanExtra(BookDeliveryActivity.DELIVERY_STATUS, false);
         System.out.println(deliveryStatus);
-        if(deliveryStatus == true) {
+        if (deliveryStatus == true) {
             deliveryStatusInt = 1;
             orderTotalCreditCard = intent.getStringExtra(BookDeliveryActivity.CART_TOTAL_BOOK_DELIVERY);
             doubleOrderTotal = Double.parseDouble(orderTotalCreditCard);
@@ -156,6 +156,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 .getCartItems(userID);
 
         call.enqueue(new Callback<List<MenuItem>>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<List<MenuItem>> call, Response<List<MenuItem>> response) {
 
@@ -164,15 +165,19 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     for (int i = 0; i < response.body().size(); i++) {
                         cartItemList.add(response.body().get(i));
                     }
+                } else if (response.code() == 303) {
+                    showDatabaseErrorDialog();
+                } else {
+                    showDatabaseErrorDialog();
                 }
                 //Display the total of the items in the order
-                orderTotal.setText("Order Total: $" + currency.format(getOrderTotal()));
+                orderTotal.setText("Order Total:" + "\n" + "$" + currency.format(getOrderTotal()));
 
             }
 
             @Override
             public void onFailure(Call<List<MenuItem>> call, Throwable t) {
-
+                showDatabaseErrorDialog();
             }
         });
 
@@ -207,14 +212,88 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     Cart currentCart = response.body();
                     cartID = currentCart.getCartID();
                     System.out.println("CartID: " + cartID);
+
+                } else {
+                    showDatabaseErrorDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<Cart> call, Throwable t) {
-
+                showDatabaseErrorDialog();
             }
         });
+    }
+
+    //Show database error dialog
+    private void showDatabaseErrorDialog() {
+
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.error_dialog, viewGroup, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+
+        ((TextView) dialogView.findViewById(R.id.dialogTitle)).setText(getResources().getString(R.string.database_error_title));
+        ((TextView) dialogView.findViewById(R.id.dialogTextMessage)).setText(getResources().getString(R.string.database_error_text));
+        AlertDialog alertDialog = builder.create();
+
+        dialogView.findViewById(R.id.dialogButtonOk).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+        alertDialog.show();
+    }
+
+    //Show payment error dialog
+    private void showPaymentErrorDialog() {
+
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.error_dialog, viewGroup, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+
+        AlertDialog alertDialog = builder.create();
+
+        dialogView.findViewById(R.id.dialogButtonOk).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlaceOrderActivity.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+        alertDialog.show();
+    }
+
+    //Static payment error dialog
+    public static class PaymentDialog extends AlertDialog.Builder {
+
+        public PaymentDialog(Context context) {
+            super(context);
+
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View view = inflater.inflate(R.layout.error_dialog, null);
+            setView(view);
+
+            setCancelable(true);
+
+
+            Button button = (Button) view.findViewById(R.id.dialogButtonOk);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, PrimaryMenu.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     private void startCheckout() {
@@ -224,14 +303,14 @@ public class PlaceOrderActivity extends AppCompatActivity {
         System.out.println(total);
         Map<String, Object> payMap = new HashMap<>();
         Map<String, Object> itemMap = new HashMap<>();
-        List<Map<String,Object>> itemList =new ArrayList<>();
-        payMap.put("currency","aud");
-        itemMap.put("id","cafe_order");
+        List<Map<String, Object>> itemList = new ArrayList<>();
+        payMap.put("currency", "aud");
+        itemMap.put("id", "cafe_order");
         itemMap.put("amount", total);
         itemList.add(itemMap);
         payMap.put("items", itemList);
         String json = new Gson().toJson(payMap);
-        Log.i("TAG", "startCheckout: "+json);
+        Log.i("TAG", "startCheckout: " + json);
 
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 
@@ -254,19 +333,11 @@ public class PlaceOrderActivity extends AppCompatActivity {
                     ConfirmPaymentIntentParams confirmPaymentIntentParams = ConfirmPaymentIntentParams
                             .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
                     stripe.confirmPayment(PlaceOrderActivity.this, confirmPaymentIntentParams);
+                } else {
+                    showPaymentErrorDialog();
                 }
             }
         });
-    }
-
-    private void displayAlert(@NonNull String title,
-                              @Nullable String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message);
-
-        builder.setPositiveButton("Ok", null);
-        builder.create().show();
     }
 
     //Once payment is started, It will call onActivityResult
@@ -280,7 +351,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
     private void onPaymentSuccess(@NonNull final okhttp3.Response response) throws IOException {
         Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
         Map<String, String> responseMap = gson.fromJson(
                 Objects.requireNonNull(response.body()).string(),
                 type
@@ -289,9 +361,11 @@ public class PlaceOrderActivity extends AppCompatActivity {
         paymentIntentClientSecret = responseMap.get("clientSecret");
     }
 
+
     //Ok http call back
     private static final class PayCallBack implements okhttp3.Callback {
-        @NonNull private final WeakReference<PlaceOrderActivity> activityWeakReference;
+        @NonNull
+        private final WeakReference<PlaceOrderActivity> activityWeakReference;
 
         PayCallBack(@NonNull PlaceOrderActivity activity) {
             activityWeakReference = new WeakReference<>(activity);
@@ -300,16 +374,12 @@ public class PlaceOrderActivity extends AppCompatActivity {
         @Override
         public void onFailure(@NotNull okhttp3.Call call, @NotNull IOException e) {
             final PlaceOrderActivity activity = activityWeakReference.get();
-            Log.e("TAG", "onFailure: "+e.getMessage());
+            //Log.e("TAG", "onFailure: "+e.getMessage());
             if (activity == null) {
                 return;
             }
-
-            activity.runOnUiThread(() ->
-                    Toast.makeText(
-                            activity, "Error: " + e.toString(), Toast.LENGTH_LONG
-                    ).show()
-            );
+            PaymentDialog paymentDialog = new PaymentDialog(activity);
+            paymentDialog.show();
         }
 
         @Override
@@ -320,11 +390,9 @@ public class PlaceOrderActivity extends AppCompatActivity {
             }
 
             if (!response.isSuccessful()) {
-                activity.runOnUiThread(() ->
-                        Toast.makeText(
-                                activity, "Error: " + response.toString(), Toast.LENGTH_LONG
-                        ).show()
-                );
+                PaymentDialog paymentDialog = new PaymentDialog(activity);
+                paymentDialog.show();
+
             } else {
                 activity.onPaymentSuccess(response);
             }
@@ -332,7 +400,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
     }
 
     private final class PaymentResultCallBack implements ApiResultCallback<PaymentIntentResult> {
-        @NonNull private final WeakReference<PlaceOrderActivity> activityWeakReference;
+        @NonNull
+        private final WeakReference<PlaceOrderActivity> activityWeakReference;
 
         PaymentResultCallBack(@NonNull PlaceOrderActivity activity) {
             activityWeakReference = new WeakReference<>(activity);
@@ -344,9 +413,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
             if (activity == null) {
                 return;
             }
-
-            //Payment request failed
-            activity.displayAlert("Error", e.toString());
+            showPaymentErrorDialog();
         }
 
         @Override
@@ -383,11 +450,9 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 //);
 
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
-                //Payment failed
-                activity.displayAlert(
-                        "Payment failed",
-                        Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage()
-                );
+                showPaymentErrorDialog();
+            } else {
+                showPaymentErrorDialog();
             }
         }
     }
@@ -416,6 +481,16 @@ public class PlaceOrderActivity extends AppCompatActivity {
                 if (response.code() == 201) {
                     int orderID = response.message().indexOf(2);
                     Log.d("GetOrder", String.valueOf(orderID));
+
+                    //Order successful toast
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.success(PlaceOrderActivity.this,
+                            "Order successful", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 150);
+                    toast.show();
+
                     Intent intent = new Intent(PlaceOrderActivity.this, OrderConfirmationActivity.class);
                     intent.putExtra(CART_ID, cartID);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -423,14 +498,15 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
 
                 } else if (response.code() == 422) {
-                    Toast.makeText(PlaceOrderActivity.this, "There was a problem placing your order",
-                            Toast.LENGTH_LONG).show();
+                    showDatabaseErrorDialog();
+                } else {
+                    showDatabaseErrorDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(PlaceOrderActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                showDatabaseErrorDialog();
             }
         });
     }
@@ -448,7 +524,6 @@ public class PlaceOrderActivity extends AppCompatActivity {
         System.out.println("Check Mobile: " + phone);
 
 
-
         Log.d("WHAT IS THIS", streetUnit + streetName);
 
         Call<ResponseBody> call = RetrofitClient
@@ -461,15 +536,16 @@ public class PlaceOrderActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 201) {
                     placeOrder();
-                    Toast.makeText(PlaceOrderActivity.this, "Delivery Submitted", Toast.LENGTH_LONG).show();
-                }else if (response.code() == 402) {
-                    Toast.makeText(PlaceOrderActivity.this, "Delivery Failed", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 402) {
+                    showDatabaseErrorDialog();
+                } else {
+                    showDatabaseErrorDialog();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(PlaceOrderActivity.this, t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                showDatabaseErrorDialog();
             }
         });
     }

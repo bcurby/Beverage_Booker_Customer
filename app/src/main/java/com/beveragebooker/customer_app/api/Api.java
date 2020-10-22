@@ -132,8 +132,29 @@ public interface Api {
             @Field("itemType") String itemType,
             @Field("userID") int userID,
             @Field("itemQuantity") int itemQuantity
+    );
 
-
+    //Update cart item quantity
+    @FormUrlEncoded
+    @POST("updatecartitemquantity")
+    Call<ResponseBody> updateCartItemQuantity(
+            @Field("id") int id,
+            @Field("itemTitle") String itemTitle,
+            @Field("itemPrice") double itemPrice,
+            @Field("itemSize") String itemSize,
+            @Field("itemMilk") String itemMilk,
+            @Field("itemSugar") String itemSugar,
+            @Field("itemDecaf") String itemDecaf,
+            @Field("itemVanilla") String itemVanilla,
+            @Field("itemCaramel") String itemCaramel,
+            @Field("itemChocolate") String itemChocolate,
+            @Field("itemWhippedCream") String itemWhippedCream,
+            @Field("itemFrappe") String itemFrappe,
+            @Field("itemHeated") String itemHeated,
+            @Field("itemComment") String itemComment,
+            @Field("itemType") String itemType,
+            @Field("userID") int userID,
+            @Field("itemQuantity") int itemQuantity
     );
 
     //Get status of the order from db

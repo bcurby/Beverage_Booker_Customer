@@ -1,6 +1,8 @@
 package com.beveragebooker.customer_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -9,6 +11,7 @@ import retrofit2.Response;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +20,8 @@ import com.beveragebooker.customer_app.R;
 import com.beveragebooker.customer_app.api.RetrofitClient;
 import com.beveragebooker.customer_app.models.User;
 import com.beveragebooker.customer_app.storage.SharedPrefManager;
+
+import java.util.Objects;
 
 public class SavePasswordActivity extends AppCompatActivity {
 
@@ -75,17 +80,34 @@ Log.d("USER ID", String.valueOf(userID));
                                        Response<ResponseBody> response) {
 
                     if(response.code() == 201 ){
-                        Toast.makeText(SavePasswordActivity
-                                        .this, "SAVED",
-                                Toast.LENGTH_LONG).show();
+                        Toasty.Config.getInstance()
+                                .setTextSize(20)
+                                .apply();
+                        Toast toast = Toasty.success(SavePasswordActivity.this,
+                                "SAVED", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                        toast.show();
 
                         startActivity(new Intent(SavePasswordActivity.this,
                                 AccountActivity.class));
 
                     }else if (response.code()== 402){
-                        Toast.makeText(SavePasswordActivity
-                                        .this, "User not found",
-                                Toast.LENGTH_LONG).show();
+                        Toasty.Config.getInstance()
+                                .setTextSize(20)
+                                .apply();
+                        Toast toast = Toasty.info(SavePasswordActivity.this,
+                                "User not found", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                        toast.show();
+                    } else {
+                        Toasty.Config.getInstance()
+                                .setTextSize(20)
+                                .apply();
+                        Toast toast = Toasty.error(SavePasswordActivity.this,
+                                "An error occurred." + "\n" +
+                                        "Your password was not updated.", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                        toast.show();
                     }
                     Log.d("WHAT IS THIS:  ", String.valueOf(response.code()));
                 }
@@ -93,8 +115,13 @@ Log.d("USER ID", String.valueOf(userID));
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(SavePasswordActivity.this, t.getMessage(),
-                            Toast.LENGTH_LONG).show();
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(SavePasswordActivity.this,
+                            Objects.requireNonNull(t.getMessage()), Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
                 }
             });
         }

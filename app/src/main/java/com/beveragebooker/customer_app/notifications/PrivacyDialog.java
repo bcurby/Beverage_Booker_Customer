@@ -1,4 +1,4 @@
-package com.beveragebooker.customer_app.activities;
+package com.beveragebooker.customer_app.notifications;
 
 
 import android.app.Dialog;

@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
+import android.view.Gravity;
 import android.view.View;
 
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +28,7 @@ import com.beveragebooker.customer_app.models.MenuItem;
 import com.beveragebooker.customer_app.models.User;
 
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,9 +55,6 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     //Added Fill Cart
     private RecyclerAdapter mRecyclerAdapter;
     private ArrayList<MenuItem> mMenuItems;
-
-    //View Cart Button
-    private Button viewCart;
 
     private String itemType;
 
@@ -155,12 +155,35 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
                     }
 
                     mRecyclerAdapter.notifyDataSetChanged();
+                } else {
+                    Toasty.Config.getInstance()
+                            .setTextSize(20)
+                            .apply();
+                    Toast toast = Toasty.error(BrowseMenu.this, "An error has occurred. \n Please try again.",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                    toast.show();
+
+                    Intent intent = new Intent(BrowseMenu.this, PrimaryMenu.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
             }
 
             @Override
             public void onFailure(Call<List<MenuItem>> call, Throwable t) {
-                Toast.makeText(BrowseMenu.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toasty.Config.getInstance()
+                        .setTextSize(20)
+                        .apply();
+                Toast toast = Toasty.error(BrowseMenu.this, "An error has occurred. \n Please try again.",
+                        Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 750);
+                toast.show();
+
+                Intent intent = new Intent(BrowseMenu.this, PrimaryMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
             }
         });
 
@@ -191,8 +214,10 @@ public class BrowseMenu extends AppCompatActivity implements RecyclerAdapter.OnI
     }
 
 
-    private void openCart() {
-        Intent intent = new Intent(this, CartActivity.class);
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, PrimaryMenu.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
